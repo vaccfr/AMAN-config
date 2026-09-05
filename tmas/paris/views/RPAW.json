@@ -57,6 +57,7 @@
       },
       "filter": {},
       "fields": [
+        "dc",
         "callsign"
       ],
       "colors": {
