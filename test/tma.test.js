@@ -89,7 +89,9 @@ describe('the Paris TMA as committed', () => {
       const panels = view(read.bundle, id).content.panels;
       expect(panels.map((p) => p.id)).toEqual(['sector', 'awareness']);
       expect(panels[0].fields).toEqual(['dc', 'callsign', 'sta_threshold']);
-      expect(panels[1].fields).toEqual(['callsign']);
+      // The awareness ladder carries the en-route delay too, next to the
+      // callsign — controllers read it on both.
+      expect(panels[1].fields).toEqual(['dc', 'callsign']);
       expect(panels[1].colors.callsign.by).toBe('iaf');
       expect(panels[1].filter).toEqual({});
     }
