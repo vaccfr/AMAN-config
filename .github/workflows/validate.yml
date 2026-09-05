@@ -1,9 +1,11 @@
 name: Validate configuration
 
 # Every change to this repository is validated against the schema and the
-# cross-reference linter that the AMAN-SIM API itself runs at load time. A
-# bundle that fails here would be rejected in production, so this gate is the
-# whole point of the repository being separate.
+# cross-reference linter kept alongside it — the same code the AMAN-SIM API
+# runs at load time. A bundle that fails here would be rejected in production,
+# so this gate is the whole point of the repository being separate.
+#
+# Self-contained: no secrets, no access to any other repository.
 on:
   pull_request:
   push:
@@ -13,50 +15,21 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the configuration
-        uses: actions/checkout@v4
-        with:
-          path: config
-
-      # Fails with a message a config author can act on, rather than
-      # actions/checkout's bare "Input required and not supplied: token".
-      - name: Check the validator token is configured
-        env:
-          TOKEN: ${{ secrets.AMAN_SIM_READ_TOKEN }}
-        run: |
-          if [ -z "$TOKEN" ]; then
-            echo "::error::AMAN_SIM_READ_TOKEN is not set. CI builds the validator from the" \
-                 "private vaccfr/aman-sim repository and needs a read token to check it out." \
-                 "See the CI setup section of this repository's README."
-            exit 1
-          fi
-
-      # The validator is not published to a registry: CI builds it from the
-      # application repository so there is exactly one implementation of every
-      # rule. AMAN-SIM is a private repository, so this needs a read token —
-      # see the README for how to create AMAN_SIM_READ_TOKEN.
-      - name: Check out the validator
-        uses: actions/checkout@v4
-        with:
-          repository: vaccfr/aman-sim
-          path: aman-sim
-          token: ${{ secrets.AMAN_SIM_READ_TOKEN }}
-
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: pnpm
-          cache-dependency-path: aman-sim/pnpm-lock.yaml
+          cache: npm
 
       - name: Install
-        working-directory: aman-sim
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
-      - name: Build the validator
-        working-directory: aman-sim
-        run: pnpm --filter @aman-sim/config-schema build
+      - name: Type-check the validator
+        run: npm run type-check
+
+      - name: Test the validator
+        run: npm test
 
       - name: Validate the bundle
-        run: node aman-sim/packages/config-schema/dist/cli.js config
+        run: npm run validate

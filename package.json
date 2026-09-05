@@ -1,0 +1,36 @@
+{
+  "name": "@vaccfr/aman-config-schema",
+  "version": "1.0.0",
+  "description": "Schema and cross-reference linter for AMAN-SIM airport configuration",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaccfr/AMAN-config.git"
+  },
+  "main": "./src/index.js",
+  "types": "./types/index.d.ts",
+  "bin": {
+    "aman-config-validate": "./bin/validate.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "types"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validate": "node bin/validate.js .",
+    "test": "vitest run",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.10"
+  }
+}

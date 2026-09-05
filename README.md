@@ -15,10 +15,22 @@ airports/
   lfpo.json
   lfbo.json
   lfmn.json
+
+src/                   the schema and cross-reference linter
+bin/validate.js        the validator CLI
+types/                 TypeScript types for consumers
+test/                  rule-by-rule tests, plus a check that every airport
+                       config in this repository validates
 ```
 
 Adding an airport means adding a file to `airports/`. Nothing else needs to
 change — the API discovers airports from the directory.
+
+The validator lives here rather than in the application so that CI is
+self-contained: validating a pull request needs no secrets and no access to any
+other repository. The AMAN-SIM API consumes this same package as a pinned
+dependency, so there is exactly one implementation of every rule and a change
+cannot be enforced in one place and not the other.
 
 ## Changing a configuration
 
@@ -31,19 +43,6 @@ change — the API discovers airports from the directory.
 A bundle that fails validation is **never** adopted — the API keeps serving the
 last configuration that passed, so a mistake here degrades to "the change did
 not take effect", never to an outage.
-
-## CI setup
-
-CI builds the validator from the AMAN-SIM repository so there is exactly one
-implementation of every rule. AMAN-SIM is private, so the workflow needs a read
-token:
-
-1. Create a fine-grained personal access token with **Contents: read-only** on
-   `vaccfr/aman-sim`.
-2. Add it to this repository as the secret `AMAN_SIM_READ_TOKEN`
-   (Settings → Secrets and variables → Actions).
-
-Without it, the "Check out the validator" step fails and nothing is validated.
 
 ## Reading a CI failure
 
@@ -73,17 +72,33 @@ that failed.
 
 ## Validating locally
 
-With the application repository checked out alongside this one:
-
 ```bash
-cd ../aman-sim
-pnpm install
-pnpm --filter @aman-sim/config-schema build
-node packages/config-schema/dist/cli.js ../aman-config
+npm install
+npm run validate        # validate the bundle in this repository
+npm test                # exercise every rule
+npm run type-check
 ```
 
-To run the API against a local checkout instead of GitHub:
+`npm run validate` is exactly what CI runs and exactly what the API runs at
+load time.
 
-```bash
-AMAN_CONFIG_SOURCE=file:../aman-config pnpm dev
+To point a local API at this checkout instead of GitHub, set in
+`apps/api/.env`:
+
 ```
+AMAN_CONFIG_SOURCE=file:../../../aman-config
+```
+
+The path resolves from the API's working directory (`apps/api`).
+
+## Changing a validation rule
+
+The rules are versioned with the bundle. When you change one:
+
+1. Edit `src/schema.js` or `src/lint.js` and add a test.
+2. If the change alters the *shape* a bundle must have, bump `SCHEMA_VERSION`
+   in `src/version.js` and `schemaVersion` in `manifest.json`. An API that does
+   not understand the declared version rejects the bundle in full rather than
+   half-loading it.
+3. Tag the release (`git tag v1.1.0 && git push --tags`) and bump the pinned
+   dependency in AMAN-SIM so the API adopts the new rules deliberately.
