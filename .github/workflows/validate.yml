@@ -18,6 +18,19 @@ jobs:
         with:
           path: config
 
+      # Fails with a message a config author can act on, rather than
+      # actions/checkout's bare "Input required and not supplied: token".
+      - name: Check the validator token is configured
+        env:
+          TOKEN: ${{ secrets.AMAN_SIM_READ_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::error::AMAN_SIM_READ_TOKEN is not set. CI builds the validator from the" \
+                 "private vaccfr/aman-sim repository and needs a read token to check it out." \
+                 "See the CI setup section of this repository's README."
+            exit 1
+          fi
+
       # The validator is not published to a registry: CI builds it from the
       # application repository so there is exactly one implementation of every
       # rule. AMAN-SIM is a private repository, so this needs a read token —
