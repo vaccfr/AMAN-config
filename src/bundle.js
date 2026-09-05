@@ -120,7 +120,7 @@ function validateBundle(raw) {
     issues.push(...lintTma(tma, airports));
     if (issues.length === 0) {
       // Shape is confirmed by the schema above; narrow for the checker.
-      const content = /** @type {import('../types/index.js').TmaConfig} */ (tma.content);
+      const content = /** @type {import('../types/index.js').TmaFile} */ (tma.content);
       const id = content.id;
       if (tmas.has(id)) {
         issues.push({

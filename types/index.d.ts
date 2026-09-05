@@ -146,7 +146,7 @@ export interface TmaConfiguration {
   airports: Record<string, string>;
 }
 
-export interface TmaConfig {
+interface TmaCommon {
   id: string;
   label: string;
   airports: string[];
@@ -154,7 +154,21 @@ export interface TmaConfig {
   configurations: TmaConfiguration[];
   /** Colour per published fix name, declared once for the whole TMA. */
   iafs?: Record<string, { color: string }>;
-  /** View ids in tab order; each has a file under `views/`. */
+}
+
+/**
+ * `tma.json` as authored: `views` is a list of ids, in tab order, each with a
+ * file under `views/`.
+ */
+export interface TmaFile extends TmaCommon {
+  views: string[];
+}
+
+/**
+ * A TMA as resolved into a validated bundle: the view ids have been replaced by
+ * the loaded view definitions, in the order the file declared them.
+ */
+export interface TmaConfig extends TmaCommon {
   views: ViewConfig[];
 }
 
