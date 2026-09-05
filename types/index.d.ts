@@ -105,7 +105,7 @@ export type PanelFieldId =
 export type ColorSource = 'state' | 'delayLevel' | 'iaf' | 'runway' | 'none';
 
 /** Which part of a row a colour applies to. */
-export type ColorTarget = 'callsign' | 'row';
+export type ColorTarget = 'callsign' | 'iaf' | 'row';
 
 export type PanelLayout = 'runway-columns' | 'dual-sided';
 

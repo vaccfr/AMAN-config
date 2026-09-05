@@ -1,6 +1,6 @@
 {
-  "id": "RPAW",
-  "label": "RPAW",
+  "id": "RT",
+  "label": "RT",
   "panels": [
     {
       "id": "sector",
@@ -22,23 +22,17 @@
       "timeReference": "iaf",
       "filter": {
         "iafs": [
-          "BANOX",
-          "MOPAR",
-          "LORNI"
+          "BANOX"
         ]
       },
       "fields": [
         "dc",
-        "iaf",
         "callsign",
         "sta_iaf"
       ],
       "colors": {
         "callsign": {
           "by": "state"
-        },
-        "iaf": {
-          "by": "iaf"
         }
       },
       "interactive": false

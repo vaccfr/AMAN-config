@@ -1,6 +1,6 @@
 {
-  "id": "APTE",
-  "label": "APTE",
+  "id": "AR",
+  "label": "AR",
   "panels": [
     {
       "id": "sector",
@@ -19,6 +19,12 @@
         "totalMin": 45,
         "pastMin": 5
       },
+      "timeReference": "iaf",
+      "filter": {
+        "iafs": [
+          "OKIPA"
+        ]
+      },
       "fields": [
         "dc",
         "callsign",
@@ -29,13 +35,7 @@
           "by": "state"
         }
       },
-      "interactive": false,
-      "filter": {
-        "iafs": [
-          "LORNI"
-        ]
-      },
-      "timeReference": "iaf"
+      "interactive": false
     },
     {
       "id": "awareness",
@@ -54,18 +54,22 @@
         "totalMin": 45,
         "pastMin": 5
       },
+      "timeReference": "iaf",
       "filter": {},
       "fields": [
         "dc",
+        "iaf",
         "callsign"
       ],
       "colors": {
         "callsign": {
+          "by": "state"
+        },
+        "iaf": {
           "by": "iaf"
         }
       },
-      "interactive": false,
-      "timeReference": "iaf"
+      "interactive": false
     }
   ]
 }

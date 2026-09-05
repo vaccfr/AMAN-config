@@ -2,7 +2,8 @@
   "id": "paris",
   "label": "Paris TMA",
   "airports": [
-    "LFPG"
+    "LFPG",
+    "LFPO"
   ],
   "accessCallsigns": [
     "LFPG_*_APP",
@@ -14,19 +15,24 @@
       "id": "WL",
       "label": "West Landing",
       "airports": {
-        "LFPG": "PG_W"
+        "LFPG": "PG_W",
+        "LFPO": "PO_W"
       }
     },
     {
       "id": "EL",
       "label": "East Landing",
       "airports": {
-        "LFPG": "PG_E"
+        "LFPG": "PG_E",
+        "LFPO": "PO_E"
       }
     }
   ],
   "iafs": {
     "LORNI": {
+      "color": "#F0A050"
+    },
+    "VEBEK": {
       "color": "#F0A050"
     },
     "MOPAR": {
@@ -37,16 +43,23 @@
     },
     "OKIPA": {
       "color": "#F08CC0"
+    },
+    "MOLBA": {
+      "color": "#F08CC0"
+    },
+    "ODILO": {
+      "color": "#B79BE8"
     }
   },
   "views": [
     "RWY",
     "40Min",
-    "PAR",
+    "RT",
+    "TE",
+    "TP",
+    "AR",
+    "OPKZ",
     "RPAW",
-    "RPAE",
-    "APTE",
-    "ORGY",
-    "HPKZ"
+    "PG_PO_PB"
   ]
 }

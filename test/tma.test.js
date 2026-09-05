@@ -28,17 +28,18 @@ describe('the Paris TMA as committed', () => {
 
     const tma = result.bundle.tmas.get('paris');
     expect(tma).toBeDefined();
-    expect(tma.airports).toEqual(['LFPG']);
+    expect(tma.airports).toEqual(['LFPG', 'LFPO']);
     // Tab order on screen: what the TMA declares, never the directory listing.
     expect(tma.views.map((v) => v.id)).toEqual([
       'RWY',
       '40Min',
-      'PAR',
+      'RT',
+      'TE',
+      'TP',
+      'AR',
+      'OPKZ',
       'RPAW',
-      'RPAE',
-      'APTE',
-      'ORGY',
-      'HPKZ',
+      'PG_PO_PB',
     ]);
   });
 
@@ -60,7 +61,7 @@ describe('the Paris TMA as committed', () => {
   it('declares en-route panel sides by runway group, never by runway id', async () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     if (!read.ok) return;
-    for (const id of ['PAR', 'RPAW', 'RPAE', 'APTE', 'ORGY', 'HPKZ']) {
+    for (const id of ['RT', 'TE', 'TP', 'AR', 'OPKZ', 'RPAW']) {
       for (const panel of view(read.bundle, id).content.panels) {
         expect(panel.layout).toBe('dual-sided');
         expect(panel.sides.left).toEqual({ icao: 'LFPG', runwayGroup: 'sud' });
@@ -74,31 +75,53 @@ describe('the Paris TMA as committed', () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     if (!read.ok) return;
     const filterOf = (id) => view(read.bundle, id).content.panels[0].filter.iafs;
-    expect(filterOf('RPAW')).toEqual(['MOPAR', 'BANOX', 'LORNI']);
-    expect(filterOf('RPAE')).toEqual(['OKIPA']);
-    expect(filterOf('APTE')).toEqual(['LORNI']);
-    expect(filterOf('ORGY')).toEqual(['BANOX']);
-    expect(filterOf('HPKZ')).toEqual(['MOPAR']);
-    // PAR shows everything, so it has no filter and no second awareness ladder.
-    expect(view(read.bundle, 'PAR').content.panels[0].filter).toEqual({});
-    expect(view(read.bundle, 'PAR').content.panels).toHaveLength(1);
+    expect(filterOf('RT')).toEqual(['BANOX']);
+    expect(filterOf('TE')).toEqual(['LORNI']);
+    expect(filterOf('TP')).toEqual(['MOPAR']);
+    expect(filterOf('AR')).toEqual(['OKIPA']);
+    expect(filterOf('OPKZ')).toEqual(['BANOX', 'MOPAR']);
+    expect(filterOf('RPAW')).toEqual(['BANOX', 'MOPAR', 'LORNI']);
   });
 
-  it('pairs every filtered sector view with an IAF-coloured awareness ladder', async () => {
+  // A ladder showing more than one IAF carries the letter, coloured by its own
+  // fix, between the delay and the callsign.
+  it('carries the IAF letter only where several IAFs can appear', async () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     if (!read.ok) return;
-    for (const id of ['RPAW', 'RPAE', 'APTE', 'ORGY', 'HPKZ']) {
+    const sectorOf = (id) => view(read.bundle, id).content.panels[0];
+    for (const id of ['RT', 'TE', 'TP', 'AR']) {
+      expect(sectorOf(id).fields).toEqual(['dc', 'callsign', 'sta_iaf']);
+    }
+    for (const id of ['OPKZ', 'RPAW']) {
+      expect(sectorOf(id).fields).toEqual(['dc', 'iaf', 'callsign', 'sta_iaf']);
+      expect(sectorOf(id).colors.iaf.by).toBe('iaf');
+    }
+    // The awareness ladder always shows every IAF.
+    for (const id of ['RT', 'TE', 'TP', 'AR', 'OPKZ', 'RPAW']) {
+      const awareness = view(read.bundle, id).content.panels[1];
+      expect(awareness.fields).toEqual(['dc', 'iaf', 'callsign']);
+      expect(awareness.colors.iaf.by).toBe('iaf');
+    }
+  });
+
+  it('gives the Paris group view one ladder per airport', async () => {
+    const read = await readBundleDir(BUNDLE_ROOT);
+    if (!read.ok) return;
+    const panels = view(read.bundle, 'PG_PO_PB').content.panels;
+    expect(panels.map((p) => p.id)).toEqual(['lfpg', 'lfpo']);
+    expect(panels[0].sides.left.icao).toBe('LFPG');
+    expect(panels[1].sides.left.icao).toBe('LFPO');
+    // LFPO groups its runways east/west, not north/south.
+    expect(panels[1].sides.left.runwayGroup).toBe('ouest');
+    expect(panels[1].sides.right.runwayGroup).toBe('est');
+  });
+
+  it('pairs every filtered sector view with an awareness ladder', async () => {
+    const read = await readBundleDir(BUNDLE_ROOT);
+    if (!read.ok) return;
+    for (const id of ['RT', 'TE', 'TP', 'AR', 'OPKZ', 'RPAW']) {
       const panels = view(read.bundle, id).content.panels;
       expect(panels.map((p) => p.id)).toEqual(['sector', 'awareness']);
-      // An IAF timeline: flights sit at their IAF passage time, and that is
-      // the time the sector ladder shows.
-      expect(panels[0].timeReference).toBe('iaf');
-      expect(panels[1].timeReference).toBe('iaf');
-      expect(panels[0].fields).toEqual(['dc', 'callsign', 'sta_iaf']);
-      // The awareness ladder carries the en-route delay too, next to the
-      // callsign — controllers read it on both.
-      expect(panels[1].fields).toEqual(['dc', 'callsign']);
-      expect(panels[1].colors.callsign.by).toBe('iaf');
       expect(panels[1].filter).toEqual({});
     }
   });
@@ -108,7 +131,7 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects a filter naming a fix no covered airport declares', async () => {
     expect(
       await rulesAfter((b) => {
-        view(b, 'ORGY').content.panels[0].filter.iafs = ['BANOKS'];
+        view(b, 'RT').content.panels[0].filter.iafs = ['BANOKS'];
       }),
     ).toContain('view-filter-iaf-exists');
   });
@@ -116,7 +139,7 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects a panel side naming an undeclared runway group', async () => {
     expect(
       await rulesAfter((b) => {
-        view(b, 'ORGY').content.panels[0].sides.left.runwayGroup = 'est';
+        view(b, 'RT').content.panels[0].sides.left.runwayGroup = 'est';
       }),
     ).toContain('panel-side-group-exists');
   });
@@ -132,7 +155,7 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects a view file the TMA does not list', async () => {
     expect(
       await rulesAfter((b) => {
-        paris(b).content.views = paris(b).content.views.filter((v) => v !== 'ORGY');
+        paris(b).content.views = paris(b).content.views.filter((v) => v !== 'RT');
       }),
     ).toContain('view-listed-by-tma');
   });
@@ -164,12 +187,7 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects a configuration that skips a declared airport', async () => {
     expect(
       await rulesAfter((b) => {
-        // Needs a second airport: removing the only mapping leaves an empty
-        // object, which the schema's minProperties rejects before linting.
-        const tma = paris(b).content;
-        tma.airports.push('LFPO');
-        for (const c of tma.configurations) c.airports.LFPO = 'PO_W';
-        delete tma.configurations[0].airports.LFPG;
+        delete paris(b).content.configurations[0].airports.LFPG;
       }),
     ).toContain('tma-configuration-covers-airports');
   });
@@ -177,7 +195,9 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects an entirely empty configuration mapping', async () => {
     expect(
       await rulesAfter((b) => {
-        delete paris(b).content.configurations[0].airports.LFPG;
+        // Emptied completely, the schema's minProperties rejects it before
+        // the cross-reference rules ever run.
+        paris(b).content.configurations[0].airports = {};
       }),
     ).toContain('schema');
   });
@@ -185,7 +205,7 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects a view id that disagrees with its filename', async () => {
     expect(
       await rulesAfter((b) => {
-        view(b, 'ORGY').content.id = 'ORGYY';
+        view(b, 'RT').content.id = 'ORGYY';
       }),
     ).toContain('view-id-matches-filename');
   });
@@ -194,7 +214,7 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects a view claiming the reserved desequenced id', async () => {
     expect(
       await rulesAfter((b) => {
-        view(b, 'ORGY').content.id = 'DESEQUENCED';
+        view(b, 'RT').content.id = 'DESEQUENCED';
       }),
     ).toContain('view-id-reserved');
   });
@@ -202,7 +222,7 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects a dual-sided panel with no sides', async () => {
     expect(
       await rulesAfter((b) => {
-        delete view(b, 'ORGY').content.panels[0].sides;
+        delete view(b, 'RT').content.panels[0].sides;
       }),
     ).toContain('schema');
   });
@@ -221,7 +241,7 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects an unknown field id', async () => {
     expect(
       await rulesAfter((b) => {
-        view(b, 'ORGY').content.panels[0].fields = ['dc', 'squawk'];
+        view(b, 'RT').content.panels[0].fields = ['dc', 'squawk'];
       }),
     ).toContain('schema');
   });
@@ -229,7 +249,7 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects an unknown colour source', async () => {
     expect(
       await rulesAfter((b) => {
-        view(b, 'ORGY').content.panels[0].colors.callsign.by = 'squawk';
+        view(b, 'RT').content.panels[0].colors.callsign.by = 'squawk';
       }),
     ).toContain('schema');
   });

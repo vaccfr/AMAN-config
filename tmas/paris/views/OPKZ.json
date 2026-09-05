@@ -1,6 +1,6 @@
 {
-  "id": "RPAW",
-  "label": "RPAW",
+  "id": "OPKZ",
+  "label": "OPKZ",
   "panels": [
     {
       "id": "sector",
@@ -23,8 +23,7 @@
       "filter": {
         "iafs": [
           "BANOX",
-          "MOPAR",
-          "LORNI"
+          "MOPAR"
         ]
       },
       "fields": [

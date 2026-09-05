@@ -1,6 +1,6 @@
 {
-  "id": "ORGY",
-  "label": "ORGY",
+  "id": "TP",
+  "label": "TP",
   "panels": [
     {
       "id": "sector",
@@ -19,6 +19,12 @@
         "totalMin": 45,
         "pastMin": 5
       },
+      "timeReference": "iaf",
+      "filter": {
+        "iafs": [
+          "MOPAR"
+        ]
+      },
       "fields": [
         "dc",
         "callsign",
@@ -29,13 +35,7 @@
           "by": "state"
         }
       },
-      "interactive": false,
-      "filter": {
-        "iafs": [
-          "BANOX"
-        ]
-      },
-      "timeReference": "iaf"
+      "interactive": false
     },
     {
       "id": "awareness",
@@ -54,18 +54,22 @@
         "totalMin": 45,
         "pastMin": 5
       },
+      "timeReference": "iaf",
       "filter": {},
       "fields": [
         "dc",
+        "iaf",
         "callsign"
       ],
       "colors": {
         "callsign": {
+          "by": "state"
+        },
+        "iaf": {
           "by": "iaf"
         }
       },
-      "interactive": false,
-      "timeReference": "iaf"
+      "interactive": false
     }
   ]
 }

@@ -182,7 +182,7 @@ const FIELD_IDS = [
 const COLOR_SOURCES = ['state', 'delayLevel', 'iaf', 'runway', 'none'];
 
 /** Which part of a row a colour applies to. */
-const COLOR_TARGETS = ['callsign', 'row'];
+const COLOR_TARGETS = ['callsign', 'iaf', 'row'];
 
 const HEX_COLOR = '^#[0-9a-fA-F]{6}$';
 
