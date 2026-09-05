@@ -1,0 +1,346 @@
+{
+  "icao": "LFPG",
+  "coveredIcaos": [
+    "LFPG"
+  ],
+  "arp": {
+    "lat": 49.0097,
+    "lon": 2.5479
+  },
+  "accessCallsigns": ["LFPG_*_APP", "PAR_*_CTR", "PAR_CTR"],
+  "runways": [
+    {
+      "id": "26R",
+      "qfu": 266,
+      "group": "nord",
+      "defaultThroughput": 90
+    },
+    {
+      "id": "26L",
+      "qfu": 266,
+      "group": "nord",
+      "defaultThroughput": 90
+    },
+    {
+      "id": "27R",
+      "qfu": 266,
+      "group": "sud",
+      "defaultThroughput": 90
+    },
+    {
+      "id": "27L",
+      "qfu": 266,
+      "group": "sud",
+      "defaultThroughput": 90
+    },
+    {
+      "id": "08R",
+      "qfu": 86,
+      "group": "nord",
+      "defaultThroughput": 90
+    },
+    {
+      "id": "08L",
+      "qfu": 86,
+      "group": "nord",
+      "defaultThroughput": 90
+    },
+    {
+      "id": "09R",
+      "qfu": 86,
+      "group": "sud",
+      "defaultThroughput": 90
+    },
+    {
+      "id": "09L",
+      "qfu": 86,
+      "group": "sud",
+      "defaultThroughput": 90
+    }
+  ],
+  "transitions": [
+    {
+      "name": "LORNI1W",
+      "iaf": "LORNI",
+      "iafCoords": { "lat": 49.419417, "lon": 3.451389 },
+      "symbol": "L",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 600,
+        "MEDIUM": 600,
+        "LIGHT": 600
+      },
+      "availableRunways": [
+        "27L",
+        "27R",
+        "26L",
+        "26R"
+      ],
+      "sequence": [
+        {
+          "heading": 208,
+          "distanceNmi": 10
+        }
+      ],
+      "p_base_sec": 180,
+      "dcMax_sec": 300,
+      "dpMax_base_sec": 240,
+      "preferredRunway": "27R"
+    },
+    {
+      "name": "LORNI1E",
+      "iaf": "LORNI",
+      "iafCoords": { "lat": 49.419417, "lon": 3.451389 },
+      "symbol": "L",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 900,
+        "MEDIUM": 900,
+        "LIGHT": 900
+      },
+      "availableRunways": [
+        "09L",
+        "09R",
+        "08L",
+        "08R"
+      ],
+      "sequence": [
+        {
+          "heading": 247,
+          "distanceNmi": 37
+        },
+        {
+          "heading": 267,
+          "distanceNmi": 8
+        }
+      ],
+      "p_base_sec": 240,
+      "dcMax_sec": 300,
+      "dpMax_base_sec": 360,
+      "preferredRunway": "09L"
+    },
+    {
+      "name": "MOPAR1W",
+      "iaf": "MOPAR",
+      "iafCoords": { "lat": 49.291722, "lon": 1.757278 },
+      "symbol": "M",
+      "sector": "NW",
+      "approachTimes": {
+        "HEAVY": 900,
+        "MEDIUM": 900,
+        "LIGHT": 900
+      },
+      "availableRunways": [
+        "27L",
+        "27R",
+        "26L",
+        "26R"
+      ],
+      "sequence": [
+        {
+          "heading": 93,
+          "distanceNmi": 30
+        },
+        {
+          "heading": 99,
+          "distanceNmi": 8
+        }
+      ],
+      "p_base_sec": 240,
+      "dcMax_sec": 450,
+      "dpMax_base_sec": 360,
+      "preferredRunway": "27R"
+    },
+    {
+      "name": "MOPAR1E",
+      "iaf": "MOPAR",
+      "iafCoords": { "lat": 49.291722, "lon": 1.757278 },
+      "symbol": "M",
+      "sector": "NW",
+      "approachTimes": {
+        "HEAVY": 500,
+        "MEDIUM": 500,
+        "LIGHT": 500
+      },
+      "availableRunways": [
+        "09L",
+        "09R",
+        "08L",
+        "08R"
+      ],
+      "sequence": [
+        {
+          "heading": 155,
+          "distanceNmi": 8
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 450,
+      "dpMax_base_sec": 240,
+      "preferredRunway": "09L"
+    },
+    {
+      "name": "BANOX1W",
+      "iaf": "BANOX",
+      "iafCoords": { "lat": 48.574194, "lon": 1.5055 },
+      "symbol": "B",
+      "sector": "SW",
+      "approachTimes": {
+        "HEAVY": 1200,
+        "MEDIUM": 1200,
+        "LIGHT": 1200
+      },
+      "availableRunways": [
+        "27L",
+        "27R",
+        "26L",
+        "26R"
+      ],
+      "sequence": [
+        {
+          "heading": 43,
+          "distanceNmi": 26
+        },
+        {
+          "heading": 84,
+          "distanceNmi": 20
+        },
+        {
+          "heading": 88,
+          "distanceNmi": 21
+        }
+      ],
+      "p_base_sec": 240,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 360,
+      "preferredRunway": "26L"
+    },
+    {
+      "name": "BANOX1E",
+      "iaf": "BANOX",
+      "iafCoords": { "lat": 48.574194, "lon": 1.5055 },
+      "symbol": "B",
+      "sector": "SW",
+      "approachTimes": {
+        "HEAVY": 900,
+        "MEDIUM": 900,
+        "LIGHT": 900
+      },
+      "availableRunways": [
+        "09L",
+        "09R",
+        "08L",
+        "08R"
+      ],
+      "sequence": [
+        {
+          "heading": 25,
+          "distanceNmi": 12
+        }
+      ],
+      "p_base_sec": 180,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 240,
+      "preferredRunway": "08R"
+    },
+    {
+      "name": "OKIPA1W",
+      "iaf": "OKIPA",
+      "iafCoords": { "lat": 48.611306, "lon": 3.5635 },
+      "symbol": "O",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 900,
+        "MEDIUM": 900,
+        "LIGHT": 900
+      },
+      "availableRunways": [
+        "27L",
+        "27R",
+        "26L",
+        "26R"
+      ],
+      "sequence": [
+        {
+          "heading": 329,
+          "distanceNmi": 12
+        }
+      ],
+      "p_base_sec": 180,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 240,
+      "preferredRunway": "26L"
+    },
+    {
+      "name": "OKIPA1E",
+      "iaf": "OKIPA",
+      "iafCoords": { "lat": 48.611306, "lon": 3.5635 },
+      "symbol": "O",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 1200,
+        "MEDIUM": 1200,
+        "LIGHT": 1200
+      },
+      "availableRunways": [
+        "09L",
+        "09R",
+        "08L",
+        "08R"
+      ],
+      "sequence": [
+        {
+          "heading": 302,
+          "distanceNmi": 26
+        },
+        {
+          "heading": 311,
+          "distanceNmi": 8
+        },
+        {
+          "heading": 264,
+          "distanceNmi": 29
+        }
+      ],
+      "p_base_sec": 240,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 360,
+      "preferredRunway": "08R"
+    }
+  ],
+  "strategies": [
+    "ANTI_CROSSING",
+    "PREFERRED",
+    "EARLIEST"
+  ],
+  "configurations": [
+    {
+      "id": "PG_W",
+      "name": "PG_W",
+      "activeRunways": [
+        "27R",
+        "26L"
+      ],
+      "activeTransitions": [
+        "LORNI1W",
+        "MOPAR1W",
+        "BANOX1W",
+        "OKIPA1W"
+      ]
+    },
+    {
+      "id": "PG_E",
+      "name": "PG_E",
+      "activeRunways": [
+        "09L",
+        "08R"
+      ],
+      "activeTransitions": [
+        "LORNI1E",
+        "MOPAR1E",
+        "BANOX1E",
+        "OKIPA1E"
+      ]
+    }
+  ]
+}

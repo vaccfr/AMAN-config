@@ -1,0 +1,351 @@
+{
+  "icao": "LFBO",
+  "coveredIcaos": [
+    "LFBO"
+  ],
+  "arp": {
+    "lat": 43.6294,
+    "lon": 1.3638
+  },
+  "accessCallsigns": ["LFBO_*_APP", "LFBB_*_CTR", "LFBB_CTR"],
+  "runways": [
+    {
+      "id": "14R",
+      "qfu": 141,
+      "group": "ouest",
+      "defaultThroughput": 150
+    },
+    {
+      "id": "14L",
+      "qfu": 141,
+      "group": "est",
+      "defaultThroughput": 150
+    },
+    {
+      "id": "32L",
+      "qfu": 321,
+      "group": "ouest",
+      "defaultThroughput": 150
+    },
+    {
+      "id": "32R",
+      "qfu": 321,
+      "group": "est",
+      "defaultThroughput": 150
+    }
+  ],
+  "transitions": [
+    {
+      "name": "AGN_S",
+      "iaf": "AGN",
+      "iafCoords": { "lat": 43.888028, "lon": 0.872861 },
+      "symbol": "AG",
+      "sector": "NW",
+      "approachTimes": {
+        "HEAVY": 480,
+        "MEDIUM": 480,
+        "LIGHT": 620
+      },
+      "availableRunways": [
+        "14R",
+        "14L"
+      ],
+      "sequence": [
+        {
+          "heading": 94,
+          "distanceNmi": 10
+        },
+        {
+          "heading": 141,
+          "distanceNmi": 6
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 510,
+      "dpMax_base_sec": 180,
+      "preferredRunway": "14R"
+    },
+    {
+      "name": "FUZAP_S",
+      "iaf": "FUZAP",
+      "iafCoords": { "lat": 43.981306, "lon": 1.449444 },
+      "symbol": "F",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 470,
+        "MEDIUM": 470,
+        "LIGHT": 620
+      },
+      "availableRunways": [
+        "14R",
+        "14L"
+      ],
+      "sequence": [
+        {
+          "heading": 229,
+          "distanceNmi": 11
+        },
+        {
+          "heading": 211,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 660,
+      "dpMax_base_sec": 210,
+      "preferredRunway": "14R"
+    },
+    {
+      "name": "ADIMO_S",
+      "iaf": "ADIMO",
+      "iafCoords": { "lat": 43.492, "lon": 1.90875 },
+      "symbol": "AD",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 880,
+        "MEDIUM": 880,
+        "LIGHT": 1200
+      },
+      "availableRunways": [
+        "14R",
+        "14L"
+      ],
+      "sequence": [
+        {
+          "heading": 307,
+          "distanceNmi": 25
+        },
+        {
+          "heading": 306,
+          "distanceNmi": 12
+        },
+        {
+          "heading": 211,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 210,
+      "dcMax_sec": 360,
+      "dpMax_base_sec": 330,
+      "preferredRunway": "14R"
+    },
+    {
+      "name": "SURAS_S",
+      "iaf": "SURAS",
+      "iafCoords": { "lat": 43.642444, "lon": 1.062833 },
+      "symbol": "S",
+      "sector": "SW",
+      "approachTimes": {
+        "HEAVY": 420,
+        "MEDIUM": 420,
+        "LIGHT": 550
+      },
+      "availableRunways": [
+        "14R",
+        "14L"
+      ],
+      "sequence": [
+        {
+          "heading": 4,
+          "distanceNmi": 8
+        },
+        {
+          "heading": 71,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 90,
+      "dcMax_sec": 240,
+      "dpMax_base_sec": 150,
+      "preferredRunway": "14R"
+    },
+    {
+      "name": "AGENO_N",
+      "iaf": "AGENO",
+      "iafCoords": { "lat": 43.489778, "lon": 1.274472 },
+      "symbol": "AG",
+      "sector": "NW",
+      "approachTimes": {
+        "HEAVY": 460,
+        "MEDIUM": 460,
+        "LIGHT": 600
+      },
+      "availableRunways": [
+        "32L",
+        "32R"
+      ],
+      "sequence": [
+        {
+          "heading": 121,
+          "distanceNmi": 10
+        },
+        {
+          "heading": 26,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 510,
+      "dpMax_base_sec": 240,
+      "preferredRunway": "32L"
+    },
+    {
+      "name": "FUZAP_N",
+      "iaf": "FUZAP",
+      "iafCoords": { "lat": 43.981306, "lon": 1.449444 },
+      "symbol": "F",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 680,
+        "MEDIUM": 680,
+        "LIGHT": 910
+      },
+      "availableRunways": [
+        "32L",
+        "32R"
+      ],
+      "sequence": [
+        {
+          "heading": 188,
+          "distanceNmi": 9
+        },
+        {
+          "heading": 140,
+          "distanceNmi": 16
+        },
+        {
+          "heading": 256,
+          "distanceNmi": 4
+        }
+      ],
+      "p_base_sec": 240,
+      "dcMax_sec": 660,
+      "dpMax_base_sec": 420,
+      "preferredRunway": "32L"
+    },
+    {
+      "name": "ADIMO_N",
+      "iaf": "ADIMO",
+      "iafCoords": { "lat": 43.492, "lon": 1.90875 },
+      "symbol": "AD",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 500,
+        "MEDIUM": 500,
+        "LIGHT": 640
+      },
+      "availableRunways": [
+        "32L",
+        "32R"
+      ],
+      "sequence": [
+        {
+          "heading": 266,
+          "distanceNmi": 13
+        },
+        {
+          "heading": 256,
+          "distanceNmi": 4
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 360,
+      "dpMax_base_sec": 180,
+      "preferredRunway": "32L"
+    },
+    {
+      "name": "SULIT_N",
+      "iaf": "SULIT",
+      "iafCoords": { "lat": 43.383694, "lon": 1.252556 },
+      "symbol": "S",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 460,
+        "MEDIUM": 460,
+        "LIGHT": 600
+      },
+      "availableRunways": [
+        "32L",
+        "32R"
+      ],
+      "sequence": [
+        {
+          "heading": 84,
+          "distanceNmi": 10
+        },
+        {
+          "heading": 26,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 240,
+      "dpMax_base_sec": 180,
+      "preferredRunway": "32L"
+    },
+    {
+      "name": "OGRIL_N",
+      "iaf": "OGRIL",
+      "iafCoords": { "lat": 43.292333, "lon": 1.235083 },
+      "symbol": "O",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 500,
+        "MEDIUM": 500,
+        "LIGHT": 640
+      },
+      "availableRunways": [
+        "32L",
+        "32R"
+      ],
+      "sequence": [
+        {
+          "heading": 58,
+          "distanceNmi": 12
+        },
+        {
+          "heading": 26,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 240,
+      "dpMax_base_sec": 180,
+      "preferredRunway": "32L"
+    }
+  ],
+  "strategies": [
+    "ANTI_CROSSING",
+    "PREFERRED",
+    "EARLIEST"
+  ],
+  "configurations": [
+    {
+      "id": "BO_N",
+      "name": "BO_N",
+      "activeRunways": [
+        "32L"
+      ],
+      "activeTransitions": [
+        "FUZAP_N",
+        "ADIMO_N",
+        "OGRIL_N",
+        "SULIT_N",
+        "AGENO_N"
+      ]
+    },
+    {
+      "id": "BO_S",
+      "name": "BO_S",
+      "activeRunways": [
+        "14R"
+      ],
+      "activeTransitions": [
+        "AGN_S",
+        "FUZAP_S",
+        "SURAS_S",
+        "ADIMO_S"
+      ]
+    }
+  ]
+}
