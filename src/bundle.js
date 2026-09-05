@@ -3,13 +3,15 @@
 // ajv's 2020 entry sets `module.exports = Ajv2020` and also `.default`. Use
 // `.default` so both the runtime and TypeScript see a constructable class.
 const Ajv2020 = require('ajv/dist/2020.js').default;
-const { airportConfigSchema, manifestSchema } = require('./schema.js');
-const { lintAirportConfig } = require('./lint.js');
+const { airportConfigSchema, manifestSchema, tmaSchema, viewSchema } = require('./schema.js');
+const { lintAirportConfig, lintTma } = require('./lint.js');
 const { SCHEMA_VERSION } = require('./version.js');
 
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 const validateManifest = ajv.compile(manifestSchema);
 const validateAirport = ajv.compile(airportConfigSchema);
+const validateTma = ajv.compile(tmaSchema);
+const validateView = ajv.compile(viewSchema);
 
 /** Render one ajv error as a message naming the offending path. */
 function formatAjvError(error) {
@@ -102,7 +104,41 @@ function validateBundle(raw) {
   }
   if (issues.length > 0) return { ok: false, issues };
 
-  return { ok: true, bundle: { schemaVersion, airports } };
+  // ── TMAs and views ───────────────────────────────────────────────────────
+  // Additive: a bundle with no tmas/ directory is valid, so this landed and was
+  // reviewed before anything rendered it.
+  const tmas = new Map();
+  for (const tma of raw.tmas ?? []) {
+    const shape = [
+      ...schemaIssues(tma.path, validateTma, tma.content),
+      ...tma.views.flatMap((v) => schemaIssues(v.path, validateView, v.content)),
+    ];
+    if (shape.length > 0) {
+      issues.push(...shape);
+      continue;
+    }
+    issues.push(...lintTma(tma, airports));
+    if (issues.length === 0) {
+      // Shape is confirmed by the schema above; narrow for the checker.
+      const content = /** @type {import('../types/index.js').TmaConfig} */ (tma.content);
+      const id = content.id;
+      if (tmas.has(id)) {
+        issues.push({
+          file: tma.path,
+          rule: 'duplicate-tma-id',
+          message: `TMA id "${id}" is declared more than once`,
+        });
+        continue;
+      }
+      tmas.set(id, {
+        ...content,
+        views: tma.views.map((v) => v.content),
+      });
+    }
+  }
+  if (issues.length > 0) return { ok: false, issues };
+
+  return { ok: true, bundle: { schemaVersion, airports, tmas } };
 }
 
 module.exports = { validateAirportFile, validateBundle };

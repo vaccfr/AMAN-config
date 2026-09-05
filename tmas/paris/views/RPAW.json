@@ -1,0 +1,70 @@
+{
+  "id": "RPAW",
+  "label": "RPAW",
+  "panels": [
+    {
+      "id": "sector",
+      "layout": "dual-sided",
+      "sides": {
+        "left": {
+          "icao": "LFPG",
+          "runwayGroup": "sud"
+        },
+        "right": {
+          "icao": "LFPG",
+          "runwayGroup": "nord"
+        }
+      },
+      "window": {
+        "totalMin": 45,
+        "pastMin": 5
+      },
+      "fields": [
+        "dc",
+        "callsign",
+        "sta_threshold"
+      ],
+      "colors": {
+        "callsign": {
+          "by": "state"
+        }
+      },
+      "interactive": false,
+      "filter": {
+        "iafs": [
+          "MOPAR",
+          "BANOX",
+          "LORNI"
+        ]
+      }
+    },
+    {
+      "id": "awareness",
+      "layout": "dual-sided",
+      "sides": {
+        "left": {
+          "icao": "LFPG",
+          "runwayGroup": "sud"
+        },
+        "right": {
+          "icao": "LFPG",
+          "runwayGroup": "nord"
+        }
+      },
+      "window": {
+        "totalMin": 45,
+        "pastMin": 5
+      },
+      "filter": {},
+      "fields": [
+        "callsign"
+      ],
+      "colors": {
+        "callsign": {
+          "by": "iaf"
+        }
+      },
+      "interactive": false
+    }
+  ]
+}

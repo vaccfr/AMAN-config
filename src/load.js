@@ -5,6 +5,8 @@ const path = require('node:path');
 
 /** Bundle-relative directory holding one JSON file per airport. */
 const AIRPORTS_DIR = 'airports';
+/** Bundle-relative directory holding one subdirectory per TMA. */
+const TMAS_DIR = 'tmas';
 /** Bundle-relative manifest filename. */
 const MANIFEST_FILE = 'manifest.json';
 
@@ -64,8 +66,56 @@ async function readBundleDir(root) {
     if (read.ok) airports.push({ path: relative, content: read.value });
   }
 
+  const tmas = await readTmas(root, issues);
+
   if (issues.length > 0) return { ok: false, issues };
-  return { ok: true, bundle: { manifest: manifest.value, airports } };
+  return { ok: true, bundle: { manifest: manifest.value, airports, tmas } };
 }
 
-module.exports = { AIRPORTS_DIR, MANIFEST_FILE, readBundleDir };
+/**
+ * Read `tmas/<id>/tma.json` plus every `tmas/<id>/views/*.json`.
+ *
+ * Absent entirely is not an error: the directory is additive to schema
+ * version 1, so a bundle without it stays valid for readers that predate it.
+ */
+async function readTmas(root, issues) {
+  const tmasRoot = path.join(root, TMAS_DIR);
+  let entries;
+  try {
+    entries = await fs.readdir(tmasRoot, { withFileTypes: true });
+  } catch {
+    return [];
+  }
+
+  const tmas = [];
+  for (const entry of entries.filter((e) => e.isDirectory()).sort((a, b) => (a.name < b.name ? -1 : 1))) {
+    const dir = `${TMAS_DIR}/${entry.name}`;
+    const tmaPath = `${dir}/tma.json`;
+    const tma = await readJson(path.join(root, tmaPath), tmaPath, issues);
+    if (!tma.ok) continue;
+
+    const viewsRoot = path.join(root, dir, 'views');
+    let viewFiles = [];
+    try {
+      viewFiles = (await fs.readdir(viewsRoot)).filter((f) => f.toLowerCase().endsWith('.json')).sort();
+    } catch (err) {
+      issues.push({
+        file: `${dir}/views/`,
+        rule: 'unreadable',
+        message: `cannot read the views directory: ${messageOf(err)}`,
+      });
+      continue;
+    }
+
+    const views = [];
+    for (const file of viewFiles) {
+      const relative = `${dir}/views/${file}`;
+      const view = await readJson(path.join(viewsRoot, file), relative, issues);
+      if (view.ok) views.push({ path: relative, content: view.value });
+    }
+    tmas.push({ path: tmaPath, content: tma.value, views });
+  }
+  return tmas;
+}
+
+module.exports = { AIRPORTS_DIR, MANIFEST_FILE, TMAS_DIR, readBundleDir };

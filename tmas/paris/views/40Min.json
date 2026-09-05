@@ -1,0 +1,35 @@
+{
+  "id": "40Min",
+  "label": "40Min",
+  "panels": [
+    {
+      "id": "runways",
+      "layout": "runway-columns",
+      "window": {
+        "totalMin": 40,
+        "pastMin": 5
+      },
+      "filter": {},
+      "fields": [
+        "sta_threshold",
+        "callsign",
+        "iaf",
+        "sta_iaf",
+        "aircraftType",
+        "confidence",
+        "dc",
+        "dt",
+        "parking"
+      ],
+      "colors": {
+        "callsign": {
+          "by": "state"
+        },
+        "row": {
+          "by": "none"
+        }
+      },
+      "interactive": true
+    }
+  ]
+}

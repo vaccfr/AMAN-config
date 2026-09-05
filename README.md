@@ -16,6 +16,13 @@ airports/
   lfbo.json
   lfmn.json
 
+tmas/
+  paris/
+    tma.json           airports, access callsigns, configurations, IAF colours
+    views/
+      RWY.json         one file per view, named after its id
+      ORGY.json
+
 src/                   the schema and cross-reference linter
 bin/validate.js        the validator CLI
 types/                 TypeScript types for consumers
@@ -31,6 +38,58 @@ self-contained: validating a pull request needs no secrets and no access to any
 other repository. The AMAN-SIM API consumes this same package as a pinned
 dependency, so there is exactly one implementation of every rule and a change
 cannot be enforced in one place and not the other.
+
+## TMAs and views
+
+A TMA groups airports worked as one unit and lists the **views** — the tabs a
+controller switches between. A view is an ordered list of **panels**; each panel
+is one timeline with its own filter, field set, colouring and time window.
+
+```jsonc
+// tmas/paris/views/ORGY.json
+{
+  "id": "ORGY", "label": "ORGY",
+  "panels": [
+    { "id": "sector",                       // the working ladder
+      "layout": "dual-sided",
+      "sides": { "left":  { "icao": "LFPG", "runwayGroup": "sud" },
+                 "right": { "icao": "LFPG", "runwayGroup": "nord" } },
+      "window": { "totalMin": 45, "pastMin": 5 },
+      "filter": { "iafs": ["BANOX"] },      // only this sector's traffic
+      "fields": ["dc", "callsign", "sta_threshold"],
+      "colors": { "callsign": { "by": "state" } },
+      "interactive": false },
+
+    { "id": "awareness",                    // all traffic, for context
+      "layout": "dual-sided",
+      "sides": { ... },
+      "window": { "totalMin": 45, "pastMin": 5 },
+      "filter": {},
+      "fields": ["callsign"],
+      "colors": { "callsign": { "by": "iaf" } },
+      "interactive": false }
+  ]
+}
+```
+
+Things worth knowing before editing one:
+
+- **Sides are named by runway *group*, never by runway id.** `PG_W` activates
+  27R/26L and `PG_E` activates 09L/08R, but both have exactly one `sud` and one
+  `nord` runway — so a group-based side keeps working when the platform turns.
+  Naming ids would mean rewriting every view on every configuration change.
+- **Filters are allow-lists, not expressions.** `{"iafs": [...]}` — keys are
+  enumerated by the schema, so `BANOKS` fails CI instead of rendering a
+  silently empty ladder that looks like "no traffic".
+- **IAF colours live in `tma.json`**, keyed by published fix name. Several
+  transitions share one IAF (`LORNI1W` and `LORNI1E` are both `LORNI`), so a
+  colour on the transition could be declared inconsistently for the same fix.
+- **A TMA configuration is a mapping, not a redeclaration.** `WL` maps each
+  airport to one of *its own* templates; runway and transition data stays in the
+  airport files and is never duplicated.
+- **`fields` is both selection and order.** Anything omitted is not rendered.
+- **`interactive: false`** means no flight-mutating interaction is offered on
+  that panel, whether or not the viewer holds the sequencer lock.
 
 ## Changing a configuration
 

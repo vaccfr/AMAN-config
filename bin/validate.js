@@ -46,7 +46,13 @@ async function main() {
   }
 
   const icaos = [...result.bundle.airports.keys()].sort();
-  console.log(`\n✓ Bundle valid — ${icaos.length} airport(s): ${icaos.join(', ')}`);
+  console.log(`\n✓ Bundle valid`);
+  console.log(`  airports: ${icaos.join(', ')}`);
+  for (const [id, tma] of result.bundle.tmas) {
+    const views = tma.views.map((v) => v.id).join(', ');
+    console.log(`  tma ${id}: ${tma.airports.join(', ')} — views: ${views}`);
+  }
+  if (result.bundle.tmas.size === 0) console.log('  tmas: none');
   return 0;
 }
 

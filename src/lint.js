@@ -158,3 +158,159 @@ function lintAirportConfig(file) {
 }
 
 module.exports = { lintAirportConfig };
+
+/**
+ * Cross-reference rules for a TMA and its views.
+ *
+ * These are the ones that matter most in practice: a view naming a fix that no
+ * covered airport declares renders a silently empty ladder, which looks like
+ * "no traffic" rather than like a mistake.
+ *
+ * @param {{path: string, content: any, views: {path: string, content: any}[]}} tma
+ * @param {Map<string, any>} airportsByIcao  keyed by uppercase ICAO
+ * @returns {import('../types/index.js').ConfigIssue[]}
+ */
+function lintTma(tma, airportsByIcao) {
+  const config = tma.content;
+  /** @type {import('../types/index.js').ConfigIssue[]} */
+  const issues = [];
+  const add = (file, rule, message) => issues.push({ file, rule, message });
+
+  // The directory name is how the TMA is addressed; a mismatch means it loads
+  // under a name nothing links to.
+  const dirName = tma.path.split('/')[1];
+  if (dirName !== config.id) {
+    add(tma.path, 'tma-id-matches-directory', `directory is "${dirName}" but "id" is "${config.id}"`);
+  }
+
+  const covered = [];
+  for (const icao of config.airports) {
+    const airport = airportsByIcao.get(String(icao).toUpperCase());
+    if (!airport) {
+      add(tma.path, 'tma-airport-exists', `declares airport "${icao}", which the bundle does not contain`);
+      continue;
+    }
+    covered.push(airport);
+  }
+
+  // Every configuration must map every declared airport to one of ITS templates.
+  for (const configuration of config.configurations) {
+    for (const icao of config.airports) {
+      const templateId = configuration.airports[icao];
+      if (templateId === undefined) {
+        add(
+          tma.path,
+          'tma-configuration-covers-airports',
+          `configuration "${configuration.id}" does not map airport "${icao}"`,
+        );
+        continue;
+      }
+      const airport = airportsByIcao.get(String(icao).toUpperCase());
+      if (!airport) continue;
+      if (!airport.configurations.some((c) => c.id === templateId)) {
+        add(
+          tma.path,
+          'tma-configuration-template-exists',
+          `configuration "${configuration.id}" maps "${icao}" to template "${templateId}", which that airport does not declare`,
+        );
+      }
+    }
+    for (const icao of Object.keys(configuration.airports)) {
+      if (!config.airports.includes(icao)) {
+        add(
+          tma.path,
+          'tma-configuration-covers-airports',
+          `configuration "${configuration.id}" maps "${icao}", which the TMA does not declare`,
+        );
+      }
+    }
+  }
+
+  // Fix names available anywhere in the TMA, and the runway groups per airport.
+  const knownIafs = new Set();
+  for (const airport of covered) for (const t of airport.transitions) knownIafs.add(t.iaf);
+  const groupsByIcao = new Map(
+    covered.map((a) => [a.icao.toUpperCase(), new Set(a.runways.map((r) => r.group))]),
+  );
+
+  // Colours are declared per fix; one that does not exist is dead config.
+  for (const iaf of Object.keys(config.iafs ?? {})) {
+    if (!knownIafs.has(iaf)) {
+      add(tma.path, 'tma-iaf-exists', `declares a colour for "${iaf}", which no covered airport uses`);
+    }
+  }
+
+  const viewsById = new Map(tma.views.map((v) => [v.content.id, v]));
+  for (const id of config.views) {
+    if (!viewsById.has(id)) {
+      add(tma.path, 'tma-view-exists', `lists view "${id}", which has no file under views/`);
+    }
+  }
+  for (const view of tma.views) {
+    if (!config.views.includes(view.content.id)) {
+      add(view.path, 'view-listed-by-tma', `view "${view.content.id}" is not listed in the TMA's views`);
+    }
+    // Reserved: the desequenced tab is a fixed part of the interface and is
+    // never a configured view.
+    if (view.content.id === 'DESEQUENCED') {
+      add(view.path, 'view-id-reserved', 'view id "DESEQUENCED" is reserved for the desequenced tab');
+    }
+    const stem = (view.path.split('/').pop() ?? '').replace(/\.json$/i, '');
+    if (stem !== view.content.id) {
+      add(view.path, 'view-id-matches-filename', `filename implies "${stem}" but "id" is "${view.content.id}"`);
+    }
+
+    const panelIds = new Set();
+    for (const panel of view.content.panels) {
+      if (panelIds.has(panel.id)) {
+        add(view.path, 'panel-id-unique', `panel id "${panel.id}" is used more than once`);
+      }
+      panelIds.add(panel.id);
+
+      for (const iaf of panel.filter?.iafs ?? []) {
+        if (!knownIafs.has(iaf)) {
+          add(
+            view.path,
+            'view-filter-iaf-exists',
+            `panel "${panel.id}" filters on IAF "${iaf}", which no airport in this TMA declares — the panel would render empty`,
+          );
+        }
+      }
+
+      for (const [side, spec] of Object.entries(panel.sides ?? {})) {
+        const icao = String(spec.icao).toUpperCase();
+        if (!config.airports.includes(spec.icao) && !config.airports.includes(icao)) {
+          add(view.path, 'panel-side-airport-covered', `panel "${panel.id}" ${side} side names "${spec.icao}", which the TMA does not declare`);
+          continue;
+        }
+        const groups = groupsByIcao.get(icao);
+        if (groups && !groups.has(spec.runwayGroup)) {
+          add(
+            view.path,
+            'panel-side-group-exists',
+            `panel "${panel.id}" ${side} side names runway group "${spec.runwayGroup}", which ${icao} does not declare`,
+          );
+        }
+      }
+
+      // Colouring by IAF needs a colour for every fix that could appear.
+      if (panel.colors && Object.values(panel.colors).some((c) => c.by === 'iaf')) {
+        const declared = new Set(Object.keys(config.iafs ?? {}));
+        const needed = panel.filter?.iafs ?? [...knownIafs];
+        for (const iaf of needed) {
+          if (!declared.has(iaf)) {
+            add(
+              view.path,
+              'view-iaf-colour-declared',
+              `panel "${panel.id}" colours by IAF but the TMA declares no colour for "${iaf}"`,
+            );
+          }
+        }
+      }
+    }
+  }
+
+  return issues;
+}
+
+module.exports.lintTma = lintTma;
