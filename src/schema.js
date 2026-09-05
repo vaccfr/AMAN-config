@@ -348,6 +348,12 @@ const tmaSchema = {
     },
     /** View ids, in tab order. Each must have a file under views/. */
     views: { type: 'array', minItems: 1, items: { type: 'string', minLength: 1 } },
+    /**
+     * Other TMAs reachable from this one's tab strip. The approach positions
+     * link to the shared en-route page and back, so a controller can move
+     * between them without editing the URL.
+     */
+    links: { type: 'array', items: { type: 'string', pattern: '^[a-z0-9-]+$' } },
   },
   required: ['id', 'label', 'airports', 'configurations', 'views'],
   additionalProperties: false,

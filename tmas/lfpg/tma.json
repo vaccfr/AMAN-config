@@ -1,0 +1,35 @@
+{
+  "id": "lfpg",
+  "label": "Paris CDG \u2014 Approche",
+  "airports": [
+    "LFPG"
+  ],
+  "accessCallsigns": [
+    "LFPG_*_APP",
+    "PAR_*_CTR",
+    "PAR_CTR"
+  ],
+  "configurations": [
+    {
+      "id": "PG_W",
+      "label": "Ouest",
+      "airports": {
+        "LFPG": "PG_W"
+      }
+    },
+    {
+      "id": "PG_E",
+      "label": "Est",
+      "airports": {
+        "LFPG": "PG_E"
+      }
+    }
+  ],
+  "views": [
+    "RWY",
+    "40Min"
+  ],
+  "links": [
+    "par"
+  ]
+}

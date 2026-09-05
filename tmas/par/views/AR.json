@@ -1,6 +1,6 @@
 {
-  "id": "RPAW",
-  "label": "RPAW",
+  "id": "AR",
+  "label": "AR",
   "panels": [
     {
       "id": "sector",
@@ -22,23 +22,17 @@
       "timeReference": "iaf",
       "filter": {
         "iafs": [
-          "BANOX",
-          "MOPAR",
-          "LORNI"
+          "OKIPA"
         ]
       },
       "fields": [
         "dc",
-        "iaf",
         "callsign",
         "sta_iaf"
       ],
       "colors": {
         "callsign": {
           "by": "state"
-        },
-        "iaf": {
-          "by": "iaf"
         }
       },
       "interactive": false
@@ -60,18 +54,14 @@
         "totalMin": 45,
         "pastMin": 5
       },
-      "timeReference": "iaf",
+      "timeReference": "threshold",
       "filter": {},
       "fields": [
         "dc",
-        "iaf",
         "callsign"
       ],
       "colors": {
         "callsign": {
-          "by": "state"
-        },
-        "iaf": {
           "by": "iaf"
         }
       },

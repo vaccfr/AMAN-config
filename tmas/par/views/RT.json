@@ -1,6 +1,6 @@
 {
-  "id": "AR",
-  "label": "AR",
+  "id": "RT",
+  "label": "RT",
   "panels": [
     {
       "id": "sector",
@@ -22,7 +22,7 @@
       "timeReference": "iaf",
       "filter": {
         "iafs": [
-          "OKIPA"
+          "BANOX"
         ]
       },
       "fields": [
@@ -54,18 +54,14 @@
         "totalMin": 45,
         "pastMin": 5
       },
-      "timeReference": "iaf",
+      "timeReference": "threshold",
       "filter": {},
       "fields": [
         "dc",
-        "iaf",
         "callsign"
       ],
       "colors": {
         "callsign": {
-          "by": "state"
-        },
-        "iaf": {
           "by": "iaf"
         }
       },

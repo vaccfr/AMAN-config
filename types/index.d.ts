@@ -160,6 +160,8 @@ interface TmaCommon {
   configurations: TmaConfiguration[];
   /** Colour per published fix name, declared once for the whole TMA. */
   iafs?: Record<string, { color: string }>;
+  /** Ids of other TMAs offered as links in this one's tab strip. */
+  links?: string[];
 }
 
 /**

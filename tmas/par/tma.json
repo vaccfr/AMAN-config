@@ -1,6 +1,6 @@
 {
-  "id": "paris",
-  "label": "Paris TMA",
+  "id": "par",
+  "label": "Paris \u2014 En-route",
   "airports": [
     "LFPG",
     "LFPO"
@@ -28,6 +28,15 @@
       }
     }
   ],
+  "views": [
+    "RT",
+    "TE",
+    "TP",
+    "AR",
+    "OPKZ",
+    "RPAW",
+    "PG_PO_PB"
+  ],
   "iafs": {
     "LORNI": {
       "color": "#F0A050"
@@ -51,15 +60,8 @@
       "color": "#B79BE8"
     }
   },
-  "views": [
-    "RWY",
-    "40Min",
-    "RT",
-    "TE",
-    "TP",
-    "AR",
-    "OPKZ",
-    "RPAW",
-    "PG_PO_PB"
+  "links": [
+    "lfpg",
+    "lfpo"
   ]
 }

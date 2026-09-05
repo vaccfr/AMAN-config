@@ -24,9 +24,6 @@
       "colors": {
         "callsign": {
           "by": "state"
-        },
-        "row": {
-          "by": "none"
         }
       },
       "interactive": true

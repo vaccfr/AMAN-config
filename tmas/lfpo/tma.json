@@ -1,0 +1,42 @@
+{
+  "id": "lfpo",
+  "label": "Paris Orly \u2014 Approche",
+  "airports": [
+    "LFPO"
+  ],
+  "accessCallsigns": [
+    "LFPG_*_APP",
+    "PAR_*_CTR",
+    "PAR_CTR"
+  ],
+  "configurations": [
+    {
+      "id": "PO_W",
+      "label": "Ouest",
+      "airports": {
+        "LFPO": "PO_W"
+      }
+    },
+    {
+      "id": "PO_E",
+      "label": "Est",
+      "airports": {
+        "LFPO": "PO_E"
+      }
+    },
+    {
+      "id": "PO_02",
+      "label": "02",
+      "airports": {
+        "LFPO": "PO_02"
+      }
+    }
+  ],
+  "views": [
+    "RWY",
+    "40Min"
+  ],
+  "links": [
+    "par"
+  ]
+}

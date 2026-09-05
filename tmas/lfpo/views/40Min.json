@@ -1,11 +1,14 @@
 {
-  "id": "RWY",
-  "label": "RWY",
+  "id": "40Min",
+  "label": "40Min",
   "panels": [
     {
       "id": "runways",
       "layout": "runway-columns",
-      "window": { "totalMin": 60, "pastMin": 5 },
+      "window": {
+        "totalMin": 40,
+        "pastMin": 5
+      },
       "filter": {},
       "fields": [
         "sta_threshold",
@@ -18,7 +21,11 @@
         "dt",
         "parking"
       ],
-      "colors": { "callsign": { "by": "state" }, "row": { "by": "none" } },
+      "colors": {
+        "callsign": {
+          "by": "state"
+        }
+      },
       "interactive": true
     }
   ]

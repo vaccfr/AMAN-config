@@ -1,6 +1,6 @@
 {
-  "id": "OPKZ",
-  "label": "OPKZ",
+  "id": "RPAW",
+  "label": "RPAW",
   "panels": [
     {
       "id": "sector",
@@ -23,7 +23,8 @@
       "filter": {
         "iafs": [
           "BANOX",
-          "MOPAR"
+          "MOPAR",
+          "LORNI"
         ]
       },
       "fields": [
@@ -59,18 +60,14 @@
         "totalMin": 45,
         "pastMin": 5
       },
-      "timeReference": "iaf",
+      "timeReference": "threshold",
       "filter": {},
       "fields": [
         "dc",
-        "iaf",
         "callsign"
       ],
       "colors": {
         "callsign": {
-          "by": "state"
-        },
-        "iaf": {
           "by": "iaf"
         }
       },

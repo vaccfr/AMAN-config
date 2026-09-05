@@ -147,6 +147,23 @@ function validateBundle(raw) {
       });
     }
   }
+  for (const [id, tma] of tmas) {
+    for (const target of tma.links ?? []) {
+      if (target === id) {
+        issues.push({
+          file: `tmas/${id}/tma.json`,
+          rule: 'tma-link-self',
+          message: `links to itself`,
+        });
+      } else if (!tmas.has(target)) {
+        issues.push({
+          file: `tmas/${id}/tma.json`,
+          rule: 'tma-link-exists',
+          message: `links to "${target}", which is not a TMA in this bundle`,
+        });
+      }
+    }
+  }
   if (issues.length > 0) return { ok: false, issues };
 
   return { ok: true, bundle: { schemaVersion, airports, tmas } };
