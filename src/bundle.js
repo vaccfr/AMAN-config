@@ -130,9 +130,20 @@ function validateBundle(raw) {
         });
         continue;
       }
+      // Ordered by the TMA's own `views` list, not by directory listing: that
+      // order is the tab order on screen, and alphabetical would put 40Min
+      // before RWY and scatter the en-route sectors.
+      const viewsById = new Map(
+        tma.views.map((v) => {
+          const view = /** @type {import('../types/index.js').ViewConfig} */ (v.content);
+          return [view.id, view];
+        }),
+      );
       tmas.set(id, {
         ...content,
-        views: tma.views.map((v) => v.content),
+        views: content.views
+          .map((viewId) => viewsById.get(viewId))
+          .filter((v) => v !== undefined),
       });
     }
   }

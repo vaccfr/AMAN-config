@@ -29,9 +29,17 @@ describe('the Paris TMA as committed', () => {
     const tma = result.bundle.tmas.get('paris');
     expect(tma).toBeDefined();
     expect(tma.airports).toEqual(['LFPG']);
-    expect(tma.views.map((v) => v.id).sort()).toEqual(
-      ['40Min', 'APTE', 'HPKZ', 'ORGY', 'PAR', 'RPAE', 'RPAW', 'RWY'].sort(),
-    );
+    // Tab order on screen: what the TMA declares, never the directory listing.
+    expect(tma.views.map((v) => v.id)).toEqual([
+      'RWY',
+      '40Min',
+      'PAR',
+      'RPAW',
+      'RPAE',
+      'APTE',
+      'ORGY',
+      'HPKZ',
+    ]);
   });
 
   it('keeps the two approach views on the runway-columns layout', async () => {
