@@ -34,8 +34,7 @@
         "callsign": {
           "by": "state"
         }
-      },
-      "interactive": false
+      }
     },
     {
       "id": "awareness",
@@ -64,8 +63,7 @@
         "callsign": {
           "by": "iaf"
         }
-      },
-      "interactive": false
+      }
     }
   ]
 }

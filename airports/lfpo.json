@@ -1,348 +1,443 @@
 {
-    "icao": "LFPO",
-    "coveredIcaos": [
-      "LFPO"
-    ],
-    "arp": {
-      "lat": 48.7256,
-      "lon": 2.3583
+  "icao": "LFPO",
+  "coveredIcaos": [
+    "LFPO"
+  ],
+  "arp": {
+    "lat": 48.7256,
+    "lon": 2.3583
+  },
+  "accessCallsigns": [
+    "LFPO_APP",
+    "LFPO_*_APP",
+    "LFPG_*_APP",
+    "PAR_*_CTR",
+    "PAR_CTR"
+  ],
+  "runways": [
+    {
+      "id": "24",
+      "qfu": 240,
+      "group": "ouest",
+      "defaultThroughput": 95
     },
-    "accessCallsigns": ["LFPO_APP", "LFPO_*_APP", "LFPG_*_APP", "PAR_*_CTR", "PAR_CTR"],
-    "runways": [
-      {
-        "id": "24",
-        "qfu": 240,
-        "group": "ouest",
-        "defaultThroughput": 95
+    {
+      "id": "25",
+      "qfu": 252,
+      "group": "ouest",
+      "defaultThroughput": 95
+    },
+    {
+      "id": "20",
+      "qfu": 196,
+      "group": "ouest",
+      "defaultThroughput": 95
+    },
+    {
+      "id": "06",
+      "qfu": 60,
+      "group": "est",
+      "defaultThroughput": 95
+    },
+    {
+      "id": "07",
+      "qfu": 72,
+      "group": "est",
+      "defaultThroughput": 95
+    },
+    {
+      "id": "02",
+      "qfu": 16,
+      "group": "est",
+      "defaultThroughput": 95
+    }
+  ],
+  "transitions": [
+    {
+      "name": "MOLBA1W",
+      "iaf": "MOLBA",
+      "iafCoords": {
+        "lat": 48.295028,
+        "lon": 3.062944
       },
-      {
-        "id": "25",
-        "qfu": 252,
-        "group": "ouest",
-        "defaultThroughput": 95
+      "symbol": "M",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 600,
+        "MEDIUM": 600,
+        "LIGHT": 600
       },
-      {
-        "id": "20",
-        "qfu": 196,
-        "group": "ouest",
-        "defaultThroughput": 95
-      },
-      {
-        "id": "06",
-        "qfu": 60,
-        "group": "est",
-        "defaultThroughput": 95
-      },
-      {
-        "id": "07",
-        "qfu": 72,
-        "group": "est",
-        "defaultThroughput": 95
-      },
-      {
-        "id": "02",
-        "qfu": 16,
-        "group": "est",
-        "defaultThroughput": 95
-      }
-    ],
-    "transitions": [
-      {
-        "name": "MOLBA1W",
-        "iaf": "MOLBA",
-        "iafCoords": { "lat": 48.295028, "lon": 3.062944 },
-        "symbol": "M",
-        "sector": "SE",
-        "approachTimes": {
-          "HEAVY": 600,
-          "MEDIUM": 600,
-          "LIGHT": 600
+      "availableRunways": [
+        "24",
+        "25",
+        "20"
+      ],
+      "sequence": [
+        {
+          "heading": 313,
+          "distanceNmi": 14
         },
-        "availableRunways": [
-          "24",
-          "25",
-          "20"
-        ],
-        "sequence": [
-          {
-            "heading": 313,
-            "distanceNmi": 14
-          },
-          {
-            "heading": 4,
-            "distanceNmi": 15
-          }
-        ],
-        "p_base_sec": 120,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 165,
-        "preferredRunway": "25"
+        {
+          "heading": 4,
+          "distanceNmi": 15
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 165,
+      "preferredRunway": "25"
+    },
+    {
+      "name": "MOLBA1E",
+      "iaf": "MOLBA",
+      "iafCoords": {
+        "lat": 48.295028,
+        "lon": 3.062944
       },
-      {
-        "name": "MOLBA1E",
-        "iaf": "MOLBA",
-        "iafCoords": { "lat": 48.295028, "lon": 3.062944 },
-        "symbol": "M",
-        "sector": "SE",
-        "approachTimes": {
-          "HEAVY": 900,
-          "MEDIUM": 900,
-          "LIGHT": 900
+      "symbol": "M",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 900,
+        "MEDIUM": 900,
+        "LIGHT": 900
+      },
+      "availableRunways": [
+        "06",
+        "07"
+      ],
+      "sequence": [
+        {
+          "heading": 313,
+          "distanceNmi": 14
         },
-        "availableRunways": [
-          "06",
-          "07"
-        ],
-        "sequence": [
-          {
-            "heading": 313,
-            "distanceNmi": 14
-          },
-          {
-            "heading": 272,
-            "distanceNmi": 25
-          }
-        ],
-        "p_base_sec": 210,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 270,
-        "preferredRunway": "06"
+        {
+          "heading": 272,
+          "distanceNmi": 25
+        }
+      ],
+      "p_base_sec": 210,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 270,
+      "preferredRunway": "06"
+    },
+    {
+      "name": "MOLBA1E 02",
+      "iaf": "MOLBA",
+      "iafCoords": {
+        "lat": 48.295028,
+        "lon": 3.062944
       },
-      {
-        "name": "MOLBA1E 02",
-        "iaf": "MOLBA",
-        "iafCoords": { "lat": 48.295028, "lon": 3.062944 },
-        "symbol": "M",
-        "sector": "SE",
-        "approachTimes": {
-          "HEAVY": 600,
-          "MEDIUM": 600,
-          "LIGHT": 600
+      "symbol": "M",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 600,
+        "MEDIUM": 600,
+        "LIGHT": 600
+      },
+      "availableRunways": [
+        "02"
+      ],
+      "sequence": [
+        {
+          "heading": 313,
+          "distanceNmi": 14
         },
-        "availableRunways": [
-          "02"
-        ],
-        "sequence": [
-          {
-            "heading": 313,
-            "distanceNmi": 14
-          },
-          {
-            "heading": 272,
-            "distanceNmi": 12
-          },
-          {
-            "heading": 300,
-            "distanceNmi": 5
-          }
-        ],
-        "p_base_sec": 120,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 165,
-        "preferredRunway": "02"
-      },
-      {
-        "name": "ODILO1W",
-        "iaf": "ODILO",
-        "iafCoords": { "lat": 48.24175, "lon": 1.571639 },
-        "symbol": "O",
-        "sector": "SW",
-        "approachTimes": {
-          "HEAVY": 900,
-          "MEDIUM": 900,
-          "LIGHT": 900
+        {
+          "heading": 272,
+          "distanceNmi": 12
         },
-        "availableRunways": [
-          "24",
-          "25",
-          "20"
-        ],
-        "sequence": [
-          {
-            "heading": 33,
-            "distanceNmi": 22
-          },
-          {
-            "heading": 83,
-            "distanceNmi": 20
-          },
-          {
-            "heading": 70,
-            "distanceNmi": 20
-          }
-        ],
-        "p_base_sec": 270,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 330,
-        "preferredRunway": "25"
+        {
+          "heading": 300,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 165,
+      "preferredRunway": "02"
+    },
+    {
+      "name": "ODILO1W",
+      "iaf": "ODILO",
+      "iafCoords": {
+        "lat": 48.24175,
+        "lon": 1.571639
       },
-      {
-        "name": "ODILO1E",
-        "iaf": "ODILO",
-        "iafCoords": { "lat": 48.24175, "lon": 1.571639 },
-        "symbol": "O",
-        "sector": "SW",
-        "approachTimes": {
-          "HEAVY": 480,
-          "MEDIUM": 480,
-          "LIGHT": 480
+      "symbol": "O",
+      "sector": "SW",
+      "approachTimes": {
+        "HEAVY": 900,
+        "MEDIUM": 900,
+        "LIGHT": 900
+      },
+      "availableRunways": [
+        "24",
+        "25",
+        "20"
+      ],
+      "sequence": [
+        {
+          "heading": 33,
+          "distanceNmi": 22
         },
-        "availableRunways": [
-          "06",
-          "07"
-        ],
-        "sequence": [
-          {
-            "heading": 33,
-            "distanceNmi": 10
-          }
-        ],
-        "p_base_sec": 90,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 120,
-        "preferredRunway": "06"
-      },
-      {
-        "name": "ODILO1S",
-        "iaf": "ODILO",
-        "iafCoords": { "lat": 48.24175, "lon": 1.571639 },
-        "symbol": "O",
-        "sector": "SW",
-        "approachTimes": {
-          "HEAVY": 600,
-          "MEDIUM": 600,
-          "LIGHT": 600
+        {
+          "heading": 83,
+          "distanceNmi": 20
         },
-        "availableRunways": [
-          "02"
-        ],
-        "sequence": [
-          {
-            "heading": 59,
-            "distanceNmi": 25
-          }
-        ],
-        "p_base_sec": 270,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 330,
-        "preferredRunway": "02"
+        {
+          "heading": 70,
+          "distanceNmi": 20
+        }
+      ],
+      "p_base_sec": 270,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 330,
+      "preferredRunway": "25"
+    },
+    {
+      "name": "ODILO1E",
+      "iaf": "ODILO",
+      "iafCoords": {
+        "lat": 48.24175,
+        "lon": 1.571639
       },
-      {
-        "name": "VEBEK1W",
-        "iaf": "VEBEK",
-        "iafCoords": { "lat": 49.268611, "lon": 3.683056 },
-        "symbol": "V",
-        "sector": "NE",
-        "approachTimes": {
-          "HEAVY": 780,
-          "MEDIUM": 780,
-          "LIGHT": 780
+      "symbol": "O",
+      "sector": "SW",
+      "approachTimes": {
+        "HEAVY": 480,
+        "MEDIUM": 480,
+        "LIGHT": 480
+      },
+      "availableRunways": [
+        "06",
+        "07"
+      ],
+      "sequence": [
+        {
+          "heading": 33,
+          "distanceNmi": 10
+        }
+      ],
+      "p_base_sec": 90,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 120,
+      "preferredRunway": "06"
+    },
+    {
+      "name": "ODILO1S",
+      "iaf": "ODILO",
+      "iafCoords": {
+        "lat": 48.24175,
+        "lon": 1.571639
+      },
+      "symbol": "O",
+      "sector": "SW",
+      "approachTimes": {
+        "HEAVY": 600,
+        "MEDIUM": 600,
+        "LIGHT": 600
+      },
+      "availableRunways": [
+        "02"
+      ],
+      "sequence": [
+        {
+          "heading": 59,
+          "distanceNmi": 25
+        }
+      ],
+      "p_base_sec": 270,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 330,
+      "preferredRunway": "02"
+    },
+    {
+      "name": "VEBEK1W",
+      "iaf": "VEBEK",
+      "iafCoords": {
+        "lat": 49.268611,
+        "lon": 3.683056
+      },
+      "symbol": "V",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 780,
+        "MEDIUM": 780,
+        "LIGHT": 780
+      },
+      "availableRunways": [
+        "24",
+        "25",
+        "20"
+      ],
+      "sequence": [
+        {
+          "heading": 207,
+          "distanceNmi": 9
         },
-        "availableRunways": [
-            "24",
-            "25",
-            "20"
-        ],
-        "sequence": [
-          {
-            "heading": 207,
-            "distanceNmi": 9
-          },
-          {
-            "heading": 224,
-            "distanceNmi": 26
-          },
-          {
-            "heading": 270,
-            "distanceNmi": 8
-          }
-        ],
-        "p_base_sec": 210,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 270,
-        "preferredRunway": "25"
-      },
-      {
-        "name": "VEBEK1E",
-        "iaf": "VEBEK",
-        "iafCoords": { "lat": 49.268611, "lon": 3.683056 },
-        "symbol": "V",
-        "sector": "NE",
-        "approachTimes": {
-          "HEAVY": 1320,
-          "MEDIUM": 1320,
-          "LIGHT": 1320
+        {
+          "heading": 224,
+          "distanceNmi": 26
         },
-        "availableRunways": [
-          "06",
-          "07",
-          "02"
-        ],
-        "sequence": [
-          {
-            "heading": 257,
-            "distanceNmi": 44
+        {
+          "heading": 270,
+          "distanceNmi": 8
+        }
+      ],
+      "p_base_sec": 210,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 270,
+      "preferredRunway": "25"
+    },
+    {
+      "name": "VEBEK1E",
+      "iaf": "VEBEK",
+      "iafCoords": {
+        "lat": 49.268611,
+        "lon": 3.683056
+      },
+      "symbol": "V",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 1320,
+        "MEDIUM": 1320,
+        "LIGHT": 1320
+      },
+      "availableRunways": [
+        "06",
+        "07",
+        "02"
+      ],
+      "sequence": [
+        {
+          "heading": 257,
+          "distanceNmi": 44
+        },
+        {
+          "heading": 267,
+          "distanceNmi": 35
+        },
+        {
+          "heading": 226,
+          "distanceNmi": 12
+        },
+        {
+          "heading": 180,
+          "distanceNmi": 15
+        }
+      ],
+      "p_base_sec": 360,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 480,
+      "preferredRunway": "06"
+    }
+  ],
+  "strategies": [
+    "ANTI_CROSSING",
+    "PREFERRED",
+    "EARLIEST"
+  ],
+  "configurations": [
+    {
+      "id": "PO_W",
+      "name": "PO_W",
+      "activeRunways": [
+        "25"
+      ],
+      "activeTransitions": [
+        "MOLBA1W",
+        "ODILO1W",
+        "VEBEK1W"
+      ]
+    },
+    {
+      "id": "PO_E",
+      "name": "PO_E",
+      "activeRunways": [
+        "06"
+      ],
+      "activeTransitions": [
+        "MOLBA1E",
+        "ODILO1E",
+        "VEBEK1E"
+      ]
+    },
+    {
+      "id": "PO_02",
+      "name": "PO_02",
+      "activeRunways": [
+        "02"
+      ],
+      "activeTransitions": [
+        "MOLBA1E 02",
+        "ODILO1S",
+        "VEBEK1E"
+      ]
+    }
+  ],
+  "label": "Paris Orly",
+  "views": [
+    {
+      "id": "RWY",
+      "label": "RWY",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 60,
+            "pastMin": 5
           },
-          {
-            "heading": 267,
-            "distanceNmi": 35
-          },
-          {
-            "heading": 226,
-            "distanceNmi": 12
-          },
-          {
-            "heading": 180,
-            "distanceNmi": 15
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
           }
-        ],
-        "p_base_sec": 360,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 480,
-        "preferredRunway": "06"
-      }
-    ],
-    "strategies": [
-      "ANTI_CROSSING",
-      "PREFERRED",
-      "EARLIEST"
-    ],
-    "configurations": [
-      {
-        "id": "PO_W",
-        "name": "PO_W",
-        "activeRunways": [
-          "25"
-        ],
-        "activeTransitions": [
-          "MOLBA1W",
-          "ODILO1W",
-          "VEBEK1W"
-        ]
-      },
-      {
-        "id": "PO_E",
-        "name": "PO_E",
-        "activeRunways": [
-          "06"
-        ],
-        "activeTransitions": [
-          "MOLBA1E",
-          "ODILO1E",
-          "VEBEK1E"
-        ]
-      },
-      {
-        "id": "PO_02",
-        "name": "PO_02",
-        "activeRunways": [
-            "02"
-        ],
-        "activeTransitions": [
-            "MOLBA1E 02",
-            "ODILO1S",
-            "VEBEK1E"
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    },
+    {
+      "id": "40Min",
+      "label": "40Min",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 40,
+            "pastMin": 5
+          },
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

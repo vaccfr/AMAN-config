@@ -34,8 +34,7 @@
         "iaf": {
           "by": "iaf"
         }
-      },
-      "interactive": false
+      }
     },
     {
       "id": "lfpo",
@@ -69,8 +68,7 @@
         "iaf": {
           "by": "iaf"
         }
-      },
-      "interactive": false
+      }
     }
   ]
 }

@@ -7,7 +7,11 @@
     "lat": 43.6294,
     "lon": 1.3638
   },
-  "accessCallsigns": ["LFBO_*_APP", "LFBB_*_CTR", "LFBB_CTR"],
+  "accessCallsigns": [
+    "LFBO_*_APP",
+    "LFBB_*_CTR",
+    "LFBB_CTR"
+  ],
   "runways": [
     {
       "id": "14R",
@@ -38,7 +42,10 @@
     {
       "name": "AGN_S",
       "iaf": "AGN",
-      "iafCoords": { "lat": 43.888028, "lon": 0.872861 },
+      "iafCoords": {
+        "lat": 43.888028,
+        "lon": 0.872861
+      },
       "symbol": "AG",
       "sector": "NW",
       "approachTimes": {
@@ -68,7 +75,10 @@
     {
       "name": "FUZAP_S",
       "iaf": "FUZAP",
-      "iafCoords": { "lat": 43.981306, "lon": 1.449444 },
+      "iafCoords": {
+        "lat": 43.981306,
+        "lon": 1.449444
+      },
       "symbol": "F",
       "sector": "NE",
       "approachTimes": {
@@ -98,7 +108,10 @@
     {
       "name": "ADIMO_S",
       "iaf": "ADIMO",
-      "iafCoords": { "lat": 43.492, "lon": 1.90875 },
+      "iafCoords": {
+        "lat": 43.492,
+        "lon": 1.90875
+      },
       "symbol": "AD",
       "sector": "SE",
       "approachTimes": {
@@ -132,7 +145,10 @@
     {
       "name": "SURAS_S",
       "iaf": "SURAS",
-      "iafCoords": { "lat": 43.642444, "lon": 1.062833 },
+      "iafCoords": {
+        "lat": 43.642444,
+        "lon": 1.062833
+      },
       "symbol": "S",
       "sector": "SW",
       "approachTimes": {
@@ -162,7 +178,10 @@
     {
       "name": "AGENO_N",
       "iaf": "AGENO",
-      "iafCoords": { "lat": 43.489778, "lon": 1.274472 },
+      "iafCoords": {
+        "lat": 43.489778,
+        "lon": 1.274472
+      },
       "symbol": "AG",
       "sector": "NW",
       "approachTimes": {
@@ -192,7 +211,10 @@
     {
       "name": "FUZAP_N",
       "iaf": "FUZAP",
-      "iafCoords": { "lat": 43.981306, "lon": 1.449444 },
+      "iafCoords": {
+        "lat": 43.981306,
+        "lon": 1.449444
+      },
       "symbol": "F",
       "sector": "NE",
       "approachTimes": {
@@ -226,7 +248,10 @@
     {
       "name": "ADIMO_N",
       "iaf": "ADIMO",
-      "iafCoords": { "lat": 43.492, "lon": 1.90875 },
+      "iafCoords": {
+        "lat": 43.492,
+        "lon": 1.90875
+      },
       "symbol": "AD",
       "sector": "SE",
       "approachTimes": {
@@ -256,7 +281,10 @@
     {
       "name": "SULIT_N",
       "iaf": "SULIT",
-      "iafCoords": { "lat": 43.383694, "lon": 1.252556 },
+      "iafCoords": {
+        "lat": 43.383694,
+        "lon": 1.252556
+      },
       "symbol": "S",
       "sector": "NE",
       "approachTimes": {
@@ -286,7 +314,10 @@
     {
       "name": "OGRIL_N",
       "iaf": "OGRIL",
-      "iafCoords": { "lat": 43.292333, "lon": 1.235083 },
+      "iafCoords": {
+        "lat": 43.292333,
+        "lon": 1.235083
+      },
       "symbol": "O",
       "sector": "NE",
       "approachTimes": {
@@ -345,6 +376,71 @@
         "FUZAP_S",
         "SURAS_S",
         "ADIMO_S"
+      ]
+    }
+  ],
+  "label": "Toulouse Blagnac",
+  "views": [
+    {
+      "id": "RWY",
+      "label": "RWY",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 60,
+            "pastMin": 5
+          },
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "40Min",
+      "label": "40Min",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 40,
+            "pastMin": 5
+          },
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
+          }
+        }
       ]
     }
   ]

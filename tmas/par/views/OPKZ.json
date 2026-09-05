@@ -39,8 +39,7 @@
         "iaf": {
           "by": "iaf"
         }
-      },
-      "interactive": false
+      }
     },
     {
       "id": "awareness",
@@ -69,8 +68,7 @@
         "callsign": {
           "by": "iaf"
         }
-      },
-      "interactive": false
+      }
     }
   ]
 }

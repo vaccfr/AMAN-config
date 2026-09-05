@@ -14,10 +14,11 @@ async function rulesAfter(mutate) {
 }
 
 const tma = (bundle, tid) => bundle.tmas.find((t) => t.content.id === tid);
+const airport = (bundle, id) => bundle.airports.find((a) => a.path.endsWith(`/${id}.json`));
 const view = (bundle, tid, id) => tma(bundle, tid).views.find((v) => v.content.id === id);
 
-describe('the Paris TMAs as committed', () => {
-  it('validates, splitting the approach positions from the en-route ones', async () => {
+describe('the two kinds of page', () => {
+  it('validates, with approach views on the facility and en-route views on the TMA', async () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     expect(read.ok).toBe(true);
     if (!read.ok) return;
@@ -26,43 +27,59 @@ describe('the Paris TMAs as committed', () => {
     expect(result.ok ? [] : result.issues).toEqual([]);
     if (!result.ok) return;
 
-    // Each is its own URL: /lfpg and /lfpo are the interactive approach
-    // positions, /par the en-route ones shared by both.
-    expect([...result.bundle.tmas.keys()].sort()).toEqual(['lfpg', 'lfpo', 'par']);
-    expect(result.bundle.tmas.get('lfpg').airports).toEqual(['LFPG']);
-    expect(result.bundle.tmas.get('lfpo').airports).toEqual(['LFPO']);
-    expect(result.bundle.tmas.get('par').airports).toEqual(['LFPG', 'LFPO']);
+    // A facility owns its own approach views.
+    for (const id of ['lfpg', 'lfpo', 'lfbo', 'lfmn']) {
+      const airport = result.bundle.airportsById.get(id);
+      expect(airport).toBeDefined();
+      expect(airport.views.map((v) => v.id)).toEqual(['RWY', '40Min']);
+    }
+
+    // The en-route page watches facilities by CONFIG ID, not by aerodrome.
+    const par = result.bundle.tmas.get('par');
+    expect(par.airports).toEqual(['lfpg', 'lfpo']);
   });
 
-  it('gives each approach position the interactive runway timeline', async () => {
+  // Interactivity is a property of the kind, not something a panel declares.
+  it('has no interactive flag anywhere', async () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     if (!read.ok) return;
-    for (const tid of ['lfpg', 'lfpo']) {
-      const t = tma(read.bundle, tid);
-      expect(t.content.views).toEqual(['RWY', '40Min']);
-      for (const v of t.views) {
-        expect(v.content.panels).toHaveLength(1);
-        expect(v.content.panels[0].layout).toBe('runway-columns');
-        expect(v.content.panels[0].interactive).toBe(true);
-      }
+    const result = validateBundle(read.bundle);
+    if (!result.ok) return;
+    const panels = [
+      ...[...result.bundle.airportsById.values()].flatMap((a) => a.views.flatMap((v) => v.panels)),
+      ...[...result.bundle.tmas.values()].flatMap((t) => t.views.flatMap((v) => v.panels)),
+    ];
+    expect(panels.length).toBeGreaterThan(0);
+    for (const panel of panels) expect(panel).not.toHaveProperty('interactive');
+  });
+
+  // A fix has one colour wherever it appears, so it is declared once.
+  it('declares the IAF palette once, in the manifest', async () => {
+    const read = await readBundleDir(BUNDLE_ROOT);
+    if (!read.ok) return;
+    const result = validateBundle(read.bundle);
+    if (!result.ok) return;
+    expect(result.bundle.iafs.BANOX.color).toBe('#5FD98A');
+    expect(result.bundle.iafs.LORNI.color).toBe('#F0A050');
+    for (const airport of result.bundle.airportsById.values()) {
+      expect(airport).not.toHaveProperty('iafs');
+    }
+    expect(result.bundle.tmas.get('par')).not.toHaveProperty('iafs');
+  });
+
+  it('keeps the approach views on the runway-columns layout', async () => {
+    const read = await readBundleDir(BUNDLE_ROOT);
+    if (!read.ok) return;
+    const result = validateBundle(read.bundle);
+    if (!result.ok) return;
+    for (const view of result.bundle.airportsById.get('lfpg').views) {
+      expect(view.panels).toHaveLength(1);
+      expect(view.panels[0].layout).toBe('runway-columns');
+      expect(view.panels[0].timeReference).toBeUndefined();
     }
   });
 
-  it('lists the en-route sectors on /par', async () => {
-    const read = await readBundleDir(BUNDLE_ROOT);
-    if (!read.ok) return;
-    expect(tma(read.bundle, 'par').content.views).toEqual([
-      'RT',
-      'TE',
-      'TP',
-      'AR',
-      'OPKZ',
-      'RPAW',
-      'PG_PO_PB',
-    ]);
-  });
-
-  it('gives each sector view its own IAF filter', async () => {
+  it('gives each en-route sector its own IAF filter', async () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     if (!read.ok) return;
     const filterOf = (id) => view(read.bundle, 'par', id).content.panels[0].filter.iafs;
@@ -84,9 +101,7 @@ describe('the Paris TMAs as committed', () => {
       expect(sector.timeReference).toBe('iaf');
       expect(awareness.timeReference).toBe('threshold');
       expect(awareness.fields).toEqual(['dc', 'callsign']);
-      expect(awareness.fields).not.toContain('iaf');
       expect(awareness.colors.callsign.by).toBe('iaf');
-      expect(awareness.filter).toEqual({});
     }
   });
 
@@ -103,42 +118,17 @@ describe('the Paris TMAs as committed', () => {
     }
   });
 
-  // The approach positions and the en-route page link to each other, so a
-  // controller can move between them without editing the URL.
-  it('cross-links the approach positions and the en-route page', async () => {
-    const read = await readBundleDir(BUNDLE_ROOT);
-    if (!read.ok) return;
-    expect(tma(read.bundle, 'lfpg').content.links).toEqual(['par']);
-    expect(tma(read.bundle, 'lfpo').content.links).toEqual(['par']);
-    expect(tma(read.bundle, 'par').content.links).toEqual(['lfpg', 'lfpo']);
-  });
-
-  it('gives the Paris group view one ladder per airport', async () => {
+  it('gives the Paris group view one ladder per facility', async () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     if (!read.ok) return;
     const panels = view(read.bundle, 'par', 'PG_PO_PB').content.panels;
     expect(panels.map((p) => p.id)).toEqual(['lfpg', 'lfpo']);
-    expect(panels[0].sides.left.icao).toBe('LFPG');
-    expect(panels[1].sides.left.icao).toBe('LFPO');
-    // Orly groups its runways east/west, not north/south.
     expect(panels[1].sides.left.runwayGroup).toBe('ouest');
-  });
-
-  // Sides name a GROUP so a view survives the platform turning west to east.
-  it('declares panel sides by runway group, never by runway id', async () => {
-    const read = await readBundleDir(BUNDLE_ROOT);
-    if (!read.ok) return;
-    for (const v of tma(read.bundle, 'par').views) {
-      for (const panel of v.content.panels) {
-        expect(panel.sides.left.runwayGroup).toBeTruthy();
-        expect(panel.interactive).toBe(false);
-      }
-    }
   });
 });
 
-describe('TMA and view cross-reference rules', () => {
-  it('rejects a filter naming a fix no covered airport declares', async () => {
+describe('cross-reference rules', () => {
+  it('rejects a filter naming a fix no watched facility declares', async () => {
     expect(
       await rulesAfter((b) => {
         view(b, 'par', 'RT').content.panels[0].filter.iafs = ['BANOKS'];
@@ -154,12 +144,28 @@ describe('TMA and view cross-reference rules', () => {
     ).toContain('panel-side-group-exists');
   });
 
-  it('rejects colouring by IAF without a declared colour for it', async () => {
+  it('rejects a panel side naming an aerodrome the page does not cover', async () => {
     expect(
       await rulesAfter((b) => {
-        delete tma(b, 'par').content.iafs.BANOX;
+        view(b, 'par', 'RT').content.panels[0].sides.left.icao = 'EGLL';
+      }),
+    ).toContain('panel-side-airport-covered');
+  });
+
+  it('rejects colouring by IAF without a colour in the manifest', async () => {
+    expect(
+      await rulesAfter((b) => {
+        delete b.manifest.iafs.BANOX;
       }),
     ).toContain('view-iaf-colour-declared');
+  });
+
+  it('rejects a TMA watching an airport config the bundle lacks', async () => {
+    expect(
+      await rulesAfter((b) => {
+        tma(b, 'par').content.airports.push('lfpb');
+      }),
+    ).toContain('tma-airport-exists');
   });
 
   it('rejects a view file the TMA does not list', async () => {
@@ -179,38 +185,6 @@ describe('TMA and view cross-reference rules', () => {
     ).toContain('tma-view-exists');
   });
 
-  it('rejects a configuration mapping an airport to a template it lacks', async () => {
-    expect(
-      await rulesAfter((b) => {
-        tma(b, 'par').content.configurations[0].airports.LFPG = 'PG_NORTH';
-      }),
-    ).toContain('tma-configuration-template-exists');
-  });
-
-  it('rejects a TMA naming an airport the bundle lacks', async () => {
-    expect(
-      await rulesAfter((b) => {
-        tma(b, 'par').content.airports.push('LFPB');
-      }),
-    ).toContain('tma-airport-exists');
-  });
-
-  it('rejects a configuration that skips a declared airport', async () => {
-    expect(
-      await rulesAfter((b) => {
-        delete tma(b, 'par').content.configurations[0].airports.LFPG;
-      }),
-    ).toContain('tma-configuration-covers-airports');
-  });
-
-  it('rejects an entirely empty configuration mapping', async () => {
-    expect(
-      await rulesAfter((b) => {
-        tma(b, 'par').content.configurations[0].airports = {};
-      }),
-    ).toContain('schema');
-  });
-
   it('rejects a view id that disagrees with its filename', async () => {
     expect(
       await rulesAfter((b) => {
@@ -228,6 +202,14 @@ describe('TMA and view cross-reference rules', () => {
     ).toContain('view-id-reserved');
   });
 
+  it('rejects an approach view whose filter names an unknown fix', async () => {
+    expect(
+      await rulesAfter((b) => {
+        airport(b, 'lfpg').content.views[0].panels[0].filter = { iafs: ['NOPE'] };
+      }),
+    ).toContain('view-filter-iaf-exists');
+  });
+
   it('rejects a dual-sided panel with no sides', async () => {
     expect(
       await rulesAfter((b) => {
@@ -239,7 +221,7 @@ describe('TMA and view cross-reference rules', () => {
   it('rejects a runway-columns panel that declares sides', async () => {
     expect(
       await rulesAfter((b) => {
-        view(b, 'lfpg', 'RWY').content.panels[0].sides = {
+        airport(b, 'lfpg').content.views[0].panels[0].sides = {
           left: { icao: 'LFPG', runwayGroup: 'sud' },
           right: { icao: 'LFPG', runwayGroup: 'nord' },
         };
@@ -253,22 +235,6 @@ describe('TMA and view cross-reference rules', () => {
         view(b, 'par', 'RT').content.panels[0].fields = ['dc', 'squawk'];
       }),
     ).toContain('schema');
-  });
-
-  it('rejects a link to a TMA the bundle does not contain', async () => {
-    expect(
-      await rulesAfter((b) => {
-        tma(b, 'par').content.links.push('nice');
-      }),
-    ).toContain('tma-link-exists');
-  });
-
-  it('rejects a TMA linking to itself', async () => {
-    expect(
-      await rulesAfter((b) => {
-        tma(b, 'par').content.links.push('par');
-      }),
-    ).toContain('tma-link-self');
   });
 
   it('rejects an unknown colour source', async () => {

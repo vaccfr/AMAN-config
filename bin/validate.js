@@ -45,12 +45,12 @@ async function main() {
     return 1;
   }
 
-  const icaos = [...result.bundle.airports.keys()].sort();
   console.log(`\n✓ Bundle valid`);
-  console.log(`  airports: ${icaos.join(', ')}`);
+  for (const [id, airport] of result.bundle.airportsById) {
+    console.log(`  airport ${id}: covers ${airport.coveredIcaos.join(', ')} — views: ${airport.views.map((v) => v.id).join(', ')}`);
+  }
   for (const [id, tma] of result.bundle.tmas) {
-    const views = tma.views.map((v) => v.id).join(', ');
-    console.log(`  tma ${id}: ${tma.airports.join(', ')} — views: ${views}`);
+    console.log(`  tma ${id}: watches ${tma.airports.join(', ')} — views: ${tma.views.map((v) => v.id).join(', ')}`);
   }
   if (result.bundle.tmas.size === 0) console.log('  tmas: none');
   return 0;

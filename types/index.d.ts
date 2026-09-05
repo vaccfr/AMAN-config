@@ -44,9 +44,16 @@ export interface ConfigurationTemplate {
   activeTransitions: string[];
 }
 
+/**
+ * One facility: a single session, a single sequencer, interactive.
+ *
+ * `coveredIcaos` may list more than one aerodrome — LFPG covers Le Bourget —
+ * and traffic reported for any of them joins this config's single sequence.
+ */
 export interface AirportConfig {
   icao: string;
   coveredIcaos: string[];
+  label?: string;
   arp: Coordinates;
   runways: RunwayConfig[];
   transitions: TransitionConfig[];
@@ -54,6 +61,8 @@ export interface AirportConfig {
   configurations: ConfigurationTemplate[];
   /** Defaulted to `[]` by the validator when the file omits it. */
   accessCallsigns: string[];
+  /** The approach position's own views, in tab order. */
+  views: ViewConfig[];
 }
 
 /** A single validation failure, always naming the file and the rule it broke. */
@@ -135,8 +144,6 @@ export interface PanelConfig {
   filter?: { iafs?: string[] };
   fields: PanelFieldId[];
   colors?: Partial<Record<ColorTarget, { by: ColorSource }>>;
-  /** When false, no flight-mutating interaction is offered, lock or not. */
-  interactive: boolean;
 }
 
 export interface ViewConfig {
@@ -145,46 +152,38 @@ export interface ViewConfig {
   panels: PanelConfig[];
 }
 
-/** Maps every airport of the TMA to one of that airport's own templates. */
-export interface TmaConfiguration {
-  id: string;
-  label: string;
-  airports: Record<string, string>;
-}
-
-interface TmaCommon {
-  id: string;
-  label: string;
-  airports: string[];
-  accessCallsigns?: string[];
-  configurations: TmaConfiguration[];
-  /** Colour per published fix name, declared once for the whole TMA. */
-  iafs?: Record<string, { color: string }>;
-  /** Ids of other TMAs offered as links in this one's tab strip. */
-  links?: string[];
-}
-
 /**
  * `tma.json` as authored: `views` is a list of ids, in tab order, each with a
  * file under `views/`.
  */
-export interface TmaFile extends TmaCommon {
+export interface TmaFile {
+  id: string;
+  label: string;
+  /** Airport CONFIG ids, not aerodromes. */
+  airports: string[];
   views: string[];
 }
 
 /**
  * A TMA as resolved into a validated bundle: the view ids have been replaced by
  * the loaded view definitions, in the order the file declared them.
+ *
+ * An en-route page: read-only, no sequencer, no configurations of its own — it
+ * watches facilities that own all of that.
  */
-export interface TmaConfig extends TmaCommon {
+export interface TmaConfig extends Omit<TmaFile, 'views'> {
   views: ViewConfig[];
 }
 
 /** A bundle that has passed schema validation and cross-reference linting. */
 export interface ConfigBundle {
   schemaVersion: number;
+  /** Colour per published fix name, for the whole bundle. */
+  iafs: Record<string, { color: string }>;
   /** Keyed by uppercase ICAO. */
   airports: ReadonlyMap<string, AirportConfig>;
+  /** Keyed by airport config id — what a TMA references. */
+  airportsById: ReadonlyMap<string, AirportConfig>;
   /** Keyed by TMA id. Empty for a bundle with no `tmas/` directory. */
   tmas: ReadonlyMap<string, TmaConfig>;
 }
@@ -202,11 +201,18 @@ export declare const manifestSchema: object;
 export declare const AIRPORTS_DIR: string;
 export declare const MANIFEST_FILE: string;
 
-export declare function lintAirportConfig(file: RawConfigFile): ConfigIssue[];
+export declare function lintAirportConfig(
+  file: RawConfigFile,
+  iafColors?: ReadonlySet<string>,
+): ConfigIssue[];
 export declare function lintTma(
   tma: RawTma,
-  airportsByIcao: ReadonlyMap<string, AirportConfig>,
+  airportsById: ReadonlyMap<string, AirportConfig>,
+  iafColors: ReadonlySet<string>,
 ): ConfigIssue[];
-export declare function validateAirportFile(file: RawConfigFile): ConfigIssue[];
+export declare function validateAirportFile(
+  file: RawConfigFile,
+  iafColors?: ReadonlySet<string>,
+): ConfigIssue[];
 export declare function validateBundle(raw: RawBundle): ValidationResult;
 export declare function readBundleDir(root: string): Promise<ReadBundleResult>;

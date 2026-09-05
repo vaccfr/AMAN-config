@@ -35,14 +35,15 @@ function schemaIssues(path, validate, content) {
 /**
  * Validate one airport file: schema first, then cross-references.
  * @param {import('../types/index.js').RawConfigFile} file
+ * @param {Set<string>} [iafColors]  fix names the manifest gives a colour
  * @returns {import('../types/index.js').ConfigIssue[]}
  */
-function validateAirportFile(file) {
+function validateAirportFile(file, iafColors = new Set()) {
   const issues = schemaIssues(file.path, validateAirport, file.content);
   // Linting reads fields directly and assumes the shape is correct, so it only
   // runs once the schema has confirmed it.
   if (issues.length > 0) return issues;
-  return lintAirportConfig(file);
+  return lintAirportConfig(file, iafColors);
 }
 
 /**
@@ -83,9 +84,12 @@ function validateBundle(raw) {
     };
   }
 
-  for (const file of raw.airports) issues.push(...validateAirportFile(file));
+  const iafColors = new Set(Object.keys(/** @type {any} */ (raw.manifest).iafs ?? {}));
+
+  for (const file of raw.airports) issues.push(...validateAirportFile(file, iafColors));
   if (issues.length > 0) return { ok: false, issues };
 
+  const airportsById = new Map();
   const airports = new Map();
   for (const file of raw.airports) {
     const config = /** @type {any} */ (file.content);
@@ -100,7 +104,10 @@ function validateBundle(raw) {
     }
     // Normalise on the way in: uppercase key, and `accessCallsigns` defaulted
     // to [] when omitted, matching what the API relies on.
-    airports.set(icao, { ...config, icao, accessCallsigns: config.accessCallsigns ?? [] });
+    const normalised = { ...config, icao, accessCallsigns: config.accessCallsigns ?? [] };
+    airports.set(icao, normalised);
+    // Config id is the filename stem; the filename↔icao rule keeps them equal.
+    airportsById.set((file.path.split('/').pop() ?? '').replace(/\.json$/i, '').toLowerCase(), normalised);
   }
   if (issues.length > 0) return { ok: false, issues };
 
@@ -117,7 +124,7 @@ function validateBundle(raw) {
       issues.push(...shape);
       continue;
     }
-    issues.push(...lintTma(tma, airports));
+    issues.push(...lintTma(tma, airportsById, iafColors));
     if (issues.length === 0) {
       // Shape is confirmed by the schema above; narrow for the checker.
       const content = /** @type {import('../types/index.js').TmaFile} */ (tma.content);
@@ -147,26 +154,10 @@ function validateBundle(raw) {
       });
     }
   }
-  for (const [id, tma] of tmas) {
-    for (const target of tma.links ?? []) {
-      if (target === id) {
-        issues.push({
-          file: `tmas/${id}/tma.json`,
-          rule: 'tma-link-self',
-          message: `links to itself`,
-        });
-      } else if (!tmas.has(target)) {
-        issues.push({
-          file: `tmas/${id}/tma.json`,
-          rule: 'tma-link-exists',
-          message: `links to "${target}", which is not a TMA in this bundle`,
-        });
-      }
-    }
-  }
   if (issues.length > 0) return { ok: false, issues };
 
-  return { ok: true, bundle: { schemaVersion, airports, tmas } };
+  const iafs = /** @type {any} */ (raw.manifest).iafs ?? {};
+  return { ok: true, bundle: { schemaVersion, iafs, airports, airportsById, tmas } };
 }
 
 module.exports = { validateAirportFile, validateBundle };

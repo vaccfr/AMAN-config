@@ -2,31 +2,8 @@
   "id": "par",
   "label": "Paris \u2014 En-route",
   "airports": [
-    "LFPG",
-    "LFPO"
-  ],
-  "accessCallsigns": [
-    "LFPG_*_APP",
-    "PAR_*_CTR",
-    "PAR_CTR"
-  ],
-  "configurations": [
-    {
-      "id": "WL",
-      "label": "West Landing",
-      "airports": {
-        "LFPG": "PG_W",
-        "LFPO": "PO_W"
-      }
-    },
-    {
-      "id": "EL",
-      "label": "East Landing",
-      "airports": {
-        "LFPG": "PG_E",
-        "LFPO": "PO_E"
-      }
-    }
+    "lfpg",
+    "lfpo"
   ],
   "views": [
     "RT",
@@ -36,32 +13,5 @@
     "OPKZ",
     "RPAW",
     "PG_PO_PB"
-  ],
-  "iafs": {
-    "LORNI": {
-      "color": "#F0A050"
-    },
-    "VEBEK": {
-      "color": "#F0A050"
-    },
-    "MOPAR": {
-      "color": "#6FA8F5"
-    },
-    "BANOX": {
-      "color": "#5FD98A"
-    },
-    "OKIPA": {
-      "color": "#F08CC0"
-    },
-    "MOLBA": {
-      "color": "#F08CC0"
-    },
-    "ODILO": {
-      "color": "#B79BE8"
-    }
-  },
-  "links": [
-    "lfpg",
-    "lfpo"
   ]
 }

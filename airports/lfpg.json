@@ -7,7 +7,11 @@
     "lat": 49.0097,
     "lon": 2.5479
   },
-  "accessCallsigns": ["LFPG_*_APP", "PAR_*_CTR", "PAR_CTR"],
+  "accessCallsigns": [
+    "LFPG_*_APP",
+    "PAR_*_CTR",
+    "PAR_CTR"
+  ],
   "runways": [
     {
       "id": "26R",
@@ -62,7 +66,10 @@
     {
       "name": "LORNI1W",
       "iaf": "LORNI",
-      "iafCoords": { "lat": 49.419417, "lon": 3.451389 },
+      "iafCoords": {
+        "lat": 49.419417,
+        "lon": 3.451389
+      },
       "symbol": "L",
       "sector": "NE",
       "approachTimes": {
@@ -90,7 +97,10 @@
     {
       "name": "LORNI1E",
       "iaf": "LORNI",
-      "iafCoords": { "lat": 49.419417, "lon": 3.451389 },
+      "iafCoords": {
+        "lat": 49.419417,
+        "lon": 3.451389
+      },
       "symbol": "L",
       "sector": "NE",
       "approachTimes": {
@@ -122,7 +132,10 @@
     {
       "name": "MOPAR1W",
       "iaf": "MOPAR",
-      "iafCoords": { "lat": 49.291722, "lon": 1.757278 },
+      "iafCoords": {
+        "lat": 49.291722,
+        "lon": 1.757278
+      },
       "symbol": "M",
       "sector": "NW",
       "approachTimes": {
@@ -154,7 +167,10 @@
     {
       "name": "MOPAR1E",
       "iaf": "MOPAR",
-      "iafCoords": { "lat": 49.291722, "lon": 1.757278 },
+      "iafCoords": {
+        "lat": 49.291722,
+        "lon": 1.757278
+      },
       "symbol": "M",
       "sector": "NW",
       "approachTimes": {
@@ -182,7 +198,10 @@
     {
       "name": "BANOX1W",
       "iaf": "BANOX",
-      "iafCoords": { "lat": 48.574194, "lon": 1.5055 },
+      "iafCoords": {
+        "lat": 48.574194,
+        "lon": 1.5055
+      },
       "symbol": "B",
       "sector": "SW",
       "approachTimes": {
@@ -218,7 +237,10 @@
     {
       "name": "BANOX1E",
       "iaf": "BANOX",
-      "iafCoords": { "lat": 48.574194, "lon": 1.5055 },
+      "iafCoords": {
+        "lat": 48.574194,
+        "lon": 1.5055
+      },
       "symbol": "B",
       "sector": "SW",
       "approachTimes": {
@@ -246,7 +268,10 @@
     {
       "name": "OKIPA1W",
       "iaf": "OKIPA",
-      "iafCoords": { "lat": 48.611306, "lon": 3.5635 },
+      "iafCoords": {
+        "lat": 48.611306,
+        "lon": 3.5635
+      },
       "symbol": "O",
       "sector": "SE",
       "approachTimes": {
@@ -274,7 +299,10 @@
     {
       "name": "OKIPA1E",
       "iaf": "OKIPA",
-      "iafCoords": { "lat": 48.611306, "lon": 3.5635 },
+      "iafCoords": {
+        "lat": 48.611306,
+        "lon": 3.5635
+      },
       "symbol": "O",
       "sector": "SE",
       "approachTimes": {
@@ -340,6 +368,71 @@
         "MOPAR1E",
         "BANOX1E",
         "OKIPA1E"
+      ]
+    }
+  ],
+  "label": "Paris CDG",
+  "views": [
+    {
+      "id": "RWY",
+      "label": "RWY",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 60,
+            "pastMin": 5
+          },
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "40Min",
+      "label": "40Min",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 40,
+            "pastMin": 5
+          },
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
+          }
+        }
       ]
     }
   ]

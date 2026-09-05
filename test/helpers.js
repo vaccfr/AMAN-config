@@ -35,6 +35,22 @@ export function minimalAirport() {
       { id: 'XX_W', name: 'West', activeRunways: ['27'], activeTransitions: ['ALPHA1W'] },
     ],
     accessCallsigns: [],
+    // Views are part of a facility now: an approach position owns its own.
+    views: [
+      {
+        id: 'RWY',
+        label: 'RWY',
+        panels: [
+          {
+            id: 'runways',
+            layout: 'runway-columns',
+            window: { totalMin: 60, pastMin: 5 },
+            filter: {},
+            fields: ['sta_threshold', 'callsign'],
+          },
+        ],
+      },
+    ],
   };
 }
 

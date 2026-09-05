@@ -1,267 +1,355 @@
 {
-    "icao": "LFMN",
-    "coveredIcaos": [
-      "LFMN"
-    ],
-    "arp": {
-      "lat": 43.6654,
-      "lon": 7.2149
+  "icao": "LFMN",
+  "coveredIcaos": [
+    "LFMN"
+  ],
+  "arp": {
+    "lat": 43.6654,
+    "lon": 7.2149
+  },
+  "accessCallsigns": [
+    "LFMN_APP",
+    "LFMN_*_APP",
+    "LFMM_*_CTR",
+    "LFMM_CTR"
+  ],
+  "runways": [
+    {
+      "id": "04R",
+      "qfu": 42,
+      "group": "sud",
+      "defaultThroughput": 112
     },
-    "accessCallsigns": ["LFMN_APP", "LFMN_*_APP", "LFMM_*_CTR", "LFMM_CTR"],
-    "runways": [
-      {
-        "id": "04R",
-        "qfu": 42,
-        "group": "sud",
-        "defaultThroughput": 112
+    {
+      "id": "04L",
+      "qfu": 42,
+      "group": "nord",
+      "defaultThroughput": 112
+    },
+    {
+      "id": "22L",
+      "qfu": 222,
+      "group": "sud",
+      "defaultThroughput": 112
+    },
+    {
+      "id": "22R",
+      "qfu": 222,
+      "group": "nord",
+      "defaultThroughput": 112
+    }
+  ],
+  "transitions": [
+    {
+      "name": "MUS A04",
+      "iaf": "MUS",
+      "iafCoords": {
+        "lat": 43.384583,
+        "lon": 6.606361
       },
-      {
-        "id": "04L",
-        "qfu": 42,
-        "group": "nord",
-        "defaultThroughput": 112
+      "symbol": "M",
+      "sector": "NW",
+      "approachTimes": {
+        "HEAVY": 600,
+        "MEDIUM": 600,
+        "LIGHT": 600
       },
-      {
-        "id": "22L",
-        "qfu": 222,
-        "group": "sud",
-        "defaultThroughput": 112
-      },
-      {
-        "id": "22R",
-        "qfu": 222,
-        "group": "nord",
-        "defaultThroughput": 112
-      }
-    ],
-    "transitions": [
-      {
-        "name": "MUS A04",
-        "iaf": "MUS",
-        "iafCoords": { "lat": 43.384583, "lon": 6.606361 },
-        "symbol": "M",
-        "sector": "NW",
-        "approachTimes": {
-          "HEAVY": 600,
-          "MEDIUM": 600,
-          "LIGHT": 600
+      "availableRunways": [
+        "04L",
+        "04R"
+      ],
+      "sequence": [
+        {
+          "heading": 90,
+          "distanceNmi": 20
         },
-        "availableRunways": [
-          "04L",
-          "04R"
-        ],
-        "sequence": [
-          {
-            "heading": 90,
-            "distanceNmi": 20
-          },
-          {
-            "heading": 40,
-            "distanceNmi": 8
-          }
-        ],
-        "p_base_sec": 120,
-        "dcMax_sec": 240,
-        "dpMax_base_sec": 240,
-        "preferredRunway": "04L"
+        {
+          "heading": 40,
+          "distanceNmi": 8
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 240,
+      "dpMax_base_sec": 240,
+      "preferredRunway": "04L"
+    },
+    {
+      "name": "MUS ILS04",
+      "iaf": "MUS",
+      "iafCoords": {
+        "lat": 43.384583,
+        "lon": 6.606361
       },
-      {
-        "name": "MUS ILS04",
-        "iaf": "MUS",
-        "iafCoords": { "lat": 43.384583, "lon": 6.606361 },
-        "symbol": "M",
-        "sector": "NW",
-        "approachTimes": {
-          "HEAVY": 540,
-          "MEDIUM": 400,
-          "LIGHT": 400
+      "symbol": "M",
+      "sector": "NW",
+      "approachTimes": {
+        "HEAVY": 540,
+        "MEDIUM": 400,
+        "LIGHT": 400
+      },
+      "availableRunways": [
+        "04L",
+        "04R"
+      ],
+      "sequence": [
+        {
+          "heading": 90,
+          "distanceNmi": 10
         },
-        "availableRunways": [
-          "04L",
-          "04R"
-        ],
-        "sequence": [
-          {
-            "heading": 90,
-            "distanceNmi": 10
-          },
-          {
-            "heading": 40,
-            "distanceNmi": 5
-          }
-        ],
-        "p_base_sec": 90,
-        "dcMax_sec": 240,
-        "dpMax_base_sec": 180,
-        "preferredRunway": "04L"
+        {
+          "heading": 40,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 90,
+      "dcMax_sec": 240,
+      "dpMax_base_sec": 180,
+      "preferredRunway": "04L"
+    },
+    {
+      "name": "MUS RNV22",
+      "iaf": "MUS",
+      "iafCoords": {
+        "lat": 43.384583,
+        "lon": 6.606361
       },
-      {
-        "name": "MUS RNV22",
-        "iaf": "MUS",
-        "iafCoords": { "lat": 43.384583, "lon": 6.606361 },
-        "symbol": "M",
-        "sector": "NW",
-        "approachTimes": {
-          "HEAVY": 960,
-          "MEDIUM": 960,
-          "LIGHT": 960
+      "symbol": "M",
+      "sector": "NW",
+      "approachTimes": {
+        "HEAVY": 960,
+        "MEDIUM": 960,
+        "LIGHT": 960
+      },
+      "availableRunways": [
+        "22L",
+        "22R"
+      ],
+      "sequence": [
+        {
+          "heading": 90,
+          "distanceNmi": 20
         },
-        "availableRunways": [
-          "22L",
-          "22R"
-        ],
-        "sequence": [
-          {
-            "heading": 90,
-            "distanceNmi": 20
-          },
-          {
-            "heading": 71,
-            "distanceNmi": 18
-          },
-          {
-            "heading": 347,
-            "distanceNmi": 5
-          },
-          {
-            "heading": 302,
-            "distanceNmi": 5
-          }
-        ],
-        "p_base_sec": 270,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 330,
-        "preferredRunway": "22R"
-      },
-      {
-        "name": "NERAS A04",
-        "iaf": "NERAS",
-        "iafCoords": { "lat": 43.41575, "lon": 7.824278 },
-        "symbol": "N",
-        "sector": "NE",
-        "approachTimes": {
-          "HEAVY": 720,
-          "MEDIUM": 720,
-          "LIGHT": 720
+        {
+          "heading": 71,
+          "distanceNmi": 18
         },
-        "availableRunways": [
-          "04L",
-          "04R"
-        ],
-        "sequence": [
-          {
-            "heading": 270,
-            "distanceNmi": 30
-          },
-          {
-            "heading": 308,
-            "distanceNmi": 3
-          }
-        ],
-        "p_base_sec": 180,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 240,
-        "preferredRunway": "04L"
-      },
-      {
-        "name": "NERAS ILS04",
-        "iaf": "NERAS",
-        "iafCoords": { "lat": 43.41575, "lon": 7.824278 },
-        "symbol": "N",
-        "sector": "NE",
-        "approachTimes": {
-          "HEAVY": 840,
-          "MEDIUM": 840,
-          "LIGHT": 840
+        {
+          "heading": 347,
+          "distanceNmi": 5
         },
-        "availableRunways": [
-          "04L",
-          "04R"
-        ],
-        "sequence": [
-          {
-            "heading": 265,
-            "distanceNmi": 40
-          },
-          {
-            "heading": 356,
-            "distanceNmi": 5
-          }
-        ],
-        "p_base_sec": 210,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 270,
-        "preferredRunway": "04L"
+        {
+          "heading": 302,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 270,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 330,
+      "preferredRunway": "22R"
+    },
+    {
+      "name": "NERAS A04",
+      "iaf": "NERAS",
+      "iafCoords": {
+        "lat": 43.41575,
+        "lon": 7.824278
       },
-      {
-        "name": "NERAS RNV22",
-        "iaf": "NERAS",
-        "iafCoords": { "lat": 43.41575, "lon": 7.824278 },
-        "symbol": "N",
-        "sector": "NE",
-        "approachTimes": {
-          "HEAVY": 600,
-          "MEDIUM": 600,
-          "LIGHT": 600
+      "symbol": "N",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 720,
+        "MEDIUM": 720,
+        "LIGHT": 720
+      },
+      "availableRunways": [
+        "04L",
+        "04R"
+      ],
+      "sequence": [
+        {
+          "heading": 270,
+          "distanceNmi": 30
         },
-        "availableRunways": [
-            "22L",
-            "22R"
-        ],
-        "sequence": [
-          {
-            "heading": 270,
-            "distanceNmi": 10
+        {
+          "heading": 308,
+          "distanceNmi": 3
+        }
+      ],
+      "p_base_sec": 180,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 240,
+      "preferredRunway": "04L"
+    },
+    {
+      "name": "NERAS ILS04",
+      "iaf": "NERAS",
+      "iafCoords": {
+        "lat": 43.41575,
+        "lon": 7.824278
+      },
+      "symbol": "N",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 840,
+        "MEDIUM": 840,
+        "LIGHT": 840
+      },
+      "availableRunways": [
+        "04L",
+        "04R"
+      ],
+      "sequence": [
+        {
+          "heading": 265,
+          "distanceNmi": 40
+        },
+        {
+          "heading": 356,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 210,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 270,
+      "preferredRunway": "04L"
+    },
+    {
+      "name": "NERAS RNV22",
+      "iaf": "NERAS",
+      "iafCoords": {
+        "lat": 43.41575,
+        "lon": 7.824278
+      },
+      "symbol": "N",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 600,
+        "MEDIUM": 600,
+        "LIGHT": 600
+      },
+      "availableRunways": [
+        "22L",
+        "22R"
+      ],
+      "sequence": [
+        {
+          "heading": 270,
+          "distanceNmi": 10
+        },
+        {
+          "heading": 347,
+          "distanceNmi": 8
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 180,
+      "preferredRunway": "22R"
+    }
+  ],
+  "strategies": [
+    "ANTI_CROSSING",
+    "PREFERRED",
+    "EARLIEST"
+  ],
+  "configurations": [
+    {
+      "id": "MN_A04",
+      "name": "MN_A04",
+      "activeRunways": [
+        "04L"
+      ],
+      "activeTransitions": [
+        "MUS A04",
+        "NERAS A04"
+      ]
+    },
+    {
+      "id": "MN_ILS04",
+      "name": "MN_ILS04",
+      "activeRunways": [
+        "04L"
+      ],
+      "activeTransitions": [
+        "MUS ILS04",
+        "NERAS ILS04"
+      ]
+    },
+    {
+      "id": "MN_RNV22",
+      "name": "MN_RNV22",
+      "activeRunways": [
+        "22R"
+      ],
+      "activeTransitions": [
+        "MUS RNV22",
+        "NERAS RNV22"
+      ]
+    }
+  ],
+  "label": "Nice C\u00f4te d'Azur",
+  "views": [
+    {
+      "id": "RWY",
+      "label": "RWY",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 60,
+            "pastMin": 5
           },
-          {
-            "heading": 347,
-            "distanceNmi": 8
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
           }
-        ],
-        "p_base_sec": 120,
-        "dcMax_sec": 420,
-        "dpMax_base_sec": 180,
-        "preferredRunway": "22R"
-      }
-    ],
-    "strategies": [
-      "ANTI_CROSSING",
-      "PREFERRED",
-      "EARLIEST"
-    ],
-    "configurations": [
-      {
-        "id": "MN_A04",
-        "name": "MN_A04",
-        "activeRunways": [
-          "04L"
-        ],
-        "activeTransitions": [
-          "MUS A04",
-          "NERAS A04"
-        ]
-      },
-      {
-        "id": "MN_ILS04",
-        "name": "MN_ILS04",
-        "activeRunways": [
-          "04L"
-        ],
-        "activeTransitions": [
-          "MUS ILS04",
-          "NERAS ILS04"
-        ]
-      },
-      {
-        "id": "MN_RNV22",
-        "name": "MN_RNV22",
-        "activeRunways": [
-          "22R"
-        ],
-        "activeTransitions": [
-          "MUS RNV22",
-          "NERAS RNV22"
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    },
+    {
+      "id": "40Min",
+      "label": "40Min",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 40,
+            "pastMin": 5
+          },
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
