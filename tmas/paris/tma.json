@@ -1,17 +1,52 @@
 {
   "id": "paris",
   "label": "Paris TMA",
-  "airports": ["LFPG"],
-  "accessCallsigns": ["LFPG_*_APP", "PAR_*_CTR", "PAR_CTR"],
+  "airports": [
+    "LFPG"
+  ],
+  "accessCallsigns": [
+    "LFPG_*_APP",
+    "PAR_*_CTR",
+    "PAR_CTR"
+  ],
   "configurations": [
-    { "id": "WL", "label": "West Landing", "airports": { "LFPG": "PG_W" } },
-    { "id": "EL", "label": "East Landing", "airports": { "LFPG": "PG_E" } }
+    {
+      "id": "WL",
+      "label": "West Landing",
+      "airports": {
+        "LFPG": "PG_W"
+      }
+    },
+    {
+      "id": "EL",
+      "label": "East Landing",
+      "airports": {
+        "LFPG": "PG_E"
+      }
+    }
   ],
   "iafs": {
-    "LORNI": { "color": "#7EA6FF" },
-    "MOPAR": { "color": "#6EE7A8" },
-    "BANOX": { "color": "#F2A2C8" },
-    "OKIPA": { "color": "#F5C46E" }
+    "LORNI": {
+      "color": "#F0A050"
+    },
+    "MOPAR": {
+      "color": "#6FA8F5"
+    },
+    "BANOX": {
+      "color": "#5FD98A"
+    },
+    "OKIPA": {
+      "color": "#F08CC0"
+    }
   },
-  "views": ["RWY", "40Min", "PAR", "RPAW", "RPAE", "APTE", "ORGY", "HPKZ"]
+  "views": [
+    "RWY",
+    "40Min",
+    "PAR",
+    "RPAW",
+    "RPAE",
+    "APTE",
+    "ORGY",
+    "HPKZ"
+  ]
 }
