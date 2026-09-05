@@ -22,7 +22,7 @@
       "fields": [
         "dc",
         "callsign",
-        "sta_threshold"
+        "sta_iaf"
       ],
       "colors": {
         "callsign": {
@@ -34,7 +34,8 @@
         "iafs": [
           "LORNI"
         ]
-      }
+      },
+      "timeReference": "iaf"
     },
     {
       "id": "awareness",
@@ -63,7 +64,8 @@
           "by": "iaf"
         }
       },
-      "interactive": false
+      "interactive": false,
+      "timeReference": "iaf"
     }
   ]
 }

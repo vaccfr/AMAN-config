@@ -227,6 +227,13 @@ const panelSchema = {
       required: ['totalMin', 'pastMin'],
       additionalProperties: false,
     },
+    /**
+     * Which scheduled time positions a flight on the axis. A runway timeline
+     * is referenced to the threshold; an IAF timeline — what the en-route
+     * sectors work — is referenced to the IAF passage time. Defaults to
+     * `threshold`, which is what the approach views have always used.
+     */
+    timeReference: { enum: ['threshold', 'iaf'] },
     // An object of optional allow-lists, ANDed. An absent key constrains
     // nothing. Deliberately not a predicate language: every key is an enum, so
     // CI catches a typo that would otherwise render a silently empty ladder.

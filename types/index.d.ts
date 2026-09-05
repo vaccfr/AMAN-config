@@ -125,6 +125,12 @@ export interface PanelConfig {
   /** Present exactly when `layout` is `dual-sided`. */
   sides?: { left: PanelSide; right: PanelSide };
   window: { totalMin: number; pastMin: number };
+  /**
+   * Which scheduled time positions a flight on the axis: the runway threshold,
+   * or the IAF passage time that the en-route sectors work to. Defaults to
+   * `threshold`.
+   */
+  timeReference?: 'threshold' | 'iaf';
   /** Optional allow-lists, ANDed. An absent key constrains nothing. */
   filter?: { iafs?: string[] };
   fields: PanelFieldId[];

@@ -50,6 +50,8 @@ describe('the Paris TMA as committed', () => {
       expect(v.content.panels).toHaveLength(1);
       expect(v.content.panels[0].layout).toBe('runway-columns');
       expect(v.content.panels[0].interactive).toBe(true);
+      // Runway timelines stay referenced to the threshold.
+      expect(v.content.panels[0].timeReference).toBeUndefined();
     }
   });
 
@@ -88,7 +90,11 @@ describe('the Paris TMA as committed', () => {
     for (const id of ['RPAW', 'RPAE', 'APTE', 'ORGY', 'HPKZ']) {
       const panels = view(read.bundle, id).content.panels;
       expect(panels.map((p) => p.id)).toEqual(['sector', 'awareness']);
-      expect(panels[0].fields).toEqual(['dc', 'callsign', 'sta_threshold']);
+      // An IAF timeline: flights sit at their IAF passage time, and that is
+      // the time the sector ladder shows.
+      expect(panels[0].timeReference).toBe('iaf');
+      expect(panels[1].timeReference).toBe('iaf');
+      expect(panels[0].fields).toEqual(['dc', 'callsign', 'sta_iaf']);
       // The awareness ladder carries the en-route delay too, next to the
       // callsign — controllers read it on both.
       expect(panels[1].fields).toEqual(['dc', 'callsign']);

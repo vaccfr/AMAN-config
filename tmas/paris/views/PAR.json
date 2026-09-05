@@ -22,7 +22,7 @@
       "fields": [
         "dc",
         "callsign",
-        "sta_threshold"
+        "sta_iaf"
       ],
       "colors": {
         "callsign": {
@@ -30,7 +30,8 @@
         }
       },
       "interactive": false,
-      "filter": {}
+      "filter": {},
+      "timeReference": "iaf"
     }
   ]
 }
