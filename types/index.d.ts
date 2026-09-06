@@ -140,6 +140,8 @@ export interface PanelConfig {
    * `threshold`.
    */
   timeReference?: 'threshold' | 'iaf';
+  /** Where the ladder sits in the row. Defaults to `start`. */
+  align?: 'start' | 'end';
   /** Optional allow-lists, ANDed. An absent key constrains nothing. */
   filter?: { iafs?: string[] };
   fields: PanelFieldId[];

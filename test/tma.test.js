@@ -102,6 +102,8 @@ describe('the two kinds of page', () => {
       expect(awareness.timeReference).toBe('threshold');
       expect(awareness.fields).toEqual(['dc', 'callsign']);
       expect(awareness.colors.callsign.by).toBe('iaf');
+      // The overview sits at the far side, away from the sector ladder.
+      expect(awareness.align).toBe('end');
     }
   });
 

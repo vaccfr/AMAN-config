@@ -68,7 +68,8 @@
         "callsign": {
           "by": "iaf"
         }
-      }
+      },
+      "align": "end"
     }
   ]
 }

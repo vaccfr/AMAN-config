@@ -105,6 +105,12 @@ const panelSchema = {
      */
     timeReference: { enum: ['threshold', 'iaf'] },
     /**
+     * Where the ladder sits in the row. The situational-awareness overview is
+     * pushed to the far side so the sector ladders a controller works stay
+     * together on the near side. Defaults to `start`.
+     */
+    align: { enum: ['start', 'end'] },
+    /**
      * An object of optional allow-lists, ANDed. An absent key constrains
      * nothing. Deliberately not a predicate language: every key is an enum, so
      * CI catches a typo that would otherwise render a silently empty ladder.
