@@ -3,7 +3,7 @@
   "label": "PG_PO_PB",
   "panels": [
     {
-      "id": "lfpg",
+      "id": "lfpg-awareness",
       "layout": "dual-sided",
       "sides": {
         "left": {
@@ -19,25 +19,20 @@
         "totalMin": 45,
         "pastMin": 5
       },
-      "timeReference": "iaf",
+      "timeReference": "threshold",
       "filter": {},
       "fields": [
         "dc",
-        "iaf",
-        "callsign",
-        "sta_iaf"
+        "callsign"
       ],
       "colors": {
         "callsign": {
-          "by": "state"
-        },
-        "iaf": {
           "by": "iaf"
         }
       }
     },
     {
-      "id": "lfpo",
+      "id": "lfpo-awareness",
       "layout": "dual-sided",
       "sides": {
         "left": {
@@ -53,22 +48,18 @@
         "totalMin": 45,
         "pastMin": 5
       },
-      "timeReference": "iaf",
+      "timeReference": "threshold",
       "filter": {},
       "fields": [
         "dc",
-        "iaf",
-        "callsign",
-        "sta_iaf"
+        "callsign"
       ],
       "colors": {
         "callsign": {
-          "by": "state"
-        },
-        "iaf": {
           "by": "iaf"
         }
-      }
+      },
+      "align": "end"
     }
   ]
 }

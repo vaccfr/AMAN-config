@@ -1,18 +1,18 @@
 {
-  "id": "TP",
-  "label": "TP",
+  "id": "AO",
+  "label": "AO",
   "panels": [
     {
-      "id": "lfpg-sector",
+      "id": "lfpo-sector",
       "layout": "dual-sided",
       "sides": {
         "left": {
-          "icao": "LFPG",
-          "runwayGroup": "sud"
+          "icao": "LFPO",
+          "runwayGroup": "ouest"
         },
         "right": {
-          "icao": "LFPG",
-          "runwayGroup": "nord"
+          "icao": "LFPO",
+          "runwayGroup": "est"
         }
       },
       "window": {
@@ -22,7 +22,7 @@
       "timeReference": "iaf",
       "filter": {
         "iafs": [
-          "MOPAR"
+          "MOLBA"
         ]
       },
       "fields": [
@@ -37,16 +37,16 @@
       }
     },
     {
-      "id": "lfpg-awareness",
+      "id": "lfpo-awareness",
       "layout": "dual-sided",
       "sides": {
         "left": {
-          "icao": "LFPG",
-          "runwayGroup": "sud"
+          "icao": "LFPO",
+          "runwayGroup": "ouest"
         },
         "right": {
-          "icao": "LFPG",
-          "runwayGroup": "nord"
+          "icao": "LFPO",
+          "runwayGroup": "est"
         }
       },
       "window": {

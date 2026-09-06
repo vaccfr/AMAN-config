@@ -3,7 +3,7 @@
   "label": "AR",
   "panels": [
     {
-      "id": "sector",
+      "id": "lfpg-sector",
       "layout": "dual-sided",
       "sides": {
         "left": {
@@ -37,7 +37,7 @@
       }
     },
     {
-      "id": "awareness",
+      "id": "lfpg-awareness",
       "layout": "dual-sided",
       "sides": {
         "left": {

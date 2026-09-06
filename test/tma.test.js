@@ -79,52 +79,82 @@ describe('the two kinds of page', () => {
     }
   });
 
-  it('gives each en-route sector its own IAF filter', async () => {
+  it('gives each position the sectors it works', async () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     if (!read.ok) return;
-    const filterOf = (id) => view(read.bundle, 'par', id).content.panels[0].filter.iafs;
-    expect(filterOf('RT')).toEqual(['BANOX']);
-    expect(filterOf('TE')).toEqual(['LORNI']);
-    expect(filterOf('TP')).toEqual(['MOPAR']);
-    expect(filterOf('AR')).toEqual(['OKIPA']);
-    expect(filterOf('OPKZ')).toEqual(['BANOX', 'MOPAR']);
-    expect(filterOf('RPAW')).toEqual(['BANOX', 'MOPAR', 'LORNI']);
+    // Each sector ladder, as "<facility> <fixes>", in panel order.
+    const sectorsOf = (id) =>
+      view(read.bundle, 'par', id)
+        .content.panels.filter((p) => p.timeReference === 'iaf')
+        .map((p) => `${p.sides.left.icao} ${p.filter.iafs.join('/')}`);
+
+    expect(sectorsOf('OT')).toEqual(['LFPO ODILO']);
+    expect(sectorsOf('RT')).toEqual(['LFPG BANOX']);
+    expect(sectorsOf('TE')).toEqual(['LFPG LORNI', 'LFPO VEBEK']);
+    expect(sectorsOf('TP')).toEqual(['LFPG MOPAR']);
+    expect(sectorsOf('AR')).toEqual(['LFPG OKIPA']);
+    expect(sectorsOf('AO')).toEqual(['LFPO MOLBA']);
+    expect(sectorsOf('ORGY')).toEqual(['LFPG BANOX', 'LFPO ODILO']);
+    expect(sectorsOf('OPKZ')).toEqual(['LFPG BANOX/MOPAR', 'LFPO ODILO']);
+    expect(sectorsOf('AOML')).toEqual(['LFPG OKIPA', 'LFPO MOLBA']);
+    expect(sectorsOf('RPAW')).toEqual(['LFPG BANOX/MOPAR/LORNI', 'LFPO ODILO/VEBEK']);
+    // The group view is two overviews and no sector ladder at all.
+    expect(sectorsOf('PG_PO_PB')).toEqual([]);
   });
 
-  // The sector ladder is an IAF timeline; the awareness ladder beside it is a
-  // RUNWAY timeline — landing slots, no IAF letter, callsigns by fix colour.
-  it('pairs an IAF sector ladder with a runway awareness ladder', async () => {
+  // The sector ladder is an IAF timeline; the overview beside it is a RUNWAY
+  // timeline — landing slots, no IAF letter, callsigns by fix colour — and it
+  // sits at the far side so the sector ladders stay together.
+  it('closes every position with an overview at the far side', async () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     if (!read.ok) return;
-    for (const id of ['RT', 'TE', 'TP', 'AR', 'OPKZ', 'RPAW']) {
-      const [sector, awareness] = view(read.bundle, 'par', id).content.panels;
-      expect(sector.timeReference).toBe('iaf');
-      expect(awareness.timeReference).toBe('threshold');
-      expect(awareness.fields).toEqual(['dc', 'callsign']);
-      expect(awareness.colors.callsign.by).toBe('iaf');
-      // The overview sits at the far side, away from the sector ladder.
-      expect(awareness.align).toBe('end');
+    for (const vid of tma(read.bundle, 'par').content.views) {
+      const panels = view(read.bundle, 'par', vid).content.panels;
+      const last = panels[panels.length - 1];
+      expect(last.timeReference).toBe('threshold');
+      expect(last.filter).toEqual({});
+      expect(last.fields).toEqual(['dc', 'callsign']);
+      expect(last.colors.callsign.by).toBe('iaf');
+      expect(last.align).toBe('end');
+      for (const panel of panels.slice(0, -1)) expect(panel.align).toBeUndefined();
     }
   });
 
-  it('carries the IAF letter only where several IAFs can appear', async () => {
+  it('watches the overview of the facility whose sectors it works', async () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     if (!read.ok) return;
-    const sectorOf = (id) => view(read.bundle, 'par', id).content.panels[0];
-    for (const id of ['RT', 'TE', 'TP', 'AR']) {
-      expect(sectorOf(id).fields).toEqual(['dc', 'callsign', 'sta_iaf']);
+    const overviewOf = (id) => {
+      const panels = view(read.bundle, 'par', id).content.panels;
+      return panels[panels.length - 1].sides.left.icao;
+    };
+    for (const id of ['RT', 'TE', 'TP', 'AR', 'ORGY', 'OPKZ', 'AOML', 'RPAW']) {
+      expect(overviewOf(id)).toBe('LFPG');
     }
-    for (const id of ['OPKZ', 'RPAW']) {
-      expect(sectorOf(id).fields).toEqual(['dc', 'iaf', 'callsign', 'sta_iaf']);
-      expect(sectorOf(id).colors.iaf.by).toBe('iaf');
+    // The two Orly-only positions watch Orly instead.
+    for (const id of ['OT', 'AO']) expect(overviewOf(id)).toBe('LFPO');
+  });
+
+  it('carries the IAF letter only where several fixes share a ladder', async () => {
+    const read = await readBundleDir(BUNDLE_ROOT);
+    if (!read.ok) return;
+    for (const vid of tma(read.bundle, 'par').content.views) {
+      for (const panel of view(read.bundle, 'par', vid).content.panels) {
+        if (panel.timeReference !== 'iaf') continue;
+        const several = panel.filter.iafs.length > 1;
+        expect(panel.fields).toEqual(
+          several ? ['dc', 'iaf', 'callsign', 'sta_iaf'] : ['dc', 'callsign', 'sta_iaf'],
+        );
+        expect(panel.colors.iaf?.by).toBe(several ? 'iaf' : undefined);
+      }
     }
   });
 
-  it('gives the Paris group view one ladder per facility', async () => {
+  it('gives the group view an overview of each facility, Orly at the far side', async () => {
     const read = await readBundleDir(BUNDLE_ROOT);
     if (!read.ok) return;
     const panels = view(read.bundle, 'par', 'PG_PO_PB').content.panels;
-    expect(panels.map((p) => p.id)).toEqual(['lfpg', 'lfpo']);
+    expect(panels.map((p) => p.sides.left.icao)).toEqual(['LFPG', 'LFPO']);
+    expect(panels.every((p) => p.timeReference === 'threshold')).toBe(true);
     expect(panels[1].sides.left.runwayGroup).toBe('ouest');
   });
 });

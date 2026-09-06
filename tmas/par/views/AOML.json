@@ -1,6 +1,6 @@
 {
-  "id": "TP",
-  "label": "TP",
+  "id": "AOML",
+  "label": "AOML",
   "panels": [
     {
       "id": "lfpg-sector",
@@ -22,7 +22,41 @@
       "timeReference": "iaf",
       "filter": {
         "iafs": [
-          "MOPAR"
+          "OKIPA"
+        ]
+      },
+      "fields": [
+        "dc",
+        "callsign",
+        "sta_iaf"
+      ],
+      "colors": {
+        "callsign": {
+          "by": "state"
+        }
+      }
+    },
+    {
+      "id": "lfpo-sector",
+      "layout": "dual-sided",
+      "sides": {
+        "left": {
+          "icao": "LFPO",
+          "runwayGroup": "ouest"
+        },
+        "right": {
+          "icao": "LFPO",
+          "runwayGroup": "est"
+        }
+      },
+      "window": {
+        "totalMin": 45,
+        "pastMin": 5
+      },
+      "timeReference": "iaf",
+      "filter": {
+        "iafs": [
+          "MOLBA"
         ]
       },
       "fields": [
