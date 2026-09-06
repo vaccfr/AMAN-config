@@ -121,3 +121,57 @@ describe('cross-reference linter', () => {
     expect(lintAirportConfig(asFile(config)).map((i) => i.rule)).toEqual(['iaf-coords-valid']);
   });
 });
+
+describe('cross-reference linter — runwayApproachDeltaSec', () => {
+  it('accepts a correction for a runway the transition serves', () => {
+    const config = minimalAirport();
+    config.transitions[0].runwayApproachDeltaSec = { 27: 60 };
+    expect(rules(config)).toEqual([]);
+  });
+
+  it('accepts a correction for a runway reached through a group entry', () => {
+    const config = minimalAirport();
+    config.transitions[0].availableRunways = ['main'];
+    // preferred-runway-available matches availableRunways literally and does
+    // not resolve groups, so this test keeps it out of the way.
+    config.transitions[0].preferredRunway = null;
+    config.transitions[0].runwayApproachDeltaSec = { 27: 60 };
+    expect(rules(config)).toEqual([]);
+  });
+
+  it('rejects a correction for a runway the transition does not serve', () => {
+    const config = minimalAirport();
+    config.runways.push({ id: '09', qfu: 86, group: 'other', defaultThroughput: 90 });
+    config.transitions[0].runwayApproachDeltaSec = { '09': 60 };
+    const issues = lintAirportConfig(asFile(config));
+    expect(issues.map((i) => i.rule)).toEqual(['approach-delta-runway-served']);
+    expect(issues[0].message).toContain('ALPHA1W');
+    expect(issues[0].message).toContain('09');
+  });
+
+  it('rejects a negative correction that cancels the approach time', () => {
+    const config = minimalAirport();
+    config.transitions[0].runwayApproachDeltaSec = { 27: -600 };
+    const issues = lintAirportConfig(asFile(config));
+    // One issue per wake category, since each is a separately wrong number.
+    expect(issues.map((i) => i.rule)).toEqual([
+      'approach-delta-keeps-time-positive',
+      'approach-delta-keeps-time-positive',
+      'approach-delta-keeps-time-positive',
+    ]);
+    expect(issues[0].message).toContain('HEAVY');
+  });
+
+  it('accepts a negative correction that leaves the approach time positive', () => {
+    const config = minimalAirport();
+    config.transitions[0].runwayApproachDeltaSec = { 27: -599 };
+    expect(rules(config)).toEqual([]);
+  });
+
+  it('does not check the floor for a runway the transition does not serve', () => {
+    const config = minimalAirport();
+    config.runways.push({ id: '09', qfu: 86, group: 'other', defaultThroughput: 90 });
+    config.transitions[0].runwayApproachDeltaSec = { '09': -9000 };
+    expect(rules(config)).toEqual(['approach-delta-runway-served']);
+  });
+});

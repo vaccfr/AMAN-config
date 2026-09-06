@@ -74,3 +74,31 @@ describe('airport schema — shape', () => {
     expect(validateAirportFile(asFile(config))).toEqual([]);
   });
 });
+
+describe('airport schema — runwayApproachDeltaSec', () => {
+  it('accepts a transition declaring a per-runway correction', () => {
+    const config = minimalAirport();
+    config.transitions[0].runwayApproachDeltaSec = { 27: 60 };
+    expect(validateAirportFile(asFile(config))).toEqual([]);
+  });
+
+  it('accepts a transition omitting the field', () => {
+    const config = minimalAirport();
+    delete config.transitions[0].runwayApproachDeltaSec;
+    expect(validateAirportFile(asFile(config))).toEqual([]);
+  });
+
+  it('accepts a negative correction', () => {
+    const config = minimalAirport();
+    config.transitions[0].runwayApproachDeltaSec = { 27: -30 };
+    expect(validateAirportFile(asFile(config))).toEqual([]);
+  });
+
+  it('rejects a correction that is not a number', () => {
+    const config = minimalAirport();
+    config.transitions[0].runwayApproachDeltaSec = { 27: '60' };
+    const issues = validateAirportFile(asFile(config));
+    expect(issues[0].rule).toBe('schema');
+    expect(issues[0].message).toContain('/transitions/0/runwayApproachDeltaSec/27');
+  });
+});
