@@ -108,7 +108,9 @@ export type PanelFieldId =
   | 'iaf'
   | 'aircraftType'
   | 'confidence'
-  | 'parking';
+  | 'parking'
+  /** Where the flight lands; see `PlatformConfig.coveredIcaos`. */
+  | 'destination';
 
 /** What a colour may be keyed on. Categorical only. */
 export type ColorSource = 'state' | 'delayLevel' | 'iaf' | 'runway' | 'none';

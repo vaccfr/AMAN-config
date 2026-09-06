@@ -269,6 +269,14 @@ describe('cross-reference rules', () => {
     ).toContain('schema');
   });
 
+  it('accepts the destination field', async () => {
+    expect(
+      await rulesAfter((b) => {
+        view(b, 'par', 'RT').content.panels[0].fields = ['destination', 'callsign'];
+      }),
+    ).toEqual([]);
+  });
+
   it('rejects an unknown colour source', async () => {
     expect(
       await rulesAfter((b) => {

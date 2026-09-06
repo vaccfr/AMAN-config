@@ -50,6 +50,10 @@ const FIELD_IDS = [
   'aircraftType',
   'confidence',
   'parking',
+  // Where the flight lands, which is not always the facility sequencing it:
+  // a facility may cover several aerodromes, and on a shared ladder that is
+  // the only thing telling one destination's traffic from another's.
+  'destination',
 ];
 
 /** What a colour may be keyed on. Categorical only — no thresholds yet. */
