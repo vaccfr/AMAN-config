@@ -16,7 +16,7 @@
         }
       },
       "window": {
-        "totalMin": 45,
+        "totalMin": 40,
         "pastMin": 5
       },
       "timeReference": "iaf",
@@ -56,7 +56,7 @@
         }
       },
       "window": {
-        "totalMin": 45,
+        "totalMin": 40,
         "pastMin": 5
       },
       "timeReference": "iaf",
@@ -95,7 +95,7 @@
         }
       },
       "window": {
-        "totalMin": 45,
+        "totalMin": 40,
         "pastMin": 5
       },
       "timeReference": "threshold",
