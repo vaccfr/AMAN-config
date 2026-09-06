@@ -172,6 +172,7 @@ function lintAirportConfig(file, iafColors = new Set()) {
         groupsByIcao: new Map([...covered].map((icao) => [icao, groups])),
         coveredIcaos: covered,
         iafColors,
+        kind: 'airport',
       },
     ),
   );
@@ -190,7 +191,8 @@ module.exports = { lintAirportConfig };
  *
  * @param {{file: string, content: any}[]} views
  * @param {{knownIafs: Set<string>, groupsByIcao: Map<string, Set<string>>,
- *          coveredIcaos: Set<string>, iafColors: Set<string>}} ctx
+ *          coveredIcaos: Set<string>, iafColors: Set<string>,
+ *          kind: 'airport' | 'tma'}} ctx
  * @returns {import('../types/index.js').ConfigIssue[]}
  */
 function lintViews(views, ctx) {
@@ -223,6 +225,18 @@ function lintViews(views, ctx) {
 
     const panelIds = new Set();
     for (const panel of view.panels) {
+      // A `runway-columns` panel names no aerodrome — it draws "this page's"
+      // runways, which is only unambiguous on a facility page. An en-route
+      // page watches several, so such a panel silently picks one of them.
+      // Only `dual-sided` can say which airport a side belongs to.
+      if (ctx.kind === 'tma' && panel.layout === 'runway-columns') {
+        add(
+          file,
+          'view-panel-names-airport',
+          `panel "${panel.id}" of "${view.id}" is runway-columns, which names no airport; an en-route view watches several, so use dual-sided`,
+        );
+      }
+
       if (panelIds.has(panel.id)) {
         add(file, 'panel-id-unique', `panel id "${panel.id}" is used more than once in "${view.id}"`);
       }
@@ -344,7 +358,7 @@ function lintTma(tma, airportsById, iafColors) {
   issues.push(
     ...lintViews(
       tma.views.map((v) => ({ file: v.path, content: v.content })),
-      { knownIafs, groupsByIcao, coveredIcaos, iafColors },
+      { knownIafs, groupsByIcao, coveredIcaos, iafColors, kind: 'tma' },
     ),
   );
   return issues;

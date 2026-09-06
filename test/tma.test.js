@@ -298,6 +298,18 @@ describe('cross-reference rules', () => {
     ).toContain('schema');
   });
 
+  // A runway-columns panel draws "this page's" runways, which is unambiguous
+  // only where the page has one facility. An en-route page watches several.
+  it('rejects a runway-columns panel in an en-route view', async () => {
+    expect(
+      await rulesAfter((b) => {
+        const panel = view(b, 'par', 'RT').content.panels[0];
+        panel.layout = 'runway-columns';
+        delete panel.sides;
+      }),
+    ).toContain('view-panel-names-airport');
+  });
+
   it('accepts the destination field', async () => {
     expect(
       await rulesAfter((b) => {
