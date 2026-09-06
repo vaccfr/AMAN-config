@@ -46,6 +46,35 @@ describe('validateBundle', () => {
     expect(result.issues[0].file).toBe('airports/lfyy.json');
   });
 
+  // An aerodrome belongs to exactly one facility. Nothing else in the schema
+  // stops two files claiming the same one, and a consumer that has to pick
+  // between them routes that aerodrome's traffic into a sequence nobody chose.
+  it('rejects two facilities covering the same aerodrome', () => {
+    const cdg = minimalAirport();
+    cdg.coveredIcaos = ['LFXX', 'LFPB'];
+    const orly = minimalAirport();
+    orly.icao = 'LFYY';
+    orly.coveredIcaos = ['LFYY', 'LFPB'];
+
+    const result = validateBundle(bundleOf(cdg, orly));
+    expect(result.ok).toBe(false);
+    if (result.ok) return;
+    expect(result.issues.map((i) => i.rule)).toEqual(['duplicate-covered-icao']);
+    expect(result.issues[0].file).toBe('airports/lfyy.json');
+    expect(result.issues[0].message).toContain('LFPB');
+  });
+
+  it('accepts a facility covering several aerodromes nobody else claims', () => {
+    const cdg = minimalAirport();
+    cdg.coveredIcaos = ['LFXX', 'LFPB'];
+    const orly = minimalAirport();
+    orly.icao = 'LFYY';
+    orly.coveredIcaos = ['LFYY'];
+
+    const result = validateBundle(bundleOf(cdg, orly));
+    expect(result.ok ? [] : result.issues).toEqual([]);
+  });
+
   it('rejects a bundle declaring an unsupported schema version', () => {
     const raw = bundleOf(minimalAirport());
     raw.manifest = { schemaVersion: SCHEMA_VERSION + 1 };

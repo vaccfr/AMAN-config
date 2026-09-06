@@ -91,6 +91,8 @@ function validateBundle(raw) {
 
   const airportsById = new Map();
   const airports = new Map();
+  /** Covered aerodrome → the file that already claimed it. */
+  const coverage = new Map();
   for (const file of raw.airports) {
     const config = /** @type {any} */ (file.content);
     const icao = String(config.icao).toUpperCase();
@@ -102,6 +104,29 @@ function validateBundle(raw) {
       });
       continue;
     }
+
+    // An aerodrome may be sequenced by exactly one facility. Two files
+    // claiming the same one has no correct resolution — the consumer would
+    // have to pick, and whichever it picked would route that aerodrome's
+    // traffic into a sequence nobody chose. Refuse the bundle instead.
+    let overlaps = false;
+    for (const covered of config.coveredIcaos ?? [config.icao]) {
+      const key = String(covered).toUpperCase();
+      const claimant = coverage.get(key);
+      if (claimant !== undefined) {
+        issues.push({
+          file: file.path,
+          rule: 'duplicate-covered-icao',
+          message: `"${key}" is already covered by ${claimant}; an aerodrome belongs to one facility`,
+        });
+        overlaps = true;
+      }
+    }
+    if (overlaps) continue;
+    for (const covered of config.coveredIcaos ?? [config.icao]) {
+      coverage.set(String(covered).toUpperCase(), file.path);
+    }
+
     // Normalise on the way in: uppercase key, and `accessCallsigns` defaulted
     // to [] when omitted, matching what the API relies on.
     const normalised = { ...config, icao, accessCallsigns: config.accessCallsigns ?? [] };
