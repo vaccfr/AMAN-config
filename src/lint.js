@@ -208,6 +208,19 @@ function lintViews(views, ctx) {
       add(file, 'view-id-reserved', 'view id "DESEQUENCED" is reserved for the desequenced tab');
     }
 
+    // One view is one time axis. The interface draws a single current-time
+    // line across every ladder in a view and derives one scroll range for
+    // them, so panels disagreeing about the window would put that line minutes
+    // away from where some of the ladders actually place "now".
+    const windows = new Set(view.panels.map((p) => `${p.window.totalMin}/${p.window.pastMin}`));
+    if (windows.size > 1) {
+      add(
+        file,
+        'view-window-consistent',
+        `panels of "${view.id}" declare different time windows (${[...windows].sort().join(', ')}); a view is drawn on one shared axis`,
+      );
+    }
+
     const panelIds = new Set();
     for (const panel of view.panels) {
       if (panelIds.has(panel.id)) {

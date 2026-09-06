@@ -269,6 +269,35 @@ describe('cross-reference rules', () => {
     ).toContain('schema');
   });
 
+  // The interface draws one current-time line across every ladder in a view
+  // and derives one scroll range for them, so a view is a single time axis.
+  it('rejects panels of one view declaring different windows', async () => {
+    expect(
+      await rulesAfter((b) => {
+        const panels = view(b, 'par', 'RT').content.panels;
+        panels[0].window = { totalMin: 40, pastMin: 5 };
+        panels[1].window = { totalMin: 120, pastMin: 5 };
+      }),
+    ).toContain('view-window-consistent');
+  });
+
+  it('rejects a TMA watching the same facility twice', async () => {
+    expect(
+      await rulesAfter((b) => {
+        tma(b, 'par').content.airports = ['lfpg', 'lfpg'];
+      }),
+    ).toContain('schema');
+  });
+
+  it('rejects a TMA listing the same view twice', async () => {
+    expect(
+      await rulesAfter((b) => {
+        const t = tma(b, 'par').content;
+        t.views = [t.views[0], t.views[0]];
+      }),
+    ).toContain('schema');
+  });
+
   it('accepts the destination field', async () => {
     expect(
       await rulesAfter((b) => {

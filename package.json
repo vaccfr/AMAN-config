@@ -1,6 +1,6 @@
 {
   "name": "@vaccfr/aman-config-schema",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Schema and cross-reference linter for AMAN-SIM airport configuration",
   "license": "MIT",
   "repository": {

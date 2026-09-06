@@ -335,9 +335,16 @@ const tmaSchema = {
      * Airport CONFIG ids, not aerodromes: an en-route page watches facilities,
      * and inherits whatever each of them covers.
      */
-    airports: { type: 'array', minItems: 1, items: { type: 'string', pattern: '^[a-z0-9-]+$' } },
+    airports: {
+      type: 'array',
+      minItems: 1,
+      // A consumer opens one session per entry. Listing a facility twice
+      // would have it subscribe twice to the same sequence.
+      uniqueItems: true,
+      items: { type: 'string', pattern: '^[a-z0-9-]+$' },
+    },
     /** View ids, in tab order. Each must have a file under views/. */
-    views: { type: 'array', minItems: 1, items: { type: 'string', minLength: 1 } },
+    views: { type: 'array', minItems: 1, uniqueItems: true, items: { type: 'string', minLength: 1 } },
   },
   required: ['id', 'label', 'airports', 'views'],
   additionalProperties: false,
