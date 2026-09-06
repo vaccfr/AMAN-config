@@ -35,6 +35,17 @@ export interface TransitionConfig {
   dcMax_sec: number;
   dpMax_base_sec: number;
   preferredRunway: string | null;
+  /**
+   * Signed seconds added to `approachTimes` when the flight is assigned the
+   * named runway, keyed by runway id. An absent key — or an absent field —
+   * means zero.
+   *
+   * This is stored time, not a derived quantity: it is not inferred from
+   * `preferredRunway`, from runway groups, or from any geometric model. It
+   * exists because one transition can serve two runways of equal QFU that are
+   * not equally far away, which nothing else in this shape can express.
+   */
+  runwayApproachDeltaSec?: Record<string, number>;
 }
 
 export interface ConfigurationTemplate {

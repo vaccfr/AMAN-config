@@ -133,6 +133,43 @@ function lintAirportConfig(file, iafColors = new Set()) {
         `transition "${transition.name}" sets preferredRunway "${preferred}", which is not in its own availableRunways`,
       );
     }
+
+    // ── runwayApproachDeltaSec ───────────────────────────────────────────────
+    const deltas = transition.runwayApproachDeltaSec;
+    if (deltas) {
+      // Resolve availableRunways the way the engine does: an entry is a runway
+      // id or a group name standing for every runway carrying it.
+      const served = new Set();
+      for (const entry of transition.availableRunways) {
+        if (runwayIds.has(entry)) served.add(entry);
+        else for (const r of config.runways) if (r.group === entry) served.add(r.id);
+      }
+
+      for (const [runwayId, delta] of Object.entries(deltas)) {
+        // A correction for a runway the transition never serves is dead data,
+        // and it fails silently: the engine only ever looks the key up for
+        // flights assigned that runway, which this transition cannot produce.
+        if (!served.has(runwayId)) {
+          add(
+            'approach-delta-runway-served',
+            `transition "${transition.name}" declares a runwayApproachDeltaSec for "${runwayId}", which its own availableRunways does not resolve to`,
+          );
+          continue;
+        }
+
+        // The schema cannot see approachTimes from here, so the floor is ours
+        // to enforce: a correction that cancels the base would produce a
+        // non-positive travel time and an ETA at or before the IAF.
+        for (const wtc of ['HEAVY', 'MEDIUM', 'LIGHT']) {
+          if (transition.approachTimes[wtc] + delta <= 0) {
+            add(
+              'approach-delta-keeps-time-positive',
+              `transition "${transition.name}" declares a runwayApproachDeltaSec of ${delta} s for "${runwayId}", which leaves its ${wtc} approach time at ${transition.approachTimes[wtc] + delta} s`,
+            );
+          }
+        }
+      }
+    }
   }
 
   // ── configuration templates resolve ────────────────────────────────────────

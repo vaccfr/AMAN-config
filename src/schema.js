@@ -266,6 +266,19 @@ const airportConfigSchema = {
           dcMax_sec: { type: 'number', minimum: 0 },
           dpMax_base_sec: { type: 'number', minimum: 0 },
           preferredRunway: { type: ['string', 'null'], minLength: 1 },
+          /*
+           * Signed seconds added to this transition's approach time when the
+           * flight is assigned the named runway. Absent field, or absent key,
+           * means zero — every configuration written before this existed keeps
+           * its behaviour. Optional, so it stays out of `required`.
+           *
+           * Negative values are allowed (a runway closer than the base); the
+           * linter is what keeps the sum positive, which a schema cannot check.
+           */
+          runwayApproachDeltaSec: {
+            type: 'object',
+            additionalProperties: { type: 'number' },
+          },
         },
         required: [
           'name',
