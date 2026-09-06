@@ -92,7 +92,11 @@
       "p_base_sec": 180,
       "dcMax_sec": 300,
       "dpMax_base_sec": 240,
-      "preferredRunway": "27R"
+      "preferredRunway": "27R",
+      "runwayApproachDeltaSec": {
+        "26L": 60,
+        "26R": 60
+      }
     },
     {
       "name": "LORNI1E",
@@ -127,7 +131,11 @@
       "p_base_sec": 240,
       "dcMax_sec": 300,
       "dpMax_base_sec": 360,
-      "preferredRunway": "09L"
+      "preferredRunway": "09L",
+      "runwayApproachDeltaSec": {
+        "08L": 60,
+        "08R": 60
+      }
     },
     {
       "name": "MOPAR1W",
@@ -162,7 +170,11 @@
       "p_base_sec": 240,
       "dcMax_sec": 450,
       "dpMax_base_sec": 360,
-      "preferredRunway": "27R"
+      "preferredRunway": "27R",
+      "runwayApproachDeltaSec": {
+        "26L": 60,
+        "26R": 60
+      }
     },
     {
       "name": "MOPAR1E",
@@ -193,7 +205,11 @@
       "p_base_sec": 120,
       "dcMax_sec": 450,
       "dpMax_base_sec": 240,
-      "preferredRunway": "09L"
+      "preferredRunway": "09L",
+      "runwayApproachDeltaSec": {
+        "08L": 60,
+        "08R": 60
+      }
     },
     {
       "name": "BANOX1W",
@@ -232,7 +248,11 @@
       "p_base_sec": 240,
       "dcMax_sec": 420,
       "dpMax_base_sec": 360,
-      "preferredRunway": "26L"
+      "preferredRunway": "26L",
+      "runwayApproachDeltaSec": {
+        "27L": 60,
+        "27R": 60
+      }
     },
     {
       "name": "BANOX1E",
@@ -263,7 +283,11 @@
       "p_base_sec": 180,
       "dcMax_sec": 420,
       "dpMax_base_sec": 240,
-      "preferredRunway": "08R"
+      "preferredRunway": "08R",
+      "runwayApproachDeltaSec": {
+        "09L": 60,
+        "09R": 60
+      }
     },
     {
       "name": "OKIPA1W",
@@ -294,7 +318,11 @@
       "p_base_sec": 180,
       "dcMax_sec": 420,
       "dpMax_base_sec": 240,
-      "preferredRunway": "26L"
+      "preferredRunway": "26L",
+      "runwayApproachDeltaSec": {
+        "27L": 60,
+        "27R": 60
+      }
     },
     {
       "name": "OKIPA1E",
@@ -333,7 +361,11 @@
       "p_base_sec": 240,
       "dcMax_sec": 420,
       "dpMax_base_sec": 360,
-      "preferredRunway": "08R"
+      "preferredRunway": "08R",
+      "runwayApproachDeltaSec": {
+        "09L": 60,
+        "09R": 60
+      }
     }
   ],
   "strategies": [
