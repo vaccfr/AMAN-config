@@ -312,6 +312,20 @@ const airportConfigSchema = {
           name: { type: 'string', minLength: 1 },
           activeRunways: { type: 'array', minItems: 1, items: { type: 'string', minLength: 1 } },
           activeTransitions: { type: 'array', items: { type: 'string', minLength: 1 } },
+          /*
+           * Active runway → the runway arrivals sequenced on it may land on
+           * instead: at CDG west, 26L's traffic can be put on 26R, the departure
+           * runway beside it. Per configuration, because which runway can take
+           * that traffic depends on what the configuration closes. Optional:
+           * absent means no alternates, so every earlier configuration is valid.
+           *
+           * The linter checks what a schema cannot: that keys are active, values
+           * are declared and inactive, and no two keys share a value.
+           */
+          alternateRunways: {
+            type: 'object',
+            additionalProperties: { type: 'string', minLength: 1 },
+          },
         },
         required: ['id', 'name', 'activeRunways', 'activeTransitions'],
         additionalProperties: false,

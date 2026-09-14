@@ -53,6 +53,11 @@ export interface ConfigurationTemplate {
   name: string;
   activeRunways: string[];
   activeTransitions: string[];
+  /**
+   * Active runway → the runway arrivals sequenced on it may land on instead,
+   * e.g. `{ "27R": "27L", "26L": "26R" }`. Absent means no alternates.
+   */
+  alternateRunways?: Record<string, string>;
 }
 
 /**

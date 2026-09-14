@@ -91,6 +91,24 @@ Things worth knowing before editing one:
 - **`interactive: false`** means no flight-mutating interaction is offered on
   that panel, whether or not the viewer holds the sequencer lock.
 
+## Alternate runways
+
+A configuration template may declare `alternateRunways`, mapping one of its
+active runways to the runway its arrivals can be put on instead — usually the
+departure runway of the pair:
+
+```jsonc
+{ "id": "PG_W", "activeRunways": ["27R", "26L"],
+  "alternateRunways": { "27R": "27L", "26L": "26R" } }
+```
+
+A flight on an alternate stays sequenced with the runway it is paired with: same
+slot, same flight time. AMAN-SIM only marks it on the timeline and tells
+EuroScope the runway it lands on. The map is per configuration, not per runway,
+because what a runway can hand its traffic to depends on what the configuration
+closes: `PG_W27L26R` pairs nothing, and Orly's `PO_E` and `PO_02` both pair 07.
+Leave it out when a configuration has no alternates.
+
 ## Changing a configuration
 
 1. Open a pull request against `main`.
@@ -123,6 +141,10 @@ Every failure names a file and a rule id:
 | `preferred-runway-available` | A transition's `preferredRunway` is not in its own `availableRunways`, which would silently defeat the anti-crossing strategy. |
 | `active-runways-resolve` / `active-transitions-resolve` | A configuration template references a runway or transition the airport does not declare. |
 | `active-runways-distinct-groups` | A configuration template activates two runways of the same runway group. A runway-columns panel draws one column per group, so the two would share a column. |
+| `alternate-runway-key-active` | A configuration declares an alternate for a runway it does not activate. |
+| `alternate-runway-resolves` | A configuration names an alternate the airport does not declare. |
+| `alternate-runway-inactive` | A configuration names an alternate it also activates. A runway is either landed on as itself or as an alternate, never both. |
+| `alternate-runway-unique` | Two runways of one configuration share an alternate, so a flight reported on it could belong to either. |
 | `duplicate-icao` | Two files declare the same ICAO. |
 | `invalid-json` / `unreadable` | The file could not be parsed or read. |
 

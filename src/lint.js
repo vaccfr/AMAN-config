@@ -191,6 +191,41 @@ function lintAirportConfig(file, iafColors = new Set()) {
       }
     }
 
+    // ── alternate runways ────────────────────────────────────────────────────
+    // A flight sequenced on a key lands on its value. AMAN-SIM resolves a runway
+    // EuroScope reports back to a key through this map, so the map must be
+    // reversible within a configuration: a value that is also active, or shared
+    // by two keys, would make one reported runway mean two things.
+    const alternateOf = new Map();
+    for (const [runwayId, alternate] of Object.entries(template.alternateRunways ?? {})) {
+      if (!template.activeRunways.includes(runwayId)) {
+        add(
+          'alternate-runway-key-active',
+          `configuration "${template.id}" declares an alternate for runway "${runwayId}", which it does not activate`,
+        );
+      }
+      if (!runwayIds.has(alternate)) {
+        add(
+          'alternate-runway-resolves',
+          `configuration "${template.id}" declares "${alternate}" as the alternate of "${runwayId}", which the airport does not declare`,
+        );
+      } else if (template.activeRunways.includes(alternate)) {
+        add(
+          'alternate-runway-inactive',
+          `configuration "${template.id}" declares "${alternate}" as the alternate of "${runwayId}", but also activates it`,
+        );
+      }
+      const first = alternateOf.get(alternate);
+      if (first === undefined) {
+        alternateOf.set(alternate, runwayId);
+      } else {
+        add(
+          'alternate-runway-unique',
+          `configuration "${template.id}" declares "${alternate}" as the alternate of both "${first}" and "${runwayId}"`,
+        );
+      }
+    }
+
     // ── one active runway per group ──────────────────────────────────────────
     // A runway-columns panel draws one column per runway group, and a planned
     // configuration change hands each column from one configuration's runway to
