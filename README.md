@@ -122,6 +122,7 @@ Every failure names a file and a rule id:
 | `available-runways-resolve` | A transition lists a runway that is neither a declared runway id nor a declared runway group. |
 | `preferred-runway-available` | A transition's `preferredRunway` is not in its own `availableRunways`, which would silently defeat the anti-crossing strategy. |
 | `active-runways-resolve` / `active-transitions-resolve` | A configuration template references a runway or transition the airport does not declare. |
+| `active-runways-distinct-groups` | A configuration template activates two runways of the same runway group. A runway-columns panel draws one column per group, so the two would share a column. |
 | `duplicate-icao` | Two files declare the same ICAO. |
 | `invalid-json` / `unreadable` | The file could not be parsed or read. |
 

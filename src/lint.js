@@ -190,6 +190,26 @@ function lintAirportConfig(file, iafColors = new Set()) {
         );
       }
     }
+
+    // ── one active runway per group ──────────────────────────────────────────
+    // A runway-columns panel draws one column per runway group, and a planned
+    // configuration change hands each column from one configuration's runway to
+    // the next through that group. Two active runways in one group would share
+    // a column, their flights drawn over each other.
+    const activeByGroup = new Map();
+    for (const runwayId of template.activeRunways) {
+      const group = config.runways.find((r) => r.id === runwayId)?.group;
+      if (group === undefined) continue;
+      const first = activeByGroup.get(group);
+      if (first === undefined) {
+        activeByGroup.set(group, runwayId);
+      } else {
+        add(
+          'active-runways-distinct-groups',
+          `configuration "${template.id}" activates runways "${first}" and "${runwayId}", both in runway group "${group}" — each active runway needs a group of its own`,
+        );
+      }
+    }
   }
 
 
