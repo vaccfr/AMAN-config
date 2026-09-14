@@ -8,11 +8,11 @@
       "sides": {
         "left": {
           "icao": "LFPO",
-          "runwayGroup": "ouest"
+          "runwayGroup": "autres"
         },
         "right": {
           "icao": "LFPO",
-          "runwayGroup": "est"
+          "runwayGroup": "atterrissage"
         }
       },
       "window": {
@@ -42,11 +42,11 @@
       "sides": {
         "left": {
           "icao": "LFPO",
-          "runwayGroup": "ouest"
+          "runwayGroup": "autres"
         },
         "right": {
           "icao": "LFPO",
-          "runwayGroup": "est"
+          "runwayGroup": "atterrissage"
         }
       },
       "window": {

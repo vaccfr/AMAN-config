@@ -18,37 +18,37 @@
     {
       "id": "24",
       "qfu": 240,
-      "group": "ouest",
+      "group": "autres",
       "defaultThroughput": 95
     },
     {
       "id": "25",
       "qfu": 252,
-      "group": "ouest",
+      "group": "atterrissage",
       "defaultThroughput": 95
     },
     {
       "id": "20",
       "qfu": 196,
-      "group": "ouest",
+      "group": "autres",
       "defaultThroughput": 95
     },
     {
       "id": "06",
       "qfu": 60,
-      "group": "est",
+      "group": "atterrissage",
       "defaultThroughput": 95
     },
     {
       "id": "07",
       "qfu": 72,
-      "group": "est",
+      "group": "autres",
       "defaultThroughput": 95
     },
     {
       "id": "02",
       "qfu": 16,
-      "group": "est",
+      "group": "atterrissage",
       "defaultThroughput": 95
     }
   ],
