@@ -348,7 +348,10 @@
         "MOLBA1W",
         "ODILO1W",
         "VEBEK1W"
-      ]
+      ],
+      "alternateRunways": {
+        "25": "24"
+      }
     },
     {
       "id": "PO_E",
@@ -360,7 +363,10 @@
         "MOLBA1E",
         "ODILO1E",
         "VEBEK1E"
-      ]
+      ],
+      "alternateRunways": {
+        "06": "07"
+      }
     },
     {
       "id": "PO_02",
@@ -372,7 +378,10 @@
         "MOLBA1E 02",
         "ODILO1S",
         "VEBEK1E"
-      ]
+      ],
+      "alternateRunways": {
+        "02": "07"
+      }
     }
   ],
   "label": "Paris Orly",

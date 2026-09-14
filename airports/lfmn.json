@@ -262,7 +262,10 @@
       "activeTransitions": [
         "MUS A04",
         "NERAS A04"
-      ]
+      ],
+      "alternateRunways": {
+        "04L": "04R"
+      }
     },
     {
       "id": "MN_ILS04",
@@ -273,7 +276,10 @@
       "activeTransitions": [
         "MUS ILS04",
         "NERAS ILS04"
-      ]
+      ],
+      "alternateRunways": {
+        "04L": "04R"
+      }
     },
     {
       "id": "MN_RNV22",
@@ -284,7 +290,10 @@
       "activeTransitions": [
         "MUS RNV22",
         "NERAS RNV22"
-      ]
+      ],
+      "alternateRunways": {
+        "22R": "22L"
+      }
     }
   ],
   "label": "Nice C\u00f4te d'Azur",

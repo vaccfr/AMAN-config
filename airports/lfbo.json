@@ -363,7 +363,10 @@
         "OGRIL_N",
         "SULIT_N",
         "AGENO_N"
-      ]
+      ],
+      "alternateRunways": {
+        "32L": "32R"
+      }
     },
     {
       "id": "BO_S",
@@ -376,7 +379,10 @@
         "FUZAP_S",
         "SURAS_S",
         "ADIMO_S"
-      ]
+      ],
+      "alternateRunways": {
+        "14R": "14L"
+      }
     }
   ],
   "label": "Toulouse Blagnac",
