@@ -386,6 +386,50 @@
         "MOPAR1W",
         "BANOX1W",
         "OKIPA1W"
+      ],
+      "alternateRunways": {
+        "27R": "27L",
+        "26L": "26R"
+      }
+    },
+    {
+      "id": "PG_W27L26R",
+      "name": "PG_W27L26R",
+      "activeRunways": [
+        "27L",
+        "26R"
+      ],
+      "activeTransitions": [
+        "LORNI1W",
+        "MOPAR1W",
+        "BANOX1W",
+        "OKIPA1W"
+      ]
+    },
+    {
+      "id": "PG_W26R",
+      "name": "PG_W26R",
+      "activeRunways": [
+        "26R"
+      ],
+      "activeTransitions": [
+        "LORNI1W",
+        "MOPAR1W",
+        "BANOX1W",
+        "OKIPA1W"
+      ]
+    },
+    {
+      "id": "PG_W27L",
+      "name": "PG_W27L",
+      "activeRunways": [
+        "27L"
+      ],
+      "activeTransitions": [
+        "LORNI1W",
+        "MOPAR1W",
+        "BANOX1W",
+        "OKIPA1W"
       ]
     },
     {
@@ -400,7 +444,183 @@
         "MOPAR1E",
         "BANOX1E",
         "OKIPA1E"
+      ],
+      "alternateRunways": {
+        "09L": "09R",
+        "08R": "08L"
+      }
+    },
+    {
+      "id": "PG_E09R08L",
+      "name": "PG_E09R08L",
+      "activeRunways": [
+        "09R",
+        "08L"
+      ],
+      "activeTransitions": [
+        "LORNI1E",
+        "MOPAR1E",
+        "BANOX1E",
+        "OKIPA1E"
       ]
+    },
+    {
+      "id": "PG_E09R",
+      "name": "PG_E09R",
+      "activeRunways": [
+        "09R"
+      ],
+      "activeTransitions": [
+        "LORNI1E",
+        "MOPAR1E",
+        "BANOX1E",
+        "OKIPA1E"
+      ]
+    },
+    {
+      "id": "PG_E08L",
+      "name": "PG_E08L",
+      "activeRunways": [
+        "08L"
+      ],
+      "activeTransitions": [
+        "LORNI1E",
+        "MOPAR1E",
+        "BANOX1E",
+        "OKIPA1E"
+      ]
+    },
+    {
+      "id": "PG_W27L/R26R",
+      "name": "PG_W27L/R26R",
+      "activeRunways": [
+        "27R",
+        "26R"
+      ],
+      "activeTransitions": [
+        "LORNI1W",
+        "MOPAR1W",
+        "BANOX1W",
+        "OKIPA1W"
+      ],
+      "alternateRunways": {
+        "27R": "27L"
+      }
+    },
+    {
+      "id": "PG_W27L/R",
+      "name": "PG_W27L/R",
+      "activeRunways": [
+        "27R"
+      ],
+      "activeTransitions": [
+        "LORNI1W",
+        "MOPAR1W",
+        "BANOX1W",
+        "OKIPA1W"
+      ],
+      "alternateRunways": {
+        "27R": "27L"
+      }
+    },
+    {
+      "id": "PG_W26L/R",
+      "name": "PG_W26L/R",
+      "activeRunways": [
+        "26L"
+      ],
+      "activeTransitions": [
+        "LORNI1W",
+        "MOPAR1W",
+        "BANOX1W",
+        "OKIPA1W"
+      ],
+      "alternateRunways": {
+        "26L": "26R"
+      }
+    },
+    {
+      "id": "PG_W27L26L/R",
+      "name": "PG_W27L26L/R",
+      "activeRunways": [
+        "27L",
+        "26L"
+      ],
+      "activeTransitions": [
+        "LORNI1W",
+        "MOPAR1W",
+        "BANOX1W",
+        "OKIPA1W"
+      ],
+      "alternateRunways": {
+        "26L": "26R"
+      }
+    },
+    {
+      "id": "PG_E09L/R08L",
+      "name": "PG_E09L/R08L",
+      "activeRunways": [
+        "09L",
+        "08L"
+      ],
+      "activeTransitions": [
+        "LORNI1E",
+        "MOPAR1E",
+        "BANOX1E",
+        "OKIPA1E"
+      ],
+      "alternateRunways": {
+        "09L": "09R"
+      }
+    },
+    {
+      "id": "PG_E08L/R",
+      "name": "PG_E08L/R",
+      "activeRunways": [
+        "08R"
+      ],
+      "activeTransitions": [
+        "LORNI1E",
+        "MOPAR1E",
+        "BANOX1E",
+        "OKIPA1E"
+      ],
+      "alternateRunways": {
+        "08R": "08L"
+      }
+    },
+    {
+      "id": "PG_E09L/R",
+      "name": "PG_E09L/R",
+      "activeRunways": [
+        "09L"
+      ],
+      "activeTransitions": [
+        "LORNI1E",
+        "MOPAR1E",
+        "BANOX1E",
+        "OKIPA1E"
+      ],
+      "alternateRunways": {
+        "09L": "09R"
+      }
+    },
+    {
+      "id": "PG_E09R08L/R",
+      "name": "PG_E09R08L/R",
+      "activeRunways": [
+        "09R",
+        "08R"
+      ],
+      "activeTransitions": [
+        "LORNI1E",
+        "MOPAR1E",
+        "BANOX1E",
+        "OKIPA1E"
+      ],
+      "alternateRunways": {
+        "08R": "08L"
+      }
     }
   ],
   "label": "Paris CDG",
