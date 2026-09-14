@@ -73,6 +73,31 @@ describe('cross-reference linter', () => {
     expect(issues[0].message).toContain('BRAVO1W');
   });
 
+  it('rejects a configuration activating two runways of one group', () => {
+    const config = minimalAirport();
+    config.runways.push({ id: '26', qfu: 266, group: 'main', defaultThroughput: 90 });
+    config.configurations[0].activeRunways = ['27', '26'];
+    const issues = lintAirportConfig(asFile(config));
+    expect(issues.map((i) => i.rule)).toEqual(['active-runways-distinct-groups']);
+    expect(issues[0].message).toContain('XX_W');
+    expect(issues[0].message).toContain('"27"');
+    expect(issues[0].message).toContain('"26"');
+    expect(issues[0].message).toContain('"main"');
+  });
+
+  it('accepts runways of one group activated by different configurations', () => {
+    const config = minimalAirport();
+    config.runways.push({ id: '09', qfu: 86, group: 'main', defaultThroughput: 90 });
+    config.transitions[0].availableRunways = ['27', '09'];
+    config.configurations.push({
+      id: 'XX_E',
+      name: 'East',
+      activeRunways: ['09'],
+      activeTransitions: ['ALPHA1W'],
+    });
+    expect(rules(config)).toEqual([]);
+  });
+
   it('rejects a duplicated runway id', () => {
     const config = minimalAirport();
     config.runways.push({ id: '27', qfu: 266, group: 'main', defaultThroughput: 90 });

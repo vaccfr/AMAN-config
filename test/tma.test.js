@@ -155,7 +155,8 @@ describe('the two kinds of page', () => {
     const panels = view(read.bundle, 'par', 'PG_PO_PB').content.panels;
     expect(panels.map((p) => p.sides.left.icao)).toEqual(['LFPG', 'LFPO']);
     expect(panels.every((p) => p.timeReference === 'threshold')).toBe(true);
-    expect(panels[1].sides.left.runwayGroup).toBe('ouest');
+    // Orly lands on one runway whichever way it faces; that column is on the right.
+    expect(panels[1].sides.right.runwayGroup).toBe('atterrissage');
   });
 });
 
