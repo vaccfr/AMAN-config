@@ -73,6 +73,71 @@ describe('cross-reference linter', () => {
     expect(issues[0].message).toContain('BRAVO1W');
   });
 
+  describe('alternate runways', () => {
+    /** 27 lands, 26 departs beside it, 25 is a third runway to pair wrongly. */
+    function paired() {
+      const config = minimalAirport();
+      config.runways.push(
+        { id: '26', qfu: 266, group: 'main', defaultThroughput: 90 },
+        { id: '25', qfu: 256, group: 'other', defaultThroughput: 90 },
+      );
+      config.configurations[0].alternateRunways = { 27: '26' };
+      return config;
+    }
+
+    it('accepts an active runway paired with an inactive one', () => {
+      expect(rules(paired())).toEqual([]);
+    });
+
+    it('rejects an alternate for a runway the configuration does not activate', () => {
+      const config = paired();
+      config.configurations[0].alternateRunways = { 25: '26' };
+      const issues = lintAirportConfig(asFile(config));
+      expect(issues.map((i) => i.rule)).toEqual(['alternate-runway-key-active']);
+      expect(issues[0].message).toContain('XX_W');
+      expect(issues[0].message).toContain('"25"');
+    });
+
+    it('rejects an alternate the airport does not declare', () => {
+      const config = paired();
+      config.configurations[0].alternateRunways = { 27: '26X' };
+      const issues = lintAirportConfig(asFile(config));
+      expect(issues.map((i) => i.rule)).toEqual(['alternate-runway-resolves']);
+      expect(issues[0].message).toContain('26X');
+    });
+
+    it('rejects an alternate the configuration also activates', () => {
+      const config = paired();
+      config.configurations[0].activeRunways = ['27', '25'];
+      config.configurations[0].alternateRunways = { 27: '25' };
+      const issues = lintAirportConfig(asFile(config));
+      expect(issues.map((i) => i.rule)).toEqual(['alternate-runway-inactive']);
+      expect(issues[0].message).toContain('"25"');
+    });
+
+    it('rejects two runways sharing one alternate', () => {
+      const config = paired();
+      config.configurations[0].activeRunways = ['27', '25'];
+      config.configurations[0].alternateRunways = { 27: '26', 25: '26' };
+      const issues = lintAirportConfig(asFile(config));
+      expect(issues.map((i) => i.rule)).toEqual(['alternate-runway-unique']);
+      expect(issues[0].message).toContain('"25"');
+      expect(issues[0].message).toContain('"27"');
+    });
+
+    it('accepts the same alternate in two configurations', () => {
+      const config = paired();
+      config.configurations.push({
+        id: 'XX_S',
+        name: 'South',
+        activeRunways: ['25'],
+        activeTransitions: ['ALPHA1W'],
+        alternateRunways: { 25: '26' },
+      });
+      expect(rules(config)).toEqual([]);
+    });
+  });
+
   it('rejects a configuration activating two runways of one group', () => {
     const config = minimalAirport();
     config.runways.push({ id: '26', qfu: 266, group: 'main', defaultThroughput: 90 });

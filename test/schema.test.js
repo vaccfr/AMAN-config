@@ -75,6 +75,29 @@ describe('airport schema — shape', () => {
   });
 });
 
+describe('airport schema — alternateRunways', () => {
+  it('accepts a configuration declaring alternates', () => {
+    const config = minimalAirport();
+    config.runways.push({ id: '26', qfu: 266, group: 'main', defaultThroughput: 90 });
+    config.configurations[0].alternateRunways = { 27: '26' };
+    expect(validateAirportFile(asFile(config))).toEqual([]);
+  });
+
+  it('accepts a configuration omitting the field', () => {
+    const config = minimalAirport();
+    delete config.configurations[0].alternateRunways;
+    expect(validateAirportFile(asFile(config))).toEqual([]);
+  });
+
+  it('rejects an alternate that is not a runway id', () => {
+    const config = minimalAirport();
+    config.configurations[0].alternateRunways = { 27: ['26'] };
+    const issues = validateAirportFile(asFile(config));
+    expect(issues[0].rule).toBe('schema');
+    expect(issues[0].message).toContain('/configurations/0/alternateRunways/27');
+  });
+});
+
 describe('airport schema — runwayApproachDeltaSec', () => {
   it('accepts a transition declaring a per-runway correction', () => {
     const config = minimalAirport();
