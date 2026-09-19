@@ -23,13 +23,13 @@
       "id": "26L",
       "qfu": 266,
       "group": "nord",
-      "defaultThroughput": 90
+      "defaultThroughput": 135
     },
     {
       "id": "27R",
       "qfu": 266,
       "group": "sud",
-      "defaultThroughput": 90
+      "defaultThroughput": 105
     },
     {
       "id": "27L",
@@ -73,9 +73,9 @@
       "symbol": "L",
       "sector": "NE",
       "approachTimes": {
-        "HEAVY": 600,
-        "MEDIUM": 600,
-        "LIGHT": 600
+        "HEAVY": 730,
+        "MEDIUM": 730,
+        "LIGHT": 730
       },
       "availableRunways": [
         "27L",
@@ -147,9 +147,9 @@
       "symbol": "M",
       "sector": "NW",
       "approachTimes": {
-        "HEAVY": 900,
-        "MEDIUM": 900,
-        "LIGHT": 900
+        "HEAVY": 1090,
+        "MEDIUM": 1090,
+        "LIGHT": 1090
       },
       "availableRunways": [
         "27L",
@@ -221,9 +221,9 @@
       "symbol": "B",
       "sector": "SW",
       "approachTimes": {
-        "HEAVY": 1200,
-        "MEDIUM": 1200,
-        "LIGHT": 1200
+        "HEAVY": 1260,
+        "MEDIUM": 1260,
+        "LIGHT": 1260
       },
       "availableRunways": [
         "27L",
@@ -299,9 +299,9 @@
       "symbol": "O",
       "sector": "SE",
       "approachTimes": {
-        "HEAVY": 900,
-        "MEDIUM": 900,
-        "LIGHT": 900
+        "HEAVY": 780,
+        "MEDIUM": 780,
+        "LIGHT": 780
       },
       "availableRunways": [
         "27L",
