@@ -8,11 +8,11 @@
       "sides": {
         "left": {
           "icao": "LFPG",
-          "runwayGroup": "sud"
+          "runwayGroup": "nord"
         },
         "right": {
           "icao": "LFPG",
-          "runwayGroup": "nord"
+          "runwayGroup": "sud"
         }
       },
       "window": {
@@ -87,11 +87,11 @@
       "sides": {
         "left": {
           "icao": "LFPG",
-          "runwayGroup": "sud"
+          "runwayGroup": "nord"
         },
         "right": {
           "icao": "LFPG",
-          "runwayGroup": "nord"
+          "runwayGroup": "sud"
         }
       },
       "window": {
