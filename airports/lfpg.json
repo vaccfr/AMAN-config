@@ -16,49 +16,49 @@
     {
       "id": "26R",
       "qfu": 266,
-      "group": "nord",
+      "group": "sud",
       "defaultThroughput": 90
     },
     {
       "id": "26L",
       "qfu": 266,
-      "group": "nord",
+      "group": "sud",
       "defaultThroughput": 135
     },
     {
       "id": "27R",
       "qfu": 266,
-      "group": "sud",
+      "group": "nord",
       "defaultThroughput": 105
     },
     {
       "id": "27L",
       "qfu": 266,
-      "group": "sud",
+      "group": "nord",
       "defaultThroughput": 90
     },
     {
       "id": "08R",
       "qfu": 86,
-      "group": "nord",
+      "group": "sud",
       "defaultThroughput": 90
     },
     {
       "id": "08L",
       "qfu": 86,
-      "group": "nord",
+      "group": "sud",
       "defaultThroughput": 90
     },
     {
       "id": "09R",
       "qfu": 86,
-      "group": "sud",
+      "group": "nord",
       "defaultThroughput": 90
     },
     {
       "id": "09L",
       "qfu": 86,
-      "group": "sud",
+      "group": "nord",
       "defaultThroughput": 90
     }
   ],
