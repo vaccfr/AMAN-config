@@ -223,6 +223,17 @@ const airportConfigSchema = {
           qfu: { type: 'number', minimum: 0, exclusiveMaximum: 360 },
           group: { type: 'string', minLength: 1 },
           defaultThroughput: { type: 'number', exclusiveMinimum: 0 },
+          /**
+           * Landing threshold of this runway, where the aircraft touches down.
+           *
+           * Optional: a facility that omits it works exactly as before, and the
+           * observations that need it are simply not made rather than made from
+           * a guessed position. The ARP cannot stand in for it — at a two-doublet
+           * platform it is a mile or more from either threshold and identical for
+           * both, so anything measured along a final would be measured from the
+           * wrong point, the same wrong point for every runway.
+           */
+          threshold: coordinates,
         },
         required: ['id', 'qfu', 'group', 'defaultThroughput'],
         additionalProperties: false,

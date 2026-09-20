@@ -20,6 +20,11 @@ export interface RunwayConfig {
   group: string;
   /** Seconds between arrivals. */
   defaultThroughput: number;
+  /** Landing threshold. Optional: where it is absent, observations taken along
+   *  the final approach are not made rather than made from the ARP, which is a
+   *  mile or more away and the same point for every runway. Declare it for all
+   *  of a facility's runways or for none. */
+  threshold?: Coordinates;
 }
 
 export interface TransitionConfig {

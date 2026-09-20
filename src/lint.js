@@ -22,6 +22,10 @@ function distanceNmi(lat1, lon1, lat2, lon2) {
 const IAF_MIN_NMI = 5;
 const IAF_MAX_NMI = 120;
 
+/** A landing threshold sits on the platform. Beyond this from the ARP it is not
+ *  this aerodrome's runway — a transcribed digit, or another field's threshold. */
+const THRESHOLD_MAX_NMI = 5;
+
 /**
  * Cross-reference rules that JSON Schema cannot express.
  *
@@ -73,6 +77,39 @@ function lintAirportConfig(file, iafColors = new Set()) {
   }
 
   const runwayGroups = new Set(config.runways.map((r) => r.group));
+
+  // ── runway thresholds ──────────────────────────────────────────────────────
+  // Optional, so absence is not an error. What must be caught statically is a
+  // threshold that is present and wrong: a measurement taken along a final is
+  // made from it silently, and a transcribed digit moves the point without
+  // making anything fail. Distance to the ARP catches that, as it does for an
+  // IAF. Declaring it for some runways and not others is equally suspect —
+  // every observation on the undeclared ones goes quietly unmade.
+  const withThreshold = config.runways.filter((r) => r.threshold);
+  if (withThreshold.length > 0 && withThreshold.length < config.runways.length) {
+    const missing = config.runways
+      .filter((r) => !r.threshold)
+      .map((r) => r.id)
+      .join(', ');
+    add(
+      'runway-thresholds-complete',
+      `runways ${missing} declare no "threshold" while others do — declare it for every runway or for none, or nothing will be measured along their finals`,
+    );
+  }
+  for (const runway of withThreshold) {
+    const distance = distanceNmi(
+      config.arp.lat,
+      config.arp.lon,
+      runway.threshold.lat,
+      runway.threshold.lon,
+    );
+    if (distance > THRESHOLD_MAX_NMI) {
+      add(
+        'threshold-near-arp',
+        `runway "${runway.id}" has its threshold ${distance.toFixed(1)} NM from the ARP, beyond the ${THRESHOLD_MAX_NMI} NM a platform spans — check for a transcribed digit or a flipped sign`,
+      );
+    }
+  }
 
   for (const transition of config.transitions) {
     // ── iafCoords ────────────────────────────────────────────────────────────

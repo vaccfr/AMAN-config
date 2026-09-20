@@ -212,6 +212,43 @@ describe('cross-reference linter', () => {
   });
 });
 
+describe('cross-reference linter — runway thresholds', () => {
+  it('accepts a facility that declares none', () => {
+    // Optional: the observations that need one are not made, rather than made
+    // from a guessed position.
+    expect(rules(minimalAirport())).toEqual([]);
+  });
+
+  it('accepts a threshold on the platform', () => {
+    const config = minimalAirport();
+    config.runways[0].threshold = { lat: 48.005, lon: 2.005 };
+    expect(rules(config)).toEqual([]);
+  });
+
+  it('rejects a threshold implausibly far from the ARP', () => {
+    const config = minimalAirport();
+    config.runways[0].threshold = { lat: 48.5, lon: 2.0 }; // ~30 NM north
+    const issues = lintAirportConfig(asFile(config));
+    expect(issues.map((i) => i.rule)).toEqual(['threshold-near-arp']);
+    expect(issues[0].message).toContain('"27"');
+  });
+
+  it('rejects declaring a threshold on some runways and not others', () => {
+    const config = minimalAirport();
+    config.runways.push({ id: '09', qfu: 86, group: 'main', defaultThroughput: 90 });
+    config.runways[0].threshold = { lat: 48.005, lon: 2.005 };
+    const issues = lintAirportConfig(asFile(config));
+    expect(issues.map((i) => i.rule)).toContain('runway-thresholds-complete');
+    expect(issues.find((i) => i.rule === 'runway-thresholds-complete').message).toContain('09');
+  });
+
+  it('rejects a threshold that is not a coordinate', () => {
+    const config = minimalAirport();
+    config.runways[0].threshold = { lat: 200, lon: 2.0 };
+    expect(validateAirportFile(asFile(config))[0].rule).toBe('schema');
+  });
+});
+
 describe('cross-reference linter — runwayApproachDeltaSec', () => {
   it('accepts a correction for a runway the transition serves', () => {
     const config = minimalAirport();
