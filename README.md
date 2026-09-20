@@ -52,8 +52,8 @@ is one timeline with its own filter, field set, colouring and time window.
   "panels": [
     { "id": "sector",                       // the working ladder
       "layout": "dual-sided",
-      "sides": { "left":  { "icao": "LFPG", "runwayGroup": "sud" },
-                 "right": { "icao": "LFPG", "runwayGroup": "nord" } },
+      "sides": { "left":  { "icao": "LFPG", "runwayGroup": "nord" },
+                 "right": { "icao": "LFPG", "runwayGroup": "sud" } },
       "window": { "totalMin": 45, "pastMin": 5 },
       "filter": { "iafs": ["BANOX"] },      // only this sector's traffic
       "fields": ["dc", "callsign", "sta_threshold"],
