@@ -141,8 +141,11 @@ describe('the two kinds of page', () => {
       for (const panel of view(read.bundle, 'par', vid).content.panels) {
         if (panel.timeReference !== 'iaf') continue;
         const several = panel.filter.iafs.length > 1;
+        // The EAT outermost, where the en-route screen draws it past the delay.
         expect(panel.fields).toEqual(
-          several ? ['dc', 'iaf', 'callsign', 'sta_iaf'] : ['dc', 'callsign', 'sta_iaf'],
+          several
+            ? ['eat', 'dc', 'iaf', 'callsign', 'sta_iaf']
+            : ['eat', 'dc', 'callsign', 'sta_iaf'],
         );
         expect(panel.colors.iaf?.by).toBe(several ? 'iaf' : undefined);
       }
