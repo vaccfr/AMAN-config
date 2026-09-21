@@ -319,6 +319,22 @@ describe('cross-reference rules', () => {
     ).toEqual([]);
   });
 
+  it('accepts the eat field', async () => {
+    expect(
+      await rulesAfter((b) => {
+        view(b, 'par', 'RT').content.panels[0].fields = ['sta_iaf', 'callsign', 'dc', 'eat'];
+      }),
+    ).toEqual([]);
+  });
+
+  it('rejects a field no panel can render', async () => {
+    expect(
+      await rulesAfter((b) => {
+        view(b, 'par', 'RT').content.panels[0].fields = ['callsign', 'squawk'];
+      }),
+    ).toContain('schema');
+  });
+
   it('rejects an unknown colour source', async () => {
     expect(
       await rulesAfter((b) => {

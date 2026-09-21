@@ -54,6 +54,10 @@ const FIELD_IDS = [
   // a facility may cover several aerodromes, and on a shared ladder that is
   // the only thing telling one destination's traffic from another's.
   'destination',
+  // The EAT sent to the CRNA — a flight's HAP, a holding one's as a rule —
+  // drawn in AMAN 3's coordination grammar: what an en-route position is shown
+  // so it knows when each aircraft leaves its stack.
+  'eat',
 ];
 
 /** What a colour may be keyed on. Categorical only — no thresholds yet. */
