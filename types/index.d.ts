@@ -126,7 +126,9 @@ export type PanelFieldId =
   | 'confidence'
   | 'parking'
   /** Where the flight lands; see `PlatformConfig.coveredIcaos`. */
-  | 'destination';
+  | 'destination'
+  /** The EAT sent to the CRNA, in the timeline's coordination grammar. */
+  | 'eat';
 
 /** What a colour may be keyed on. Categorical only. */
 export type ColorSource = 'state' | 'delayLevel' | 'iaf' | 'runway' | 'none';
