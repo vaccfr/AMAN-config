@@ -26,6 +26,7 @@
         ]
       },
       "fields": [
+        "eat",
         "dc",
         "callsign",
         "sta_iaf"
@@ -60,6 +61,7 @@
         ]
       },
       "fields": [
+        "eat",
         "dc",
         "callsign",
         "sta_iaf"
