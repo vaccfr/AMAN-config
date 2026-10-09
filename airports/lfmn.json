@@ -50,9 +50,9 @@
       "symbol": "M",
       "sector": "NW",
       "approachTimes": {
-        "HEAVY": 600,
-        "MEDIUM": 600,
-        "LIGHT": 600
+        "HEAVY": 630,
+        "MEDIUM": 630,
+        "LIGHT": 630
       },
       "availableRunways": [
         "04L",
