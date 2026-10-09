@@ -152,9 +152,9 @@
       "symbol": "S",
       "sector": "SW",
       "approachTimes": {
-        "HEAVY": 420,
-        "MEDIUM": 420,
-        "LIGHT": 550
+        "HEAVY": 730,
+        "MEDIUM": 730,
+        "LIGHT": 860
       },
       "availableRunways": [
         "14R",
@@ -218,9 +218,9 @@
       "symbol": "F",
       "sector": "NE",
       "approachTimes": {
-        "HEAVY": 680,
-        "MEDIUM": 680,
-        "LIGHT": 910
+        "HEAVY": 720,
+        "MEDIUM": 720,
+        "LIGHT": 950
       },
       "availableRunways": [
         "32L",
