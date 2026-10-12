@@ -28,7 +28,7 @@ describe('the two kinds of page', () => {
     if (!result.ok) return;
 
     // A facility owns its own approach views.
-    for (const id of ['lfpg', 'lfpo', 'lfbo', 'lfmn']) {
+    for (const id of ['lfpg', 'lfpo', 'lfbo', 'lfmn', 'lfll']) {
       const airport = result.bundle.airportsById.get(id);
       expect(airport).toBeDefined();
       expect(airport.views.map((v) => v.id)).toEqual(['RWY', '40Min']);
