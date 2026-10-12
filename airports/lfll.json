@@ -1,0 +1,428 @@
+{
+  "icao": "LFLL",
+  "coveredIcaos": [
+    "LFLL"
+  ],
+  "arp": {
+    "lat": 45.7256,
+    "lon": 5.0811
+  },
+  "accessCallsigns": [
+    "LFLL_APP",
+    "LFLL_*_APP",
+    "LFMM_*_CTR",
+    "LFMM_CTR"
+  ],
+  "runways": [
+    {
+      "id": "35R",
+      "qfu": 353,
+      "group": "est",
+      "defaultThroughput": 100
+    },
+    {
+      "id": "35L",
+      "qfu": 353,
+      "group": "ouest",
+      "defaultThroughput": 100
+    },
+    {
+      "id": "17L",
+      "qfu": 173,
+      "group": "est",
+      "defaultThroughput": 100
+    },
+    {
+      "id": "17R",
+      "qfu": 173,
+      "group": "ouest",
+      "defaultThroughput": 100
+    }
+  ],
+  "transitions": [
+    {
+      "name": "ARBON3N",
+      "iaf": "ARBON",
+      "iafCoords": {
+        "lat": 45.283278,
+        "lon": 4.890167
+      },
+      "symbol": "A",
+      "sector": "SW",
+      "approachTimes": {
+        "HEAVY": 470,
+        "MEDIUM": 470,
+        "LIGHT": 470
+      },
+      "availableRunways": [
+        "35R",
+        "35L"
+      ],
+      "sequence": [
+        {
+          "heading": 42,
+          "distanceNmi": 15
+        }
+      ],
+      "p_base_sec": 100,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 150,
+      "preferredRunway": "35R"
+    },
+    {
+      "name": "GOMET3N",
+      "iaf": "GOMET",
+      "iafCoords": {
+        "lat": 45.360194,
+        "lon": 5.488
+      },
+      "symbol": "G",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 510,
+        "MEDIUM": 510,
+        "LIGHT": 510
+      },
+      "availableRunways": [
+        "35R",
+        "35L"
+      ],
+      "sequence": [
+        {
+          "heading": 292,
+          "distanceNmi": 17
+        }
+      ],
+      "p_base_sec": 110,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 170,
+      "preferredRunway": "35R"
+    },
+    {
+      "name": "RIPTU3N",
+      "iaf": "RIPTU",
+      "iafCoords": {
+        "lat": 46.106944,
+        "lon": 5.329167
+      },
+      "symbol": "R",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 810,
+        "MEDIUM": 810,
+        "LIGHT": 810
+      },
+      "availableRunways": [
+        "35R",
+        "35L"
+      ],
+      "sequence": [
+        {
+          "heading": 181,
+          "distanceNmi": 28
+        },
+        {
+          "heading": 217,
+          "distanceNmi": 8
+        },
+        {
+          "heading": 265,
+          "distanceNmi": 4
+        }
+      ],
+      "p_base_sec": 170,
+      "dcMax_sec": 30,
+      "dpMax_base_sec": 270,
+      "preferredRunway": "35R"
+    },
+    {
+      "name": "TALAR3N",
+      "iaf": "TALAR",
+      "iafCoords": {
+        "lat": 45.956389,
+        "lon": 4.604361
+      },
+      "symbol": "T",
+      "sector": "NW",
+      "approachTimes": {
+        "HEAVY": 760,
+        "MEDIUM": 760,
+        "LIGHT": 760
+      },
+      "availableRunways": [
+        "35R",
+        "35L"
+      ],
+      "sequence": [
+        {
+          "heading": 154,
+          "distanceNmi": 24
+        },
+        {
+          "heading": 121,
+          "distanceNmi": 8
+        },
+        {
+          "heading": 85,
+          "distanceNmi": 4
+        }
+      ],
+      "p_base_sec": 160,
+      "dcMax_sec": 180,
+      "dpMax_base_sec": 250,
+      "preferredRunway": "35R"
+    },
+    {
+      "name": "ARBON3S",
+      "iaf": "ARBON",
+      "iafCoords": {
+        "lat": 45.283278,
+        "lon": 4.890167
+      },
+      "symbol": "A",
+      "sector": "SW",
+      "approachTimes": {
+        "HEAVY": 880,
+        "MEDIUM": 880,
+        "LIGHT": 880
+      },
+      "availableRunways": [
+        "17L",
+        "17R"
+      ],
+      "sequence": [
+        {
+          "heading": 14,
+          "distanceNmi": 16
+        },
+        {
+          "heading": 354,
+          "distanceNmi": 19
+        },
+        {
+          "heading": 20,
+          "distanceNmi": 4
+        },
+        {
+          "heading": 86,
+          "distanceNmi": 4
+        }
+      ],
+      "p_base_sec": 190,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 290,
+      "preferredRunway": "17L"
+    },
+    {
+      "name": "GOMET3S",
+      "iaf": "GOMET",
+      "iafCoords": {
+        "lat": 45.360194,
+        "lon": 5.488
+      },
+      "symbol": "G",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 870,
+        "MEDIUM": 870,
+        "LIGHT": 870
+      },
+      "availableRunways": [
+        "17L",
+        "17R"
+      ],
+      "sequence": [
+        {
+          "heading": 329,
+          "distanceNmi": 10
+        },
+        {
+          "heading": 358,
+          "distanceNmi": 15
+        },
+        {
+          "heading": 332,
+          "distanceNmi": 5
+        },
+        {
+          "heading": 318,
+          "distanceNmi": 8
+        },
+        {
+          "heading": 264,
+          "distanceNmi": 4
+        }
+      ],
+      "p_base_sec": 190,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 280,
+      "preferredRunway": "17L"
+    },
+    {
+      "name": "RIPTU3S",
+      "iaf": "RIPTU",
+      "iafCoords": {
+        "lat": 46.106944,
+        "lon": 5.329167
+      },
+      "symbol": "R",
+      "sector": "NE",
+      "approachTimes": {
+        "HEAVY": 460,
+        "MEDIUM": 460,
+        "LIGHT": 460
+      },
+      "availableRunways": [
+        "17L",
+        "17R"
+      ],
+      "sequence": [
+        {
+          "heading": 239,
+          "distanceNmi": 13
+        }
+      ],
+      "p_base_sec": 100,
+      "dcMax_sec": 30,
+      "dpMax_base_sec": 150,
+      "preferredRunway": "17L"
+    },
+    {
+      "name": "TALAR3S",
+      "iaf": "TALAR",
+      "iafCoords": {
+        "lat": 45.956389,
+        "lon": 4.604361
+      },
+      "symbol": "T",
+      "sector": "NW",
+      "approachTimes": {
+        "HEAVY": 560,
+        "MEDIUM": 560,
+        "LIGHT": 560
+      },
+      "availableRunways": [
+        "17L",
+        "17R"
+      ],
+      "sequence": [
+        {
+          "heading": 75,
+          "distanceNmi": 11
+        },
+        {
+          "heading": 95,
+          "distanceNmi": 8
+        }
+      ],
+      "p_base_sec": 120,
+      "dcMax_sec": 180,
+      "dpMax_base_sec": 180,
+      "preferredRunway": "17L"
+    }
+  ],
+  "strategies": [
+    "ANTI_CROSSING",
+    "PREFERRED",
+    "EARLIEST"
+  ],
+  "configurations": [
+    {
+      "id": "LL_N",
+      "name": "LL_N",
+      "activeRunways": [
+        "35R"
+      ],
+      "activeTransitions": [
+        "ARBON3N",
+        "GOMET3N",
+        "RIPTU3N",
+        "TALAR3N"
+      ],
+      "alternateRunways": {
+        "35R": "35L"
+      }
+    },
+    {
+      "id": "LL_S",
+      "name": "LL_S",
+      "activeRunways": [
+        "17L"
+      ],
+      "activeTransitions": [
+        "ARBON3S",
+        "GOMET3S",
+        "RIPTU3S",
+        "TALAR3S"
+      ],
+      "alternateRunways": {
+        "17L": "17R"
+      }
+    }
+  ],
+  "label": "Lyon Saint-Exup\u00e9ry",
+  "views": [
+    {
+      "id": "RWY",
+      "label": "RWY",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 60,
+            "pastMin": 5
+          },
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "40Min",
+      "label": "40Min",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 40,
+            "pastMin": 5
+          },
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
