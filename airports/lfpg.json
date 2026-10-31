@@ -109,7 +109,7 @@
       "sector": "NE",
       "approachTimes": {
         "HEAVY": 1160,
-        "MEDIUM": 1160,
+        "MEDIUM": 1100,
         "LIGHT": 1160
       },
       "availableRunways": [
@@ -265,7 +265,7 @@
       "sector": "SW",
       "approachTimes": {
         "HEAVY": 900,
-        "MEDIUM": 900,
+        "MEDIUM": 870,
         "LIGHT": 900
       },
       "availableRunways": [
@@ -334,9 +334,9 @@
       "symbol": "O",
       "sector": "SE",
       "approachTimes": {
-        "HEAVY": 1420,
-        "MEDIUM": 1420,
-        "LIGHT": 1420
+        "HEAVY": 1320,
+        "MEDIUM": 1320,
+        "LIGHT": 1320
       },
       "availableRunways": [
         "09L",
