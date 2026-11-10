@@ -1,0 +1,460 @@
+{
+  "icao": "LFML",
+  "coveredIcaos": [
+    "LFML"
+  ],
+  "arp": {
+    "lat": 43.4367,
+    "lon": 5.215
+  },
+  "accessCallsigns": [
+    "LFML_APP",
+    "LFML_*_APP",
+    "LFMM_*_CTR",
+    "LFMM_CTR"
+  ],
+  "runways": [
+    {
+      "id": "31R",
+      "qfu": 312,
+      "group": "est",
+      "defaultThroughput": 180
+    },
+    {
+      "id": "31L",
+      "qfu": 313,
+      "group": "ouest",
+      "defaultThroughput": 180
+    },
+    {
+      "id": "13L",
+      "qfu": 132,
+      "group": "est",
+      "defaultThroughput": 180
+    },
+    {
+      "id": "13R",
+      "qfu": 133,
+      "group": "ouest",
+      "defaultThroughput": 180
+    }
+  ],
+  "transitions": [
+    {
+      "name": "DOLIV1M",
+      "iaf": "DOLIV",
+      "iafCoords": {
+        "lat": 43.71025,
+        "lon": 5.177278
+      },
+      "symbol": "D",
+      "sector": "N",
+      "approachTimes": {
+        "HEAVY": 760,
+        "MEDIUM": 760,
+        "LIGHT": 760
+      },
+      "availableRunways": [
+        "31R",
+        "31L"
+      ],
+      "sequence": [
+        {
+          "heading": 162,
+          "distanceNmi": 8
+        },
+        {
+          "heading": 185,
+          "distanceNmi": 18
+        },
+        {
+          "heading": 142,
+          "distanceNmi": 4
+        },
+        {
+          "heading": 90,
+          "distanceNmi": 3
+        },
+        {
+          "heading": 359,
+          "distanceNmi": 4
+        }
+      ],
+      "p_base_sec": 160,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 250,
+      "preferredRunway": "31R"
+    },
+    {
+      "name": "GEMKO1M",
+      "iaf": "GEMKO",
+      "iafCoords": {
+        "lat": 43.267917,
+        "lon": 5.595806
+      },
+      "symbol": "G",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 410,
+        "MEDIUM": 410,
+        "LIGHT": 410
+      },
+      "availableRunways": [
+        "31R",
+        "31L"
+      ],
+      "sequence": [
+        {
+          "heading": 255,
+          "distanceNmi": 9
+        },
+        {
+          "heading": 270,
+          "distanceNmi": 3
+        },
+        {
+          "heading": 359,
+          "distanceNmi": 4
+        }
+      ],
+      "p_base_sec": 90,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 130,
+      "preferredRunway": "31R"
+    },
+    {
+      "name": "LIPSU1M",
+      "iaf": "LIPSU",
+      "iafCoords": {
+        "lat": 42.943639,
+        "lon": 5.118528
+      },
+      "symbol": "L",
+      "sector": "S",
+      "approachTimes": {
+        "HEAVY": 530,
+        "MEDIUM": 530,
+        "LIGHT": 530
+      },
+      "availableRunways": [
+        "31R",
+        "31L"
+      ],
+      "sequence": [
+        {
+          "heading": 28,
+          "distanceNmi": 20
+        },
+        {
+          "heading": 359,
+          "distanceNmi": 4
+        }
+      ],
+      "p_base_sec": 110,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 170,
+      "preferredRunway": "31R"
+    },
+    {
+      "name": "SALIN1M",
+      "iaf": "SALIN",
+      "iafCoords": {
+        "lat": 43.282806,
+        "lon": 4.730139
+      },
+      "symbol": "S",
+      "sector": "SW",
+      "approachTimes": {
+        "HEAVY": 650,
+        "MEDIUM": 650,
+        "LIGHT": 650
+      },
+      "availableRunways": [
+        "31R",
+        "31L"
+      ],
+      "sequence": [
+        {
+          "heading": 98,
+          "distanceNmi": 23
+        },
+        {
+          "heading": 90,
+          "distanceNmi": 3
+        },
+        {
+          "heading": 359,
+          "distanceNmi": 4
+        }
+      ],
+      "p_base_sec": 140,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 210,
+      "preferredRunway": "31R"
+    },
+    {
+      "name": "GEMKO1V",
+      "iaf": "GEMKO",
+      "iafCoords": {
+        "lat": 43.267917,
+        "lon": 5.595806
+      },
+      "symbol": "G",
+      "sector": "SE",
+      "approachTimes": {
+        "HEAVY": 1050,
+        "MEDIUM": 1050,
+        "LIGHT": 1050
+      },
+      "availableRunways": [
+        "13L",
+        "13R"
+      ],
+      "sequence": [
+        {
+          "heading": 279,
+          "distanceNmi": 26
+        },
+        {
+          "heading": 2,
+          "distanceNmi": 6
+        },
+        {
+          "heading": 316,
+          "distanceNmi": 12
+        },
+        {
+          "heading": 60,
+          "distanceNmi": 6
+        }
+      ],
+      "p_base_sec": 230,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 340,
+      "preferredRunway": "13L"
+    },
+    {
+      "name": "LIPSU1V",
+      "iaf": "LIPSU",
+      "iafCoords": {
+        "lat": 42.943639,
+        "lon": 5.118528
+      },
+      "symbol": "L",
+      "sector": "S",
+      "approachTimes": {
+        "HEAVY": 1020,
+        "MEDIUM": 1020,
+        "LIGHT": 1020
+      },
+      "availableRunways": [
+        "13L",
+        "13R"
+      ],
+      "sequence": [
+        {
+          "heading": 346,
+          "distanceNmi": 16
+        },
+        {
+          "heading": 357,
+          "distanceNmi": 8
+        },
+        {
+          "heading": 2,
+          "distanceNmi": 6
+        },
+        {
+          "heading": 316,
+          "distanceNmi": 12
+        },
+        {
+          "heading": 60,
+          "distanceNmi": 6
+        }
+      ],
+      "p_base_sec": 220,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 330,
+      "preferredRunway": "13L"
+    },
+    {
+      "name": "RIKSI1V",
+      "iaf": "RIKSI",
+      "iafCoords": {
+        "lat": 44.118972,
+        "lon": 4.677056
+      },
+      "symbol": "R",
+      "sector": "NW",
+      "approachTimes": {
+        "HEAVY": 760,
+        "MEDIUM": 760,
+        "LIGHT": 760
+      },
+      "availableRunways": [
+        "13L",
+        "13R"
+      ],
+      "sequence": [
+        {
+          "heading": 158,
+          "distanceNmi": 26
+        },
+        {
+          "heading": 164,
+          "distanceNmi": 5
+        }
+      ],
+      "p_base_sec": 160,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 250,
+      "preferredRunway": "13L"
+    },
+    {
+      "name": "SALIN1V",
+      "iaf": "SALIN",
+      "iafCoords": {
+        "lat": 43.282806,
+        "lon": 4.730139
+      },
+      "symbol": "S",
+      "sector": "SW",
+      "approachTimes": {
+        "HEAVY": 850,
+        "MEDIUM": 850,
+        "LIGHT": 850
+      },
+      "availableRunways": [
+        "13L",
+        "13R"
+      ],
+      "sequence": [
+        {
+          "heading": 76,
+          "distanceNmi": 13
+        },
+        {
+          "heading": 2,
+          "distanceNmi": 6
+        },
+        {
+          "heading": 316,
+          "distanceNmi": 12
+        },
+        {
+          "heading": 60,
+          "distanceNmi": 6
+        }
+      ],
+      "p_base_sec": 180,
+      "dcMax_sec": 420,
+      "dpMax_base_sec": 280,
+      "preferredRunway": "13L"
+    }
+  ],
+  "strategies": [
+    "ANTI_CROSSING",
+    "PREFERRED",
+    "EARLIEST"
+  ],
+  "configurations": [
+    {
+      "id": "ML_31",
+      "name": "ML_31",
+      "activeRunways": [
+        "31R"
+      ],
+      "activeTransitions": [
+        "DOLIV1M",
+        "GEMKO1M",
+        "LIPSU1M",
+        "SALIN1M"
+      ],
+      "alternateRunways": {
+        "31R": "31L"
+      }
+    },
+    {
+      "id": "ML_13",
+      "name": "ML_13",
+      "activeRunways": [
+        "13L"
+      ],
+      "activeTransitions": [
+        "GEMKO1V",
+        "LIPSU1V",
+        "RIKSI1V",
+        "SALIN1V"
+      ],
+      "alternateRunways": {
+        "13L": "13R"
+      }
+    }
+  ],
+  "label": "Marseille Provence",
+  "views": [
+    {
+      "id": "RWY",
+      "label": "RWY",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 60,
+            "pastMin": 5
+          },
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "40Min",
+      "label": "40Min",
+      "panels": [
+        {
+          "id": "runways",
+          "layout": "runway-columns",
+          "window": {
+            "totalMin": 40,
+            "pastMin": 5
+          },
+          "filter": {},
+          "fields": [
+            "sta_threshold",
+            "callsign",
+            "iaf",
+            "sta_iaf",
+            "aircraftType",
+            "confidence",
+            "dc",
+            "dt",
+            "parking"
+          ],
+          "colors": {
+            "callsign": {
+              "by": "state"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
